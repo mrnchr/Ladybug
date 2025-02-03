@@ -3,6 +3,7 @@
     "com.codewriter.triinspector": "https://github.com/codewriter-packages/Tri-Inspector.git",
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
+    "com.leopotam.ecslite": "https://github.com/Leopotam/ecslite.git",
     "com.unity.addressables": "1.21.21",
     "com.unity.feature.development": "1.0.2",
     "com.unity.localization": "https://github.com/codewriter-packages/Unity-Localization-Stub-for-Tri-Inspector.git",
