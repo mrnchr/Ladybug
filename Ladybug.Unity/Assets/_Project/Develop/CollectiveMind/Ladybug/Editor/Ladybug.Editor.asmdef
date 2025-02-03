@@ -1,0 +1,18 @@
+{
+    "name": "Ladybug.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:87b9732242e3f3441b15bfacbabb5124"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_EDITOR"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
