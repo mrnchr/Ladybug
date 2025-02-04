@@ -23,6 +23,9 @@
       
       public const string SCRIPTABLE_CONFIG_PROVIDER_MENU = CONFIG_MENU + "ConfigProvider";
       public const string SCRIPTABLE_CONFIG_PROVIDER_FILE = "ConfigProvider";
+      
+      public const string DRAWING_CONFIG_MENU = ENTITY_MENU + "Drawing";
+      public const string DRAWING_CONFIG_FILE = "DrawingConfig";
     }
   }
 }

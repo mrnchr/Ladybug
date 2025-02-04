@@ -1,4 +1,4 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -7,6 +7,14 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
   {
     public override void InstallBindings()
     {
+      BindLineDrawer();
+    }
+
+    private void BindLineDrawer()
+    {
+      Container
+        .BindInterfacesTo<LineDrawer>()
+        .AsSingle();
     }
   }
 }
