@@ -1,0 +1,38 @@
+#pragma kernel CSMain
+
+RWTexture2D<float4> result;
+float2 segment_start;
+float2 segment_end;
+float brush_radius;
+float4 brush_color;
+
+[numthreads(8, 8, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    uint width, height;
+    result.GetDimensions(width, height);
+    float2 uv = float2(id.x, id.y) / float2(width, height);
+
+    float2 q;
+    if (distance(segment_start, segment_end) < 1e-6)
+    {
+        q = segment_start;
+    }
+    else
+    {
+        float2 ab = segment_end - segment_start;
+        float2 ap = uv - segment_start;
+
+        float t = dot(ap, ab) / dot(ab, ab);
+        t = clamp(t, 0.0, 1.0);
+
+        q = segment_start + t * ab;
+    }
+    
+    float dist = distance(uv, q);
+
+    if (dist < brush_radius)
+    {
+        result[id.xy] = float4(0, 0, 0, 0);
+    }
+}
