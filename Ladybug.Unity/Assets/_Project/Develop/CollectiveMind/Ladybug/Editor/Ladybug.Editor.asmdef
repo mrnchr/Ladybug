@@ -2,7 +2,13 @@
     "name": "Ladybug.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:87b9732242e3f3441b15bfacbabb5124"
+        "GUID:87b9732242e3f3441b15bfacbabb5124",
+        "GUID:e59bf9fc7d5a44b18a819a92edd46163",
+        "GUID:324caed91501a9c47a04ebfd87b68794",
+        "GUID:9138c8bbd28f3724296b42e3076a00ff",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:33661e06c33d31b4c9223810bf503247",
+        "GUID:e851236b9ac2b9b4eaaa99506366edea"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -11,7 +17,8 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [
-        "UNITY_EDITOR"
+        "UNITY_EDITOR",
+        "DEBUG"
     ],
     "versionDefines": [],
     "noEngineReferences": false
