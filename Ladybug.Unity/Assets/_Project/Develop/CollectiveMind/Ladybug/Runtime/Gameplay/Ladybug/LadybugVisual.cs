@@ -20,8 +20,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     private void FixedUpdate()
     {
-      _facade.UpdateVelocity(transform.forward);
       _facade.CheckBound();
+      _facade.UpdateVelocity(transform.forward);
       
       UpdateVelocity(_facade.Velocity);
     }
