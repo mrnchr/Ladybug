@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c739cb46e4df4e38a8a16db79c3db18a, type: 3}
   m_Name: LadybugConfig
   m_EditorClassIdentifier: 
-  Speed: 5
-  ViewDistance: 0
+  Speed: 1
+  ViewDistance: 1
+  ViewWidth: 1

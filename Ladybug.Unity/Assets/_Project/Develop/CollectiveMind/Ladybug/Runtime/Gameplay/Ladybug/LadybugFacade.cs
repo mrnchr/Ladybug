@@ -1,27 +1,38 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Configuration;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
-using R3;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
   public class LadybugFacade : IFacade
   {
+    private readonly ILadybugRotator _rotator;
     private readonly LadybugConfig _config;
 
-    public ReactiveProperty<Vector3> Direction { get; } = new ReactiveProperty<Vector3>();
-    public ReactiveProperty<Vector3> Velocity { get; } = new ReactiveProperty<Vector3>();
+    private LadybugVisual _visual;
+    
+    public Transform Transform => _visual.transform;
+    public Vector3 Velocity { get; private set; }
 
-    public LadybugFacade(IConfigProvider configProvider)
+    public LadybugFacade(IConfigProvider configProvider, ILadybugRotator rotator)
     {
+      _rotator = rotator;
       _config = configProvider.Get<LadybugConfig>();
-
-      Direction.Subscribe(UpdateVelocity);
     }
 
-    private void UpdateVelocity(Vector3 direction)
+    public void SetVisual(LadybugVisual visual)
     {
-      Velocity.Value = Direction.Value * _config.Speed;
+      _visual = visual;
+    }
+
+    public void UpdateVelocity(Vector3 direction)
+    {
+      Velocity = direction * _config.Speed;
+    }
+
+    public void CheckBound()
+    {
+      _rotator.CheckBound();
     }
   }
 }

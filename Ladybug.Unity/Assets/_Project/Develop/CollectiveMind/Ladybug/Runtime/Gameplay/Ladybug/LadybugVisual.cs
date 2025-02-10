@@ -1,5 +1,4 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
-using R3;
 using UnityEngine;
 using Zenject;
 
@@ -15,13 +14,16 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     {
       _facade = pool.GetFacade<LadybugFacade>();
       _rb = GetComponent<Rigidbody>();
-
-      _facade.Velocity.Subscribe(UpdateVelocity);
+      
+      _facade.SetVisual(this);
     }
 
     private void FixedUpdate()
     {
-      _facade.Direction.Value = transform.forward;
+      _facade.UpdateVelocity(transform.forward);
+      _facade.CheckBound();
+      
+      UpdateVelocity(_facade.Velocity);
     }
 
     private void UpdateVelocity(Vector3 velocity)
