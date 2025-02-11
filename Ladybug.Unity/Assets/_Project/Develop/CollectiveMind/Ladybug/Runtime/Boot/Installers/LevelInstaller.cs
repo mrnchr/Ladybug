@@ -1,5 +1,7 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -10,6 +12,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
     {
       BindLineDrawer();
       BindLadybugRotator();
+
+      BindInitializingPhase();
+      
+      InstallEcs();
     }
 
     private void BindLadybugRotator()
@@ -25,6 +31,19 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .BindInterfacesTo<LineDrawer>()
         .AsSingle();
+    }
+
+    private void BindInitializingPhase()
+    {
+      Container
+        .Bind<IInitializingPhase>()
+        .To<InitializingPhase>()
+        .AsSingle();
+    }
+
+    private void InstallEcs()
+    {
+      EcsInstaller.Install(Container);
     }
   }
 }

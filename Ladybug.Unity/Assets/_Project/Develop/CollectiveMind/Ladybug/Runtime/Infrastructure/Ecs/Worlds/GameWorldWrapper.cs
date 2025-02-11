@@ -1,7 +1,6 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
-using Leopotam.EcsLite;
+﻿using Leopotam.EcsLite;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.Worlds
+namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds
 {
   public class GameWorldWrapper : IEcsWorldWrapper
   {

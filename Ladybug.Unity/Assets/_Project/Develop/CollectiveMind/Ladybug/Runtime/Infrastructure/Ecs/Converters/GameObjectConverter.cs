@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Worlds;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using Leopotam.EcsLite;
