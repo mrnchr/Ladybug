@@ -1,4 +1,5 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -8,6 +9,15 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
     public override void InstallBindings()
     {
       BindLineDrawer();
+      BindLadybugRotator();
+    }
+
+    private void BindLadybugRotator()
+    {
+      Container
+        .Bind<ILadybugRotator>()
+        .To<LadybugRotator>()
+        .AsSingle();
     }
 
     private void BindLineDrawer()

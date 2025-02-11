@@ -7,5 +7,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
   {
     public float Speed;
     public float ViewDistance;
+    public float ViewWidth;
   }
 }
