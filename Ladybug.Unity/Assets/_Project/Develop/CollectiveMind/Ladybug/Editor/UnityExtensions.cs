@@ -2,9 +2,9 @@
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using TypeCache = LudensClub.GeoChaos.Editor.General.TypeCache;
+using TypeCache = CollectiveMind.Ladybug.Editor.General.TypeCache;
 
-namespace LudensClub.GeoChaos.Editor
+namespace CollectiveMind.Ladybug.Editor
 {
   public static class UnityExtensions
   {

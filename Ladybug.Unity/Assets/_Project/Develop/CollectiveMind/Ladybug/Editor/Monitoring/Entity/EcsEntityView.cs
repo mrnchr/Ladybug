@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CollectiveMind.Ladybug.Editor.Monitoring.Component;
 using CollectiveMind.Ladybug.Runtime;
-using LudensClub.GeoChaos.Editor.Monitoring.Component;
 using TriInspector;
 using UnityEngine;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Entity
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Entity
 {
   public class EcsEntityView : MonoBehaviour
   {

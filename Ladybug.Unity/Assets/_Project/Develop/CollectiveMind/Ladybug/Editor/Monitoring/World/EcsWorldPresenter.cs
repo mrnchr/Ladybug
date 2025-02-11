@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CollectiveMind.Ladybug.Editor.Monitoring.Entity;
+using CollectiveMind.Ladybug.Editor.Monitoring.Universe;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
-using LudensClub.GeoChaos.Editor.Monitoring.Entity;
-using LudensClub.GeoChaos.Editor.Monitoring.Universe;
 using Unity.Profiling;
 
-
-namespace LudensClub.GeoChaos.Editor.Monitoring.World
+namespace CollectiveMind.Ladybug.Editor.Monitoring.World
 {
   public class EcsWorldPresenter : IEcsWorldPresenter, IEcsWorldEventListener
   {

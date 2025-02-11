@@ -19,6 +19,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindCoroutineRunner();
       BindLifeCycleBinder();
       BindFacadePool();
+
+#if UNITY_EDITOR
+      EditorBridge.InstallProject(Container);
+#endif
     }
 
     private void BindConfigProvider()

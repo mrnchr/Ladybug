@@ -1,4 +1,4 @@
-﻿namespace LudensClub.GeoChaos.Editor.Monitoring.Universe
+﻿namespace CollectiveMind.Ladybug.Editor.Monitoring.Universe
 {
   public interface IEcsUniverseViewFactory
   {

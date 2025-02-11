@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using LudensClub.GeoChaos.Editor.Monitoring.World;
+using CollectiveMind.Ladybug.Editor.Monitoring.World;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Universe
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Universe
 {
   public interface IEcsUniversePresenter
   {

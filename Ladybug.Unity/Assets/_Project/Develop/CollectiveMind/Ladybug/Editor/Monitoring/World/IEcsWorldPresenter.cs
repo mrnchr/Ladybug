@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using CollectiveMind.Ladybug.Editor.Monitoring.Entity;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
-using LudensClub.GeoChaos.Editor.Monitoring.Entity;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.World
+namespace CollectiveMind.Ladybug.Editor.Monitoring.World
 {
   public interface IEcsWorldPresenter
   {

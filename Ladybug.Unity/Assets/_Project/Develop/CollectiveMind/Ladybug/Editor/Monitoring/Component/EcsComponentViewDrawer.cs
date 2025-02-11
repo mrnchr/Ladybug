@@ -1,10 +1,10 @@
-﻿using LudensClub.GeoChaos.Editor.Monitoring.Component;
+﻿using CollectiveMind.Ladybug.Editor.Monitoring.Component;
 using TriInspector;
 using UnityEngine;
 
 [assembly: RegisterTriValueDrawer(typeof(EcsComponentViewDrawer), TriDrawerOrder.Fallback)]
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Component
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Component
 {
   public class EcsComponentViewDrawer : TriValueDrawer<IEcsComponentView>
   {

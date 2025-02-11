@@ -1,7 +1,7 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
-using LudensClub.GeoChaos.Editor.Monitoring.Universe;
+﻿using CollectiveMind.Ladybug.Editor.Monitoring.Universe;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.World
+namespace CollectiveMind.Ladybug.Editor.Monitoring.World
 {
   public interface IEcsWorldPresenterFactory
   {

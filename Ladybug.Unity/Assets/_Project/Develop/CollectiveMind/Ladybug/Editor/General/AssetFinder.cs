@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace LudensClub.GeoChaos.Editor.General
+namespace CollectiveMind.Ladybug.Editor.General
 {
   public static class AssetFinder
   {

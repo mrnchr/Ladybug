@@ -1,6 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Entity
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Entity
 {
   public interface IEcsEntityPresenter
   {

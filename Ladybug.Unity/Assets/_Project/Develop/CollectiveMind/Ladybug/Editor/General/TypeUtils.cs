@@ -1,7 +1,7 @@
 ﻿using System;
 using Cysharp.Text;
 
-namespace LudensClub.GeoChaos.Editor.General
+namespace CollectiveMind.Ladybug.Editor.General
 {
   public static class TypeUtils
   {

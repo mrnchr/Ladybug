@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.World
+namespace CollectiveMind.Ladybug.Editor.Monitoring.World
 {
   public interface IEcsWorldViewFactory
   {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using CollectiveMind.Ladybug.Editor.Monitoring.World;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
-using LudensClub.GeoChaos.Editor.Monitoring.World;
 using Zenject;
 using Object = UnityEngine.Object;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Universe
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Universe
 {
   public class EcsUniversePresenter : IEcsUniversePresenter, IInitializable, ITickable, IDisposable
   {

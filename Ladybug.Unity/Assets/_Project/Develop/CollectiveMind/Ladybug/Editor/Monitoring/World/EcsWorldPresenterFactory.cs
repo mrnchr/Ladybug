@@ -1,8 +1,8 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
-using LudensClub.GeoChaos.Editor.Monitoring.Universe;
+﻿using CollectiveMind.Ladybug.Editor.Monitoring.Universe;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Zenject;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.World
+namespace CollectiveMind.Ladybug.Editor.Monitoring.World
 {
   public class EcsWorldPresenterFactory : IEcsWorldPresenterFactory
   {

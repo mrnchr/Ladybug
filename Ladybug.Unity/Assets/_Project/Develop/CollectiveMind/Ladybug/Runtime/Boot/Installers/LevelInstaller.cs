@@ -14,8 +14,12 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindLadybugRotator();
 
       BindRuntimeInitializer();
-      
+
       InstallEcs();
+
+#if UNITY_EDITOR
+      EditorBridge.InstallGameplay(Container);
+#endif
     }
 
     private void BindLadybugRotator()

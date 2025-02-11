@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.World
+namespace CollectiveMind.Ladybug.Editor.Monitoring.World
 {
   public static class EntityDictionary
   {

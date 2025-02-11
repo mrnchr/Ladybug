@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using LudensClub.GeoChaos.Editor.Monitoring.Entity;
+using CollectiveMind.Ladybug.Editor.Monitoring.Entity;
 using UnityEngine;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.World
+namespace CollectiveMind.Ladybug.Editor.Monitoring.World
 {
   public class EcsWorldView : MonoBehaviour
   {
