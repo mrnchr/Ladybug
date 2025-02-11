@@ -1,6 +1,6 @@
 ﻿using Leopotam.EcsLite;
 
-namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
+namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds
 {
   public interface IEcsWorldWrapper
   {

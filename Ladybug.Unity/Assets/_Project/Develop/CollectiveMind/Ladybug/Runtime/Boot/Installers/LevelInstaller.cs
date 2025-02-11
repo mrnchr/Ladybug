@@ -2,6 +2,7 @@
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -16,6 +17,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindRuntimeInitializer();
 
       InstallEcs();
+
+      BindViewFactory();
 
 #if UNITY_EDITOR
       EditorBridge.InstallGameplay(Container);
@@ -48,6 +51,14 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
     private void InstallEcs()
     {
       EcsInstaller.Install(Container);
+    }
+
+    private void BindViewFactory()
+    {
+      Container
+        .Bind<IViewFactory>()
+        .To<ViewFactory>()
+        .AsSingle();
     }
   }
 }

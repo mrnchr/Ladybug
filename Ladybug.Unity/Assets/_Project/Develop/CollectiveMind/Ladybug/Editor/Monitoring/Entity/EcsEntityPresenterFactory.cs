@@ -1,5 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Editor.Monitoring.World;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Editor.Monitoring.Entity

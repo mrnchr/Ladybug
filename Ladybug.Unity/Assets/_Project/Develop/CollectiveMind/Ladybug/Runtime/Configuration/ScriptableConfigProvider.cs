@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Configuration
@@ -12,7 +13,7 @@ namespace CollectiveMind.Ladybug.Runtime.Configuration
     
     public TConfig Get<TConfig>() where TConfig : ScriptableObject
     {
-      return _configs.Find(x => x is TConfig) as TConfig;
+      return (TConfig) _configs.First(x => x is TConfig);
     }
   }
 }

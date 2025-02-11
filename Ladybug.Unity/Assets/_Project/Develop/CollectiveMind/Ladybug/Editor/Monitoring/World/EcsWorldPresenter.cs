@@ -4,6 +4,7 @@ using System.Linq;
 using CollectiveMind.Ladybug.Editor.Monitoring.Entity;
 using CollectiveMind.Ladybug.Editor.Monitoring.Universe;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds;
 using Leopotam.EcsLite;
 using Unity.Profiling;
 

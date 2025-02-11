@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 133c2ae489ef48fc81c331d6cf2618a2, type: 3}
+  m_Name: SpawnPointConverter
+  m_EditorClassIdentifier: 
+  Converters:
+  - _serializedConverter:
+      rid: -2
+    _components:
+      Components:
+      - Value:
+          rid: 2817292098324922783
+      - Value:
+          rid: 2817292098324922784
+      - Value:
+          rid: 2817292098324922785
+    _scriptableConverter: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2817292098324922783
+      type: {class: SpawnPointTag, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint.Components, asm: Ladybug.Runtime}
+      data: 
+    - rid: 2817292098324922784
+      type: {class: EntityId, ns: CollectiveMind.Ladybug.Runtime.Gameplay, asm: Ladybug.Runtime}
+      data:
+        Id: 10000
+    - rid: 2817292098324922785
+      type: {class: Spawnable, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint.Components, asm: Ladybug.Runtime}
+      data: 
