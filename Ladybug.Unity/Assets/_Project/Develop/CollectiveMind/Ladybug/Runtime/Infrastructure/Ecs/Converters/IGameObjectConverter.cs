@@ -6,11 +6,10 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
   {
     bool ShouldCreateEntity { get; set; }
     bool CreateEntityOnStart { get; set; }
-    bool CreateEntityOnEnable { get; set; }
     void CreateEntity();
-    void CreateEntity(EcsEntity entity);
-    void ConvertBackAndDestroy(EcsEntity entity);
-    void SetEntity(EcsEntity entity);
+    void CreateEntity(EcsEntityWrapper entity);
+    void ConvertBackAndDestroy(EcsEntityWrapper entity);
+    void SetEntity(EcsEntityWrapper entity);
     void SetEntity(EcsWorld world, int entity);
   }
 }

@@ -13,7 +13,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindLineDrawer();
       BindLadybugRotator();
 
-      BindInitializingPhase();
+      BindRuntimeInitializer();
       
       InstallEcs();
     }
@@ -33,11 +33,11 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle();
     }
 
-    private void BindInitializingPhase()
+    private void BindRuntimeInitializer()
     {
       Container
-        .Bind<IInitializingPhase>()
-        .To<InitializingPhase>()
+        .Bind<IRuntimeInitializer>()
+        .To<RuntimeInitializer>()
         .AsSingle();
     }
 

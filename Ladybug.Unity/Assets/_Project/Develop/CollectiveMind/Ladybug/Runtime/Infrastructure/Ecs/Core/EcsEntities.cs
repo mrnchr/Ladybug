@@ -13,7 +13,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     private readonly List<IEcsPredicate> _tempPredicates = new List<IEcsPredicate>();
     private readonly EcsFilter _filter;
     private readonly EcsWorld _world;
-    private readonly EcsEntity _cachedEntity;
+    private readonly EcsEntityWrapper _cachedEntityWrapper;
     private readonly SpecifiedClosure<IEcsPredicate, int> _invokePredicateClosure;
 
     public EcsFilter Filter => _filter;
@@ -23,7 +23,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     {
       _filter = filter;
       _world = filter.GetWorld();
-      _cachedEntity = new EcsEntity(_world);
+      _cachedEntityWrapper = new EcsEntityWrapper(_world);
       _invokePredicateClosure = new SpecifiedClosure<IEcsPredicate, int>((predicate, i) => predicate.Invoke(i));
     }
 
@@ -38,7 +38,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       return enumerator.MoveNext();
     }
 
-    public IEnumerable<EcsEntity> ToEnumerable()
+    public IEnumerable<EcsEntityWrapper> ToEnumerable()
     {
       using Enumerator enumerator = GetEnumerator();
       while (enumerator.MoveNext())
@@ -78,13 +78,13 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
         _enumerator = entities._filter.GetEnumerator();
       }
 
-      public EcsEntity Current
+      public EcsEntityWrapper Current
       {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
         {
-          _entities._cachedEntity.Entity = _enumerator.Current;
-          return _entities._cachedEntity;
+          _entities._cachedEntityWrapper.Entity = _enumerator.Current;
+          return _entities._cachedEntityWrapper;
         }
       }
 

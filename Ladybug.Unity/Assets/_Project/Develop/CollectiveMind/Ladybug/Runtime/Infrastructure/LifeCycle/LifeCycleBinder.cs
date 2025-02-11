@@ -5,11 +5,11 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle
 {
   public class LifeCycleBinder : ILifeCycleBinder
   {
-    private readonly InitializableManager _initializer;
+    private readonly IRuntimeInitializer _initializer;
     private readonly TickableManager _ticker;
     private readonly DisposableManager _disposer;
 
-    public LifeCycleBinder(InitializableManager initializer, TickableManager ticker, DisposableManager disposer)
+    public LifeCycleBinder(IRuntimeInitializer initializer , TickableManager ticker, DisposableManager disposer)
     {
       _initializer = initializer;
       _ticker = ticker;

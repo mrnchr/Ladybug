@@ -18,7 +18,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       using (new Unity.Profiling.ProfilerMarker("MarkAll").Auto())
 #endif
       {
-        foreach (EcsEntity target in targets)
+        foreach (EcsEntityWrapper target in targets)
         {
           target
             .Has<TComponent>(false)
@@ -40,7 +40,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       using (new Unity.Profiling.ProfilerMarker("ReMarkAll").Auto())
 #endif
       {
-        foreach (EcsEntity mark in marks)
+        foreach (EcsEntityWrapper mark in marks)
         {
           mark
             .Del<Marked>()

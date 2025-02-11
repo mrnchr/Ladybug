@@ -6,7 +6,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
 {
   public delegate void ActionRef<TComponent>(ref TComponent component);
 
-  public class EcsEntity : IDisposable
+  public class EcsEntityWrapper : IDisposable
   {
     private int _entity = -1;
     private EcsWorld _world;
@@ -28,16 +28,16 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
 
     public EcsPackedEntity PackedEntity { get; private set; }
 
-    public EcsEntity()
+    public EcsEntityWrapper()
     {
     }
 
-    public EcsEntity(EcsWorld world, int entity = -1)
+    public EcsEntityWrapper(EcsWorld world, int entity = -1)
     {
       SetWorld(world, entity);
     }
 
-    public void Copy(EcsEntity from)
+    public void Copy(EcsEntityWrapper from)
     {
       SetWorld(from.World, from.Entity);
     }
@@ -54,14 +54,14 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
     [HideInCallstack]
-    public EcsEntity Add<TComponent>() where TComponent : struct, IEcsComponent
+    public EcsEntityWrapper Add<TComponent>() where TComponent : struct, IEcsComponent
     {
       World.Add<TComponent>(Entity);
       return this;
     }
 
     [HideInCallstack]
-    public EcsEntity Add<TComponent>(TComponent component) where TComponent : struct, IEcsComponent
+    public EcsEntityWrapper Add<TComponent>(TComponent component) where TComponent : struct, IEcsComponent
     {
       ref TComponent addedComponent = ref World.Add<TComponent>(Entity);
       addedComponent = component;
@@ -69,7 +69,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
     [HideInCallstack]
-    public EcsEntity Add<TComponent>(ActionRef<TComponent> assigner) where TComponent : struct, IEcsComponent
+    public EcsEntityWrapper Add<TComponent>(ActionRef<TComponent> assigner) where TComponent : struct, IEcsComponent
     {
       ref TComponent component = ref World.Add<TComponent>(Entity);
       assigner.Invoke(ref component);
@@ -86,7 +86,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
     [HideInCallstack]
-    public EcsEntity Change<TComponent>(TComponent component) where TComponent : struct, IEcsComponent
+    public EcsEntityWrapper Change<TComponent>(TComponent component) where TComponent : struct, IEcsComponent
     {
       ref TComponent refComponent = ref World.Get<TComponent>(Entity);
       refComponent = component;
@@ -94,7 +94,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
     [HideInCallstack]
-    public EcsEntity Change<TComponent>(ActionRef<TComponent> replacer) where TComponent : struct, IEcsComponent
+    public EcsEntityWrapper Change<TComponent>(ActionRef<TComponent> replacer) where TComponent : struct, IEcsComponent
     {
       ref TComponent component = ref World.Get<TComponent>(Entity);
       replacer.Invoke(ref component);
@@ -102,7 +102,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
     [HideInCallstack]
-    public EcsEntity Del<TComponent>() where TComponent : struct, IEcsComponent
+    public EcsEntityWrapper Del<TComponent>() where TComponent : struct, IEcsComponent
     {
       World.Del<TComponent>(Entity);
       return this;
@@ -121,7 +121,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
     [HideInCallstack]
-    public EcsEntity Has<TComponent>(bool value) where TComponent : struct, IEcsComponent
+    public EcsEntityWrapper Has<TComponent>(bool value) where TComponent : struct, IEcsComponent
     {
       switch (value, World.Has<TComponent>(Entity))
       {
@@ -137,7 +137,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
     [HideInCallstack]
-    public EcsEntity Replace<TComponent>(TComponent component) where TComponent : struct, IEcsComponent
+    public EcsEntityWrapper Replace<TComponent>(TComponent component) where TComponent : struct, IEcsComponent
     {
       ref TComponent refComponent = ref AddOrGet<TComponent>();
       refComponent = component;
@@ -145,7 +145,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
     [HideInCallstack]
-    public EcsEntity Replace<TComponent>(ActionRef<TComponent> replacer) where TComponent : struct, IEcsComponent
+    public EcsEntityWrapper Replace<TComponent>(ActionRef<TComponent> replacer) where TComponent : struct, IEcsComponent
     {
       ref TComponent component = ref AddOrGet<TComponent>();
       replacer.Invoke(ref component);

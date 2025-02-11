@@ -10,7 +10,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
   {
     public List<EcsComponentValue> Components;
 
-    public void ConvertTo(EcsEntity entity)
+    public void ConvertTo(EcsEntityWrapper entity)
     {
       EcsWorld world = entity.World;
       foreach (EcsComponentValue componentValue in Components)
@@ -20,7 +20,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       }
     }
 
-    public void ConvertBack(EcsEntity entity)
+    public void ConvertBack(EcsEntityWrapper entity)
     {
     }
   }

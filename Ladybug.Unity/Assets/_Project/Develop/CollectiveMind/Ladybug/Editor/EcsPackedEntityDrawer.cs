@@ -50,7 +50,7 @@ namespace LudensClub.GeoChaos.Editor
 
           IEcsWorldPresenter worldPresenter = universe.Children.Find(x => x.Wrapper.Name == worldName);
           EcsWorld world = worldPresenter.Wrapper.World;
-          _obj = _propertyValue.SmartValue.TryUnpackEntity(world, out EcsEntity entity)
+          _obj = _propertyValue.SmartValue.TryUnpackEntity(world, out EcsEntityWrapper entity)
             ? worldPresenter.Children.Find(x => x.Entity == entity.Entity).View
             : null;
         }
