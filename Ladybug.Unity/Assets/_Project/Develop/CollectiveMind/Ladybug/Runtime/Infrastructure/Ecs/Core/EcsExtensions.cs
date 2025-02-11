@@ -53,19 +53,19 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
     [HideInCallstack]
-    public static EcsEntity CreateEntity(this EcsWorld world)
+    public static EcsEntityWrapper CreateEntity(this EcsWorld world)
     {
-      return new EcsEntity(world, world.NewEntity());
+      return new EcsEntityWrapper(world, world.NewEntity());
     }
 
-    public static bool TryUnpackEntity(this EcsPackedEntity packedEntity, EcsWorld world, out EcsEntity entity)
+    public static bool TryUnpackEntity(this EcsPackedEntity packedEntity, EcsWorld world, out EcsEntityWrapper entity)
     {
       bool packed = packedEntity.Unpack(world, out int ent);
-      entity = new EcsEntity(world, ent);
+      entity = new EcsEntityWrapper(world, ent);
       return packed;
     }
 
-    public static bool TryUnpackEntity(this EcsPackedEntity packedEntity, EcsWorld world, EcsEntity entity)
+    public static bool TryUnpackEntity(this EcsPackedEntity packedEntity, EcsWorld world, EcsEntityWrapper entity)
     {
       bool packed = packedEntity.Unpack(world, out int ent);
       entity.SetWorld(world, ent);

@@ -2,7 +2,7 @@
 using System.Reflection;
 using CollectiveMind.Ladybug.Runtime;
 
-namespace LudensClub.GeoChaos.Editor.General
+namespace CollectiveMind.Ladybug.Editor.General
 {
   public class TypeCache : ITypeCache
   {

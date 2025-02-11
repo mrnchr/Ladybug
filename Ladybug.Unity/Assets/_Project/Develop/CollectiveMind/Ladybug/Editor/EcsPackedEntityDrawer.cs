@@ -1,10 +1,10 @@
-﻿using CollectiveMind.Ladybug.Runtime;
+﻿using CollectiveMind.Ladybug.Editor;
+using CollectiveMind.Ladybug.Editor.Monitoring.Entity;
+using CollectiveMind.Ladybug.Editor.Monitoring.Universe;
+using CollectiveMind.Ladybug.Editor.Monitoring.World;
+using CollectiveMind.Ladybug.Runtime;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
-using LudensClub.GeoChaos.Editor;
-using LudensClub.GeoChaos.Editor.Monitoring.Entity;
-using LudensClub.GeoChaos.Editor.Monitoring.Universe;
-using LudensClub.GeoChaos.Editor.Monitoring.World;
 using TriInspector;
 using UnityEditor;
 using UnityEngine;
@@ -12,7 +12,7 @@ using Zenject;
 
 [assembly: RegisterTriValueDrawer(typeof(EcsPackedEntityDrawer), TriDrawerOrder.Fallback)]
 
-namespace LudensClub.GeoChaos.Editor
+namespace CollectiveMind.Ladybug.Editor
 {
   public class EcsPackedEntityDrawer : TriValueDrawer<EcsPackedEntity>
   {
@@ -50,7 +50,7 @@ namespace LudensClub.GeoChaos.Editor
 
           IEcsWorldPresenter worldPresenter = universe.Children.Find(x => x.Wrapper.Name == worldName);
           EcsWorld world = worldPresenter.Wrapper.World;
-          _obj = _propertyValue.SmartValue.TryUnpackEntity(world, out EcsEntity entity)
+          _obj = _propertyValue.SmartValue.TryUnpackEntity(world, out EcsEntityWrapper entity)
             ? worldPresenter.Children.Find(x => x.Entity == entity.Entity).View
             : null;
         }

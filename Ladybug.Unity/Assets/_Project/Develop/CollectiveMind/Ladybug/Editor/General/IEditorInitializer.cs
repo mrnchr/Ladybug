@@ -1,4 +1,4 @@
-﻿namespace LudensClub.GeoChaos.Editor.General
+﻿namespace CollectiveMind.Ladybug.Editor.General
 {
   public interface IEditorInitializer
   {

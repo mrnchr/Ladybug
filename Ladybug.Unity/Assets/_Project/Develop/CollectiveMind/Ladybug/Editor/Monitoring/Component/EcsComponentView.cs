@@ -5,7 +5,7 @@ using TriInspector;
 using UnityEditor;
 using UnityEngine;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Component
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Component
 {
   [Serializable]
   public class EcsComponentView

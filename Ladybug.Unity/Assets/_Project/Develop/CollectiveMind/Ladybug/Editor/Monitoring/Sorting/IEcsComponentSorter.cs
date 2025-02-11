@@ -1,7 +1,7 @@
 ﻿using System;
-using LudensClub.GeoChaos.Editor.Monitoring.Component;
+using CollectiveMind.Ladybug.Editor.Monitoring.Component;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Sorting
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Sorting
 {
   public interface IEcsComponentSorter
   {

@@ -1,6 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Editor.Boot.Installers;
+using CollectiveMind.Ladybug.Editor.General;
 using CollectiveMind.Ladybug.Runtime;
-using LudensClub.GeoChaos.Editor.General;
 using UnityEditor;
 using Zenject;
 

@@ -2,7 +2,7 @@
 using Leopotam.EcsLite;
 using Zenject;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Component
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Component
 {
   public class EcsComponentViewFactory : IEcsComponentViewFactory
   {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace LudensClub.GeoChaos.Editor.General
+namespace CollectiveMind.Ladybug.Editor.General
 {
   public class MemberCache<TMember> where TMember : MemberInfo
   {

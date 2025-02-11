@@ -4,7 +4,7 @@ using CollectiveMind.Ladybug.Runtime;
 using Cysharp.Text;
 using Unity.Profiling;
 
-namespace LudensClub.GeoChaos.Editor.General
+namespace CollectiveMind.Ladybug.Editor.General
 {
   public class ProfilerService : IProfilerService
   {

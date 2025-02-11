@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace LudensClub.GeoChaos.Editor.General
+namespace CollectiveMind.Ladybug.Editor.General
 {
   public static class TypeConstants
   {

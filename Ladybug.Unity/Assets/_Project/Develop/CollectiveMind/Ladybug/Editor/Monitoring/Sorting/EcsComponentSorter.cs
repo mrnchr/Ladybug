@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using CollectiveMind.Ladybug.Editor.Monitoring.Component;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
-using LudensClub.GeoChaos.Editor.Monitoring.Component;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Sorting
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Sorting
 {
   public class EcsComponentSorter : IEcsComponentSorter
   {

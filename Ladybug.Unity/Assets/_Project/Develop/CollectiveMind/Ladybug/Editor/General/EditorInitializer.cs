@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CollectiveMind.Ladybug.Runtime;
 
-namespace LudensClub.GeoChaos.Editor.General
+namespace CollectiveMind.Ladybug.Editor.General
 {
   public class EditorInitializer : IEditorInitializer
   {

@@ -12,7 +12,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
   {
     public List<EcsConverterValue> Converters;
 
-    public void ConvertTo(EcsEntity entity)
+    public void ConvertTo(EcsEntityWrapper entity)
     {
       foreach (EcsConverterValue converter in Converters)
       {
@@ -20,7 +20,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       }
     }
 
-    public void ConvertBack(EcsEntity entity)
+    public void ConvertBack(EcsEntityWrapper entity)
     {
     }
 
@@ -32,7 +32,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     private void ValidateEntity()
     {
       var world = new EcsWorld();
-      EcsEntity entity = world.CreateEntity();
+      EcsEntityWrapper entity = world.CreateEntity();
       try
       {
         ConvertTo(entity);

@@ -1,7 +1,7 @@
 ﻿using System;
 using Leopotam.EcsLite;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Component
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Component
 {
   public interface IEcsComponentViewFactory
   {

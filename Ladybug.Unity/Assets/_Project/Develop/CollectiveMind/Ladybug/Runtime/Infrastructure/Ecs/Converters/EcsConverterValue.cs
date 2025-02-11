@@ -42,13 +42,13 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       return null;
     }
 
-    public void ConvertTo(EcsEntity entity)
+    public void ConvertTo(EcsEntityWrapper entity)
     {
       IEcsConverter value = GetValue();
       value?.ConvertTo(entity);
     }
 
-    public void ConvertBack(EcsEntity entity)
+    public void ConvertBack(EcsEntityWrapper entity)
     {
     }
 

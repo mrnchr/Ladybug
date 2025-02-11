@@ -1,13 +1,13 @@
-﻿using LudensClub.GeoChaos.Editor.Monitoring.Component;
-using LudensClub.GeoChaos.Editor.Monitoring.Entity;
-using LudensClub.GeoChaos.Editor.Monitoring.Sorting;
-using LudensClub.GeoChaos.Editor.Monitoring.Universe;
-using LudensClub.GeoChaos.Editor.Monitoring.World;
+﻿using CollectiveMind.Ladybug.Editor.Monitoring.Component;
+using CollectiveMind.Ladybug.Editor.Monitoring.Entity;
+using CollectiveMind.Ladybug.Editor.Monitoring.Sorting;
+using CollectiveMind.Ladybug.Editor.Monitoring.Universe;
+using CollectiveMind.Ladybug.Editor.Monitoring.World;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Editor.Boot.Installers
 {
-  public class DebugLevelInstaller : Installer<DebugLevelInstaller>
+  public class EditorLevelInstaller : Installer<EditorLevelInstaller>
   {
     public override void InstallBindings()
     {

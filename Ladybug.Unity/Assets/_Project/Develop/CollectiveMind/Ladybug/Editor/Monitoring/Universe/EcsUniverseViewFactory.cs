@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Universe
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Universe
 {
   public class EcsUniverseViewFactory : IEcsUniverseViewFactory
   {

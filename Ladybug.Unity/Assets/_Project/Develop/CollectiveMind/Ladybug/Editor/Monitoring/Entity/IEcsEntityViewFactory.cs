@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Entity
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Entity
 {
   public interface IEcsEntityViewFactory
   {

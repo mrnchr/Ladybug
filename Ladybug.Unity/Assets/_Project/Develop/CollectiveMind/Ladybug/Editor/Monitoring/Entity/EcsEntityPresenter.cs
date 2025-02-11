@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Linq;
+using CollectiveMind.Ladybug.Editor.Monitoring.Component;
+using CollectiveMind.Ladybug.Editor.Monitoring.Sorting;
+using CollectiveMind.Ladybug.Editor.Monitoring.World;
 using CollectiveMind.Ladybug.Runtime;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Closures;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Utils;
 using Cysharp.Text;
 using Leopotam.EcsLite;
-using LudensClub.GeoChaos.Editor.Monitoring.Component;
-using LudensClub.GeoChaos.Editor.Monitoring.Sorting;
-using LudensClub.GeoChaos.Editor.Monitoring.World;
 using Unity.Profiling;
 using UnityEditor;
 
-namespace LudensClub.GeoChaos.Editor.Monitoring.Entity
+namespace CollectiveMind.Ladybug.Editor.Monitoring.Entity
 {
   public class EcsEntityPresenter : IEcsEntityPresenter
   {
