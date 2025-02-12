@@ -6,6 +6,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Canvas
   {
     public CanvasFeature(IEcsSystemFactory systems)
     {
+      Add(systems.Create<FillScreenSpaceByCanvasesSystem>());
     } 
   }
 }
