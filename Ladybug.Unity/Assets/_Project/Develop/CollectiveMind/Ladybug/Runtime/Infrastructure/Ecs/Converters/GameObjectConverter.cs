@@ -102,7 +102,15 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       foreach (IEcsConverter converter in _viewConverters)
         converter.ConvertTo(entity);
 
-      entity.Add((ref ConverterRef converterRef) => converterRef.Converter = this);
+      ConvertDefaultComponents(entity);
+    }
+
+    private void ConvertDefaultComponents(EcsEntityWrapper entity)
+    {
+      entity
+        .Add((ref GameObjectRef gameObjectRef) => gameObjectRef.GameObject = gameObject)
+        .Add((ref TransformRef transformRef) => transformRef.Transform = transform)
+        .Add((ref ConverterRef converterRef) => converterRef.Converter = this);
     }
 
     public void ConvertBack(EcsEntityWrapper entity)
@@ -110,9 +118,17 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       foreach (IEcsConverter converter in _viewConverters)
         converter.ConvertBack(entity);
 
-      entity.Del<ConverterRef>();
+      ConvertBackDefaultComponents(entity);
     }
-    
+
+    private static void ConvertBackDefaultComponents(EcsEntityWrapper entity)
+    {
+      entity
+        .Del<ConverterRef>()
+        .Del<TransformRef>()
+        .Del<GameObjectRef>();
+    }
+
     public void SetEntity(EcsEntityWrapper entity)
     {
       _entityWrapper.Copy(entity);
