@@ -1,4 +1,5 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Configuration;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using UnityEngine;
 using Zenject;
 
@@ -6,6 +7,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 {
   public class LineDrawer : ITickable
   {
+    private readonly InputData _inputData;
     private static readonly int _result = Shader.PropertyToID("result");
     private static readonly int _segmentStart = Shader.PropertyToID("segment_start");
     private static readonly int _segmentEnd = Shader.PropertyToID("segment_end");
@@ -22,8 +24,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
     private Renderer _currentCanvas;
     private bool _isDrawing;
 
-    public LineDrawer(IConfigProvider configProvider)
+    public LineDrawer(IConfigProvider configProvider, InputData inputData)
     {
+      _inputData = inputData;
       _mainCamera = Camera.main;
 
       _config = configProvider.Get<DrawingConfig>();
@@ -45,11 +48,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 
     public void Tick()
     {
-      if (Input.GetMouseButton(0))
+      if (_inputData.Draw)
       {
         Renderer lastCanvas = null;
         Vector3 currentPoint = Vector2.zero;
-        if (Physics.Raycast(_mainCamera.ScreenPointToRay(Input.mousePosition),
+        if (Physics.Raycast(_mainCamera.ScreenPointToRay(_inputData.Position),
           out RaycastHit hit, Mathf.Infinity, _config.CanvasLayer))
         {
           var canvas = hit.collider.GetComponent<Renderer>();
@@ -77,8 +80,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 
         _lastPoint = currentPoint;
       }
-
-      if (Input.GetMouseButtonUp(0))
+      else
       {
         _currentCanvas = null;
         _isDrawing = false;
@@ -87,7 +89,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 
     private Vector3 GetWorldCursorPoint()
     {
-      var deepMousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y,
+      var deepMousePosition = new Vector3(_inputData.Position.x, _inputData.Position.y,
         Mathf.Abs(_mainCamera.transform.position.y - _currentCanvas.transform.position.y));
       return _mainCamera.ScreenToWorldPoint(deepMousePosition);
     }

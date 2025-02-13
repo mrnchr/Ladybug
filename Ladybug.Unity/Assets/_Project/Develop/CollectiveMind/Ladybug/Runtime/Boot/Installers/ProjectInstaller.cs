@@ -1,8 +1,10 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Configuration;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.CoroutineRunner;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -12,6 +14,9 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
     [SerializeField]
     private ScriptableConfigProvider _configProvider;
 
+    [SerializeField]
+    private PlayerInput _input;
+
     public override void InstallBindings()
     {
       BindConfigProvider();
@@ -19,6 +24,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindCoroutineRunner();
       BindLifeCycleBinder();
       BindFacadePool();
+      
+      InstallInput();
 
 #if UNITY_EDITOR
       EditorBridge.InstallProject(Container);
@@ -61,6 +68,11 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .To<FacadePool>()
         .AsSingle()
         .CopyIntoAllSubContainers();
+    }
+
+    private void InstallInput()
+    {
+      InputInstaller.Install(Container, _input);
     }
   }
 }
