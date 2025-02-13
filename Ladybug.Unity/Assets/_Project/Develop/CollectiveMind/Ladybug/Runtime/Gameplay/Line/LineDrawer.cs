@@ -90,7 +90,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
     private Vector3 GetWorldCursorPoint()
     {
       var deepMousePosition = new Vector3(_inputData.Position.x, _inputData.Position.y,
-        Mathf.Abs(_mainCamera.transform.position.y - _currentCanvas.transform.position.y));
+        Mathf.Abs(_mainCamera.transform.position.y));
       return _mainCamera.ScreenToWorldPoint(deepMousePosition);
     }
 
@@ -104,8 +104,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
       Vector3 localMousePosition = canvas.transform.InverseTransformPoint(worldMousePosition);
       Vector2 localTexturePoint = new Vector2(localMousePosition.x, localMousePosition.z);
 
-      Vector2 canvasSize = 10 * canvas.transform.localScale;
-      return -(localTexturePoint - canvasSize / 2) / canvasSize;
+      Vector2 unitSize = Vector2.one * 10;
+      return -(localTexturePoint - unitSize / 2) / unitSize;
     }
 
     private Texture2D GetTexture(Renderer canvas)
