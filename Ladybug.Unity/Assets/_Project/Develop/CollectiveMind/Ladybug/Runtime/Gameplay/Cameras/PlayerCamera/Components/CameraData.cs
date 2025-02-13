@@ -2,7 +2,7 @@
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using UnityEngine;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.PlayerCamera
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
 {
   [Serializable]
   [EcsComponentOrder(EcsComponentOrder.STATIC)]

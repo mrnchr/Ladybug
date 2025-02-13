@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.PlayerCamera
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
 {
   public class CameraVisual : MonoBehaviour, IEcsConverter
   {

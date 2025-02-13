@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CollectiveMind.Ladybug.Runtime.Configuration;
-using CollectiveMind.Ladybug.Runtime.Gameplay.PlayerCamera;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Utils;

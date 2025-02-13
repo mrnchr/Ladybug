@@ -1,7 +1,7 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.PlayerCamera
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
 {
   public class UpdateCameraDataSystem : IEcsRunSystem
   {

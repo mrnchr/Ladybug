@@ -1,13 +1,11 @@
 ﻿using System;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
-using UnityEngine;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.PlayerCamera
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera
 {
   [Serializable]
   [EcsComponentOrder(EcsComponentOrder.STATIC)]
-  public struct CameraRef : IEcsComponent
+  public struct Targeted : IEcsComponent
   {
-    public Camera Camera;
   }
 }
