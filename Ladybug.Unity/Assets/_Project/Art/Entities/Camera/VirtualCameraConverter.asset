@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 133c2ae489ef48fc81c331d6cf2618a2, type: 3}
-  m_Name: CameraConverter
+  m_Name: VirtualCameraConverter
   m_EditorClassIdentifier: 
   Converters:
   - _serializedConverter:
@@ -18,13 +18,13 @@ MonoBehaviour:
     _components:
       Components:
       - Value:
-          rid: 2817292138555637822
+          rid: 2817292138555637823
     _scriptableConverter: {fileID: 0}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2817292138555637822
-      type: {class: CameraTag, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera, asm: Ladybug.Runtime}
+    - rid: 2817292138555637823
+      type: {class: VirtualCameraTag, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera, asm: Ladybug.Runtime}
       data: 

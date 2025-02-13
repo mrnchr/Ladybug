@@ -2,7 +2,7 @@
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using UnityEngine;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.PlayerCamera
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
 {
   public class CameraFacade : IFacade
   {

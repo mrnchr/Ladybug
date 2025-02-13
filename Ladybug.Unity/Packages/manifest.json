@@ -6,6 +6,7 @@
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
     "com.leopotam.ecslite": "https://github.com/Leopotam/ecslite.git",
     "com.unity.addressables": "1.21.21",
+    "com.unity.cinemachine": "2.10.3",
     "com.unity.feature.development": "1.0.2",
     "com.unity.localization": "https://github.com/codewriter-packages/Unity-Localization-Stub-for-Tri-Inspector.git",
     "com.unity.ugui": "2.0.0",
