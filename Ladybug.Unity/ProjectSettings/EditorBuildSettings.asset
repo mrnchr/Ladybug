@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Project/Scenes/Sheep/Sheep.unity
-    guid: 0a30d51129daf4d4e9c4439da49bce05
+    path: Assets/_Project/Scenes/Sheep/Ladybug.unity
+    guid: c8f74a93b38e4684bab13c84a909f23f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
