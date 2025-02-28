@@ -1,6 +1,7 @@
-﻿using CollectiveMind.Ladybug.Runtime.Boot.Initializers;
+using CollectiveMind.Ladybug.Runtime.Boot.Initializers;
 using CollectiveMind.Ladybug.Runtime.Gameplay;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Canvas;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle;
@@ -31,6 +32,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       InstallEcs();
 
       BindViewFactory();
+      
+      BindCanvasService();
 
       BindHealthBarFacade();
 
@@ -97,6 +100,14 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<IViewFactory>()
         .To<ViewFactory>()
+        .AsSingle();
+    }
+
+    private void BindCanvasService()
+    {
+      Container
+        .Bind<ICanvasService>()
+        .To<CanvasService>()
         .AsSingle();
     }
 

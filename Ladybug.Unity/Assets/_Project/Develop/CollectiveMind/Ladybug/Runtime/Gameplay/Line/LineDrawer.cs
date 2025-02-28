@@ -1,4 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Configuration;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Canvas;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using UnityEngine;
 using Zenject;
@@ -7,13 +9,14 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 {
   public class LineDrawer : ITickable
   {
-    private readonly InputData _inputData;
     private static readonly int _result = Shader.PropertyToID("result");
     private static readonly int _segmentStart = Shader.PropertyToID("segment_start");
     private static readonly int _segmentEnd = Shader.PropertyToID("segment_end");
     private static readonly int _brushRadius = Shader.PropertyToID("brush_radius");
     private static readonly int _brushColor = Shader.PropertyToID("brush_color");
 
+    private readonly InputData _inputData;
+    private readonly ICanvasService _canvasSvc;
     private readonly Camera _mainCamera;
     private readonly DrawingConfig _config;
     private readonly RenderTexture _renderTexture;
@@ -21,12 +24,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
     private readonly int _kernelIndex;
 
     private Vector3 _lastPoint;
-    private Renderer _currentCanvas;
     private bool _isDrawing;
 
-    public LineDrawer(IConfigProvider configProvider, InputData inputData)
+    public LineDrawer(IConfigProvider configProvider, InputData inputData, ICanvasService canvasSvc)
     {
       _inputData = inputData;
+      _canvasSvc = canvasSvc;
       _mainCamera = Camera.main;
 
       _config = configProvider.Get<DrawingConfig>();
@@ -50,20 +53,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
     {
       if (_inputData.Draw)
       {
-        Renderer lastCanvas = null;
         Vector3 currentPoint = Vector2.zero;
         if (Physics.Raycast(_mainCamera.ScreenPointToRay(_inputData.Position),
-          out RaycastHit hit, Mathf.Infinity, _config.CanvasLayer))
-        {
-          var canvas = hit.collider.GetComponent<Renderer>();
-          if (_currentCanvas != canvas)
-          {
-            lastCanvas = _currentCanvas;
-            _currentCanvas = canvas;
-          }
-        }
-
-        if (_currentCanvas)
+          out _, Mathf.Infinity, _config.CanvasLayer))
         {
           currentPoint = GetWorldCursorPoint();
           if (!_isDrawing)
@@ -71,18 +63,22 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
             _lastPoint = currentPoint;
             _isDrawing = true;
           }
-
-          DrawLineOnCanvas(_currentCanvas, _lastPoint, currentPoint);
-
-          if (lastCanvas)
-            DrawLineOnCanvas(lastCanvas, _lastPoint, currentPoint);
+          
+          var start = new Vector2(_lastPoint.x, _lastPoint.z);
+          var end = new Vector2(currentPoint.x, currentPoint.z);
+          EcsRawEntities canvases = _canvasSvc.FindCanvasesCrossedBySegment(start, end);
+          
+          foreach (EcsEntityWrapper canvas in canvases)
+          {
+            MeshRenderer meshRenderer = canvas.Get<MeshRendererRef>().MeshRenderer;
+            DrawLineOnCanvas(meshRenderer, _lastPoint, currentPoint);
+          }
         }
 
         _lastPoint = currentPoint;
       }
       else
       {
-        _currentCanvas = null;
         _isDrawing = false;
       }
     }
