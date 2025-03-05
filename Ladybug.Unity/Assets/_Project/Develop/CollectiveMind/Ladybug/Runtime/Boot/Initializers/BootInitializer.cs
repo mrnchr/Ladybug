@@ -14,7 +14,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     
     public void Initialize()
     {
-      _sceneLoader.LoadAsync(SceneType.Game);
+      _sceneLoader.LoadAsync(SceneType.Menu);
     }
   }
 }

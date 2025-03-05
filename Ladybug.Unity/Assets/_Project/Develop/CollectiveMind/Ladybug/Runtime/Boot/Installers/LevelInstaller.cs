@@ -12,7 +12,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
   {
     public override void InstallBindings()
     {
-      BindWindowInstaller();
+      InstallWindow();
       
       BindRuntimeInitializer();
       
@@ -28,7 +28,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
 #endif
     }
 
-    private void BindWindowInstaller()
+    private void InstallWindow()
     {
       WindowInstaller.Install(Container);
     }
