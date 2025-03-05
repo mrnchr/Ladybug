@@ -2,6 +2,7 @@
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.CoroutineRunner;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.SceneLoading;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,6 +25,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindCoroutineRunner();
       BindLifeCycleBinder();
       BindFacadePool();
+      
+      InstallSceneLoading();
       
       InstallInput();
 
@@ -69,6 +72,12 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle()
         .CopyIntoAllSubContainers();
     }
+
+    private void InstallSceneLoading()
+    {
+      SceneLoadingInstaller.Install(Container);
+    }
+
 
     private void InstallInput()
     {

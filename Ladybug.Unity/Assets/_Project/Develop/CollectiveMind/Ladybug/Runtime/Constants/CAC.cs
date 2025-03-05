@@ -32,6 +32,9 @@
       
       public const string CANVAS_CONFIG_MENU = ENTITY_MENU + "Canvas";
       public const string CANVAS_CONFIG_FILE = "CanvasConfig";
+      
+      public const string SCENES_PROVIDER_MENU = CONFIG_MENU + "Scenes";
+      public const string SCENES_PROVIDER_FILE = "ScenesProvider";
     }
   }
 }
