@@ -1,5 +1,5 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.SceneLoading;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
+﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
+using CollectiveMind.Ladybug.Runtime.SceneTransition;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -12,12 +12,12 @@ namespace CollectiveMind.Ladybug.Runtime.UI
     [SerializeField] private Button _settingsButton;
     
     private IWindowManager _windowManager;
-    private ISceneLoader _sceneLoader;
+    private IGameSwitcher _gameSwitcher;
 
     [Inject]
-    public void Construct(IWindowManager windowManager, ISceneLoader sceneLoader)
+    public void Construct(IWindowManager windowManager, IGameSwitcher gameSwitcher)
     {
-      _sceneLoader = sceneLoader;
+      _gameSwitcher = gameSwitcher;
       _windowManager = windowManager;
     }
 
@@ -34,7 +34,7 @@ namespace CollectiveMind.Ladybug.Runtime.UI
 
     private void StartGame()
     {
-      _sceneLoader.LoadAsync(SceneType.Game);
+      _gameSwitcher.SwitchToGame();
     }
 
     private void OnDestroy()

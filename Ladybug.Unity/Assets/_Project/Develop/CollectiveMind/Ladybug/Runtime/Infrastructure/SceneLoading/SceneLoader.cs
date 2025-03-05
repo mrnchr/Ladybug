@@ -41,10 +41,13 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.SceneLoading
         _loadingData.Progress.Value = operation.progress;
         await UniTask.Yield();
       }
-
+      
       operation.allowSceneActivation = true;
+      
       _wasSceneChanged = false;
       await UniTask.WaitUntil(() => _wasSceneChanged);
+      
+      _loadingData.Progress.Value = 0;
     }
   }
 }

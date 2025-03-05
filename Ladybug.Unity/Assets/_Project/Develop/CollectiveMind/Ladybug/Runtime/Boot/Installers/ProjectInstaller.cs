@@ -2,8 +2,8 @@
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.CoroutineRunner;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.SceneLoading;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
+using CollectiveMind.Ladybug.Runtime.SceneTransition.Boot;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -30,7 +30,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindLifeCycleBinder();
       BindFacadePool();
       
-      InstallSceneLoading();
+      InstallSceneTransition();
 
       BindEventSystem();
       
@@ -79,11 +79,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .CopyIntoAllSubContainers();
     }
 
-    private void InstallSceneLoading()
+    private void InstallSceneTransition()
     {
-      SceneLoadingInstaller.Install(Container);
+      SceneTransitionInstaller.Install(Container);
     }
-
 
     private void BindEventSystem()
     {

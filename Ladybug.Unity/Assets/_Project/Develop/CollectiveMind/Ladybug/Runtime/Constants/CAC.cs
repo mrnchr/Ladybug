@@ -35,6 +35,9 @@
       
       public const string SCENES_PROVIDER_MENU = CONFIG_MENU + "Scenes";
       public const string SCENES_PROVIDER_FILE = "ScenesProvider";
+      
+      public const string CURTAIN_CONFIG_MENU = CONFIG_MENU + "Curtain";
+      public const string CURTAIN_CONFIG_FILE = "CurtainConfig";
     }
   }
 }

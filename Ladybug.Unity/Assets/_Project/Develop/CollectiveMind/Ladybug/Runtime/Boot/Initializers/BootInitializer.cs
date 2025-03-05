@@ -1,20 +1,20 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.SceneLoading;
+﻿using CollectiveMind.Ladybug.Runtime.SceneTransition;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
 {
   public class BootInitializer : IInitializable
   {
-    private readonly ISceneLoader _sceneLoader;
+    private readonly IGameSwitcher _gameSwitcher;
 
-    public BootInitializer(ISceneLoader sceneLoader)
+    public BootInitializer(IGameSwitcher gameSwitcher)
     {
-      _sceneLoader = sceneLoader;
+      _gameSwitcher = gameSwitcher;
     }
     
     public void Initialize()
     {
-      _sceneLoader.LoadAsync(SceneType.Menu);
+      _gameSwitcher.SwitchToMenu();
     }
   }
 }
