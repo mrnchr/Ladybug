@@ -3,6 +3,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -11,10 +12,12 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
   {
     public override void InstallBindings()
     {
+      BindWindowInstaller();
+      
+      BindRuntimeInitializer();
+      
       BindLineDrawer();
       BindLadybugRotator();
-
-      BindRuntimeInitializer();
 
       InstallEcs();
 
@@ -25,11 +28,16 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
 #endif
     }
 
-    private void BindLadybugRotator()
+    private void BindWindowInstaller()
+    {
+      WindowInstaller.Install(Container);
+    }
+
+    private void BindRuntimeInitializer()
     {
       Container
-        .Bind<ILadybugRotator>()
-        .To<LadybugRotator>()
+        .Bind<IRuntimeInitializer>()
+        .To<RuntimeInitializer>()
         .AsSingle();
     }
 
@@ -40,11 +48,11 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle();
     }
 
-    private void BindRuntimeInitializer()
+    private void BindLadybugRotator()
     {
       Container
-        .Bind<IRuntimeInitializer>()
-        .To<RuntimeInitializer>()
+        .Bind<ILadybugRotator>()
+        .To<LadybugRotator>()
         .AsSingle();
     }
 
