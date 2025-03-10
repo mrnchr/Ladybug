@@ -3,7 +3,9 @@ using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.CoroutineRunner;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
+using CollectiveMind.Ladybug.Runtime.SceneTransition.Boot;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Zenject;
 
@@ -16,6 +18,9 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
 
     [SerializeField]
     private PlayerInput _input;
+    
+    [SerializeField]
+    private EventSystem _eventSystem;
 
     public override void InstallBindings()
     {
@@ -24,6 +29,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindCoroutineRunner();
       BindLifeCycleBinder();
       BindFacadePool();
+      
+      InstallSceneTransition();
+
+      BindEventSystem();
       
       InstallInput();
 
@@ -68,6 +77,18 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .To<FacadePool>()
         .AsSingle()
         .CopyIntoAllSubContainers();
+    }
+
+    private void InstallSceneTransition()
+    {
+      SceneTransitionInstaller.Install(Container);
+    }
+
+    private void BindEventSystem()
+    {
+      Container
+        .BindInstance(_eventSystem)
+        .AsSingle();
     }
 
     private void InstallInput()

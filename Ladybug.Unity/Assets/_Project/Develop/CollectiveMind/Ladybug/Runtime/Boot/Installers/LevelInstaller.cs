@@ -1,8 +1,10 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
+﻿using CollectiveMind.Ladybug.Runtime.Boot.Initializers;
+using CollectiveMind.Ladybug.Runtime.Gameplay;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -11,25 +13,44 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
   {
     public override void InstallBindings()
     {
+      BindPauseSwitcher();
+      
+      InstallWindow();
+      
+      BindRuntimeInitializer();
+      
       BindLineDrawer();
       BindLadybugRotator();
-
-      BindRuntimeInitializer();
 
       InstallEcs();
 
       BindViewFactory();
+
+      BindLevelInitializer();
 
 #if UNITY_EDITOR
       EditorBridge.InstallGameplay(Container);
 #endif
     }
 
-    private void BindLadybugRotator()
+    private void BindPauseSwitcher()
     {
       Container
-        .Bind<ILadybugRotator>()
-        .To<LadybugRotator>()
+        .Bind<IPauseSwitcher>()
+        .To<PauseSwitcher>()
+        .AsSingle();
+    }
+
+    private void InstallWindow()
+    {
+      WindowInstaller.Install(Container);
+    }
+
+    private void BindRuntimeInitializer()
+    {
+      Container
+        .Bind<IRuntimeInitializer>()
+        .To<RuntimeInitializer>()
         .AsSingle();
     }
 
@@ -40,11 +61,11 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle();
     }
 
-    private void BindRuntimeInitializer()
+    private void BindLadybugRotator()
     {
       Container
-        .Bind<IRuntimeInitializer>()
-        .To<RuntimeInitializer>()
+        .Bind<ILadybugRotator>()
+        .To<LadybugRotator>()
         .AsSingle();
     }
 
@@ -58,6 +79,13 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<IViewFactory>()
         .To<ViewFactory>()
+        .AsSingle();
+    }
+
+    private void BindLevelInitializer()
+    {
+      Container
+        .BindInterfacesTo<LevelInitializer>()
         .AsSingle();
     }
   }
