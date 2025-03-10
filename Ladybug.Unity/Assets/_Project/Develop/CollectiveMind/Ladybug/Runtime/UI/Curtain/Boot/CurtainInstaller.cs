@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace CollectiveMind.Ladybug.Runtime.UI.Boot
+namespace CollectiveMind.Ladybug.Runtime.UI.Curtain
 {
   public class CurtainInstaller : Installer<CurtainInstaller>
   {

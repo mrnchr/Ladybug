@@ -9,5 +9,6 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
     void RemoveWindow(WindowBase window);
     UniTask<TWindow> OpenWindow<TWindow>() where TWindow : WindowBase;
     UniTask<TWindow> CloseWindow<TWindow>() where TWindow : WindowBase;
+    UniTask<TWindow> CloseWindowsBy<TWindow>() where TWindow : WindowBase;
   }
 }

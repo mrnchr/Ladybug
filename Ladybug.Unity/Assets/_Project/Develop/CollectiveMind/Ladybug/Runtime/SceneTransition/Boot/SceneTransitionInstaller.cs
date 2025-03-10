@@ -1,5 +1,5 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.SceneLoading;
-using CollectiveMind.Ladybug.Runtime.UI.Boot;
+using CollectiveMind.Ladybug.Runtime.UI.Curtain;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.SceneTransition.Boot

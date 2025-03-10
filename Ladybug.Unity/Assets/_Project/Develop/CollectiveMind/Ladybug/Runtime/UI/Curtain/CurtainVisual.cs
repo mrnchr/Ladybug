@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using Zenject;
-using R3;
+﻿using R3;
+using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
-namespace CollectiveMind.Ladybug.Runtime.UI
+namespace CollectiveMind.Ladybug.Runtime.UI.Curtain
 {
   public class CurtainVisual : MonoBehaviour
   {

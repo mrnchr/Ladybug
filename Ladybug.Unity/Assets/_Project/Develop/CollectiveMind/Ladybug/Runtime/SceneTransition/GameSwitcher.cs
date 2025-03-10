@@ -1,5 +1,5 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.SceneLoading;
-using CollectiveMind.Ladybug.Runtime.UI;
+using CollectiveMind.Ladybug.Runtime.UI.Curtain;
 using Cysharp.Threading.Tasks;
 
 namespace CollectiveMind.Ladybug.Runtime.SceneTransition

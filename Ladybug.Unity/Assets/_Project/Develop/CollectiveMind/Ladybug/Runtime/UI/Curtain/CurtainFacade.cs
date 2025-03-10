@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
-namespace CollectiveMind.Ladybug.Runtime.UI
+namespace CollectiveMind.Ladybug.Runtime.UI.Curtain
 {
   public class CurtainFacade
   {
