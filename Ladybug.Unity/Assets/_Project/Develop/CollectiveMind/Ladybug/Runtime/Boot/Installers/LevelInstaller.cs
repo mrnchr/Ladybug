@@ -2,6 +2,7 @@
 using CollectiveMind.Ladybug.Runtime.Gameplay;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle.Boot;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot;
@@ -21,6 +22,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       
       BindLineDrawer();
       BindLadybugRotator();
+      InstallObstacle();
 
       InstallEcs();
 
@@ -67,6 +69,11 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .Bind<ILadybugRotator>()
         .To<LadybugRotator>()
         .AsSingle();
+    }
+
+    private void InstallObstacle()
+    {
+      ObstacleInstaller.Install(Container);
     }
 
     private void InstallEcs()
