@@ -2,7 +2,7 @@
 using CollectiveMind.Ladybug.Runtime.Gameplay;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle.Boot;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot;

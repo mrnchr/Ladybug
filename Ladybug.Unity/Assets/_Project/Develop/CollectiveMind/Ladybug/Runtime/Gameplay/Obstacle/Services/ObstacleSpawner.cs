@@ -31,9 +31,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle
 
       while (_isSpawning)
       {
-        Vector3 spawnPosition = _obstacleSpawnSvc.CalculateSpawnPosition();
+        Vector3 rawSpawnPosition = _obstacleSpawnSvc.CalculateSpawnPosition();
+        var spawnPosition = new Vector2(rawSpawnPosition.x, rawSpawnPosition.z);
         if (!_obstacleSpawnSvc.IsObstacleNear(spawnPosition))
-          _obstacleSpawnSvc.CreateObstacle(spawnPosition);
+          _obstacleSpawnSvc.CreateObstacle(rawSpawnPosition);
 
         await UniTask.WaitForSeconds(Random.Range(_config.SpawnTime.x, _config.SpawnTime.y));
       }

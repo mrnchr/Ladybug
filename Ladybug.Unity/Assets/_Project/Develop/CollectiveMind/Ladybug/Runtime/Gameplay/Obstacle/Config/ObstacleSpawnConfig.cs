@@ -15,7 +15,22 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle
     public float DistanceBetweenObstacles;
 
     [ValidateInput("ValidateChances")]
-    public List<SpawnChance> SpawnChances;
+    [ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, Draggable = false)]
+    public List<SpawnChance> SpawnChances = CreateSpawnChances();
+    
+    private static List<SpawnChance> CreateSpawnChances()
+    {
+      return SpawnableEntities()
+        .Select(x => new SpawnChance { EntityType = x })
+        .ToList();
+    }
+
+    private static IEnumerable<EntityType> SpawnableEntities()
+    {
+      return Enum.GetValues(typeof(EntityType))
+        .Cast<EntityType>()
+        .Where(x => x is >= EntityType.Blob and <= EntityType.PushPin2);
+    }
 
 #if UNITY_EDITOR
     private TriValidationResult ValidateChances()
@@ -35,22 +50,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle
   [DeclareHorizontalGroup(nameof(SpawnChance))]
   public struct SpawnChance
   {
-    [Dropdown("SpawnableEntities")]
     [GroupNext(nameof(SpawnChance))]
     [HideLabel]
+    [DisplayAsString]
     public EntityType EntityType;
 
     [HideLabel]
     public float Chance;
-
-#if UNITY_EDITOR
-    private List<EntityType> SpawnableEntities()
-    {
-      return Enum.GetValues(typeof(EntityType))
-        .Cast<EntityType>()
-        .Where(x => x is >= EntityType.Blob and <= EntityType.PushPin2)
-        .ToList();
-    }
-#endif
   }
 }

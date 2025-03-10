@@ -126,7 +126,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 479673818458607999, guid: 477807e446f073141b758dd061a58c27, type: 3}
       propertyPath: m_Name
-      value: LetterButton
+      value: PauseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6443504090856380252, guid: 477807e446f073141b758dd061a58c27, type: 3}
+      propertyPath: m_text
+      value: P
       objectReference: {fileID: 0}
     - target: {fileID: 8138234711174870491, guid: 477807e446f073141b758dd061a58c27, type: 3}
       propertyPath: m_Pivot.x

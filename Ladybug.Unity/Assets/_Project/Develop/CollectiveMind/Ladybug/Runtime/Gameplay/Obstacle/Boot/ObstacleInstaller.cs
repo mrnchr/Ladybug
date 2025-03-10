@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle.Boot
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle
 {
   public class ObstacleInstaller : Installer<ObstacleInstaller>
   {

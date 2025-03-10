@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3479d6fd6c4bb8a71d1713cf4ac12e, type: 3}
   m_Name: ObstacleSpawnConfig
   m_EditorClassIdentifier: 
-  SpawnTime: {x: 7, y: 10}
+  SpawnTime: {x: 2, y: 5}
   SpawnDistance: {x: 7, y: 10}
-  DistanceBetweenObstacles: 5
+  DistanceBetweenObstacles: 10
   SpawnChances:
   - EntityType: 1001
-    Chance: 0.3
+    Chance: 0.2
   - EntityType: 1002
     Chance: 0.2
+  - EntityType: 1003
+    Chance: 0.1
   - EntityType: 1004
-    Chance: 0.2
+    Chance: 0.1
   - EntityType: 1005
-    Chance: 0.3
+    Chance: 0.2
   - EntityType: 1006
-    Chance: 0.1
-  - EntityType: 1007
-    Chance: 0.1
+    Chance: 0.2
