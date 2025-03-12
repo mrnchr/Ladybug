@@ -1,5 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Boot.Initializers;
 using CollectiveMind.Ladybug.Runtime.Gameplay;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle;
@@ -19,6 +20,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       InstallWindow();
       
       BindRuntimeInitializer();
+      
+      InstallCollisions();
       
       BindLineDrawer();
       BindLadybugRotator();
@@ -54,6 +57,11 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .Bind<IRuntimeInitializer>()
         .To<RuntimeInitializer>()
         .AsSingle();
+    }
+
+    private void InstallCollisions()
+    {
+      CollisionsInstaller.Install(Container);
     }
 
     private void BindLineDrawer()
