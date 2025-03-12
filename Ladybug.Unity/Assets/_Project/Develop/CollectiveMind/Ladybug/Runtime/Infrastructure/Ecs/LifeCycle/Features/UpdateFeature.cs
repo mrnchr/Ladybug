@@ -1,6 +1,7 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Canvas;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Creation;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
@@ -9,6 +10,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
   {
     public UpdateFeature(IEcsSystemFactory systems)
     {
+      Add(systems.Create<CollisionFeature>());
       Add(systems.Create<CreationFeature>());
       Add(systems.Create<VirtualCameraFeature>());
       Add(systems.Create<CameraFeature>());
