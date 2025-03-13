@@ -7,6 +7,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot;
+using CollectiveMind.Ladybug.Runtime.UI.HUD;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -30,6 +31,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       InstallEcs();
 
       BindViewFactory();
+
+      BindHealthBarFacade();
 
       BindLevelInitializer();
 
@@ -94,6 +97,13 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<IViewFactory>()
         .To<ViewFactory>()
+        .AsSingle();
+    }
+
+    private void BindHealthBarFacade()
+    {
+      Container
+        .BindInterfacesAndSelfTo<HealthBarFacade>()
         .AsSingle();
     }
 

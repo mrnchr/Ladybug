@@ -2,6 +2,7 @@
 using CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
+using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
@@ -32,7 +33,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
           && _collisionFilter.TrySelectByComponents<ObstacleTag, LadybugTag>())
         {
           info.Target
-            .Change((ref CurrentHealth health) => --health.HP)
+            .Change((ref CurrentHealth health) => health.HP = Mathf.Clamp(health.HP - 1, 0, health.HP))
             .Add<DamagedEvent>();
         }
       }
