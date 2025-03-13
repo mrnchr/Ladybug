@@ -2356,6 +2356,7 @@ GameObject:
   - component: {fileID: 7426694949816297376}
   - component: {fileID: 4551829402798223178}
   - component: {fileID: 8162663926337253560}
+  - component: {fileID: 2508211693489576859}
   m_Layer: 0
   m_Name: Ladybug
   m_TagString: Untagged
@@ -2432,6 +2433,23 @@ CapsuleCollider:
   m_Height: 1.059412
   m_Direction: 2
   m_Center: {x: -0.0037255287, y: -0.2523029, z: -0.016208887}
+--- !u!114 &2508211693489576859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807899361702886682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348c620513bc41ab99a9deb828b54891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WhenEnter: 1
+  WhenStay: 0
+  WhenExit: 0
+  WhenTrigger: 1
+  WhenCollider: 1
 --- !u!1 &8059970833255024867
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     [SerializeReference]
     [ShowIf(nameof(ShowSerializedConverter))]
     [LabelText("$" + nameof(_serializedConverter) + "Name")]
-    private IEcsSerializedConverter _serializedConverter;
+    private ISerializedEcsConverter _serializedConverter;
 
     [SerializeField]
     [ShowIf(nameof(ShowComponents))]

@@ -20,6 +20,11 @@ MonoBehaviour:
       - Value:
           rid: 2817292096493060160
     _scriptableConverter: {fileID: 0}
+  - _serializedConverter:
+      rid: 4080226366089592943
+    _components:
+      Components: []
+    _scriptableConverter: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -28,3 +33,7 @@ MonoBehaviour:
     - rid: 2817292096493060160
       type: {class: LadybugTag, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug, asm: Ladybug.Runtime}
       data: 
+    - rid: 4080226366089592943
+      type: {class: HealthConverter, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug, asm: Ladybug.Runtime}
+      data:
+        DefaultHealth: 5

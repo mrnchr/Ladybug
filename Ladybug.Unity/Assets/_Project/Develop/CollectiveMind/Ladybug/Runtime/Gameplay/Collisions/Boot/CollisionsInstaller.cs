@@ -30,8 +30,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
     private void BindCollisionService()
     {
       Container
-        .Bind<ICollisionService>()
-        .To<CollisionService>()
+        .Bind<ICollisionFilter>()
+        .To<CollisionFilter>()
         .AsSingle();
     }
   }

@@ -34,7 +34,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
     {
       _filler = filler;
       _converter = GetComponentInParent<GameObjectConverter>(true);
-      _collider = GetComponent<Collider>();
+      _collider = GetComponentInChildren<Collider>(true);
       _hasRigidBody = TryGetComponent<Rigidbody>(out _);
     }
 
@@ -48,7 +48,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
 
     private void OnTriggerEnter(Collider other)
     {
-      if (!WhenEnter || !WhenTrigger || _hasRigidBody)
+      if (!WhenEnter || !WhenTrigger)
         return;
 
       SendCollision(CollisionType.Enter, other);
@@ -64,7 +64,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
 
     private void OnTriggerStay(Collider other)
     {
-      if (!WhenStay || !WhenTrigger || _hasRigidBody)
+      if (!WhenStay || !WhenTrigger)
         return;
 
       SendCollision(CollisionType.Stay, other);
@@ -80,7 +80,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
 
     private void OnTriggerExit(Collider other)
     {
-      if (!WhenExit || !WhenTrigger || _hasRigidBody)
+      if (!WhenExit || !WhenTrigger)
         return;
 
       SendCollision(CollisionType.Exit, other);
