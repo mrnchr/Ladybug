@@ -7,16 +7,19 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
   public class LadybugRotator : ILadybugRotator
   {
-    private LadybugFacade _ladybugFacade;
     private readonly DrawingConfig _config;
     private readonly IFacadePool _facadePool;
     private readonly LadybugConfig _ladybugConfig;
+    private readonly Texture2D _texture;
+    private LadybugFacade _ladybugFacade;
 
     public LadybugRotator(IFacadePool facadePool, IConfigProvider configProvider)
     {
       _facadePool = facadePool;
       _config = configProvider.Get<DrawingConfig>();
       _ladybugConfig = configProvider.Get<LadybugConfig>();
+
+      _texture = new Texture2D(_config.TextureSize, _config.TextureSize, TextureFormat.RGB565, false);
     }
 
     public void CheckBound()
@@ -26,8 +29,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
         out RaycastHit hit, Mathf.Infinity, _config.CanvasLayer))
       {
         var canvas = hit.collider.GetComponent<Renderer>();
-        var texture = (Texture2D)canvas.material.mainTexture;
-        if (!texture)
+        if (!ReadTextureFromRaw(canvas.material.mainTexture))
           return;
 
         Vector3 localScale = 10 * canvas.transform.localScale;
@@ -41,11 +43,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
         Vector2 pixelStart = start * _config.TextureSize;
         Vector2 pixelEnd = end * _config.TextureSize;
         float width = _ladybugConfig.ViewWidth / canvasSize.x * _config.TextureSize;
-        Vector2 blackPixel = FindBlackPixel(pixelStart, pixelEnd, textureForward, width, right, texture);
+        Vector2 blackPixel = FindBlackPixel(pixelStart, pixelEnd, textureForward, width, right, _texture);
         if (blackPixel == -Vector2.one)
           return;
-        
-        Vector2 gradient = ComputeGradient(texture, blackPixel / _config.TextureSize);
+
+        Vector2 gradient = ComputeGradient(_texture, blackPixel / _config.TextureSize);
         Vector2 direction = new Vector2(-gradient.y, gradient.x).normalized;
         if (Vector2.Dot(direction, new Vector2(forward.x, forward.z)) < 0)
           direction *= -1;
@@ -62,7 +64,19 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       return -localTexturePoint;
     }
 
-    private Vector2 FindBlackPixel(Vector2 pixelStart, Vector2 pixelEnd, Vector2 textureForward, float width, Vector2 right,
+    private bool ReadTextureFromRaw(Texture texture)
+    {
+      if (texture is not RenderTexture renderTexture)
+        return false;
+
+      RenderTexture.active = renderTexture;
+      _texture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+      _texture.Apply();
+      return true;
+    }
+
+    private Vector2 FindBlackPixel(Vector2 pixelStart, Vector2 pixelEnd, Vector2 textureForward, float width,
+      Vector2 right,
       Texture2D texture)
     {
       bool isPixelFound = false;
@@ -77,7 +91,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
             return p;
         }
       }
-      
+
       return new Vector2(-1, -1);
     }
 
