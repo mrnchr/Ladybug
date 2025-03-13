@@ -1,5 +1,5 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Configuration;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Canvas;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using UnityEngine;

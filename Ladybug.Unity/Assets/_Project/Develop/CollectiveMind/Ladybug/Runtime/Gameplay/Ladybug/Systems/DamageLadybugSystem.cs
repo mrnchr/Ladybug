@@ -1,5 +1,5 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
 using UnityEngine;

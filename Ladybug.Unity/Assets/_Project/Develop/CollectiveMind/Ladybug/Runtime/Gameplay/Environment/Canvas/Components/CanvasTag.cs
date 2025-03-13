@@ -1,11 +1,11 @@
 ﻿using System;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas
 {
   [Serializable]
   [EcsComponentOrder(EcsComponentOrder.CONST)]
-  public struct ObstacleTag : IEcsComponent
+  public struct CanvasTag : IEcsComponent
   {
   }
 }

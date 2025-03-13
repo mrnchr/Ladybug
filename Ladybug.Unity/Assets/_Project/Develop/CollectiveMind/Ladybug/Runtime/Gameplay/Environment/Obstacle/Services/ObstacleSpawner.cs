@@ -5,7 +5,7 @@ using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
   public class ObstacleSpawner : IInitializable, IDisposable
   {

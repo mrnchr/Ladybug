@@ -4,7 +4,7 @@ using System.Linq;
 using TriInspector;
 using UnityEngine;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
   [CreateAssetMenu(menuName = CAC.Names.OBSTACLE_SPAWN_CONFIG_MENU,
     fileName = CAC.Names.OBSTACLE_SPAWN_CONFIG_FILE)]

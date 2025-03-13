@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.Obstacle
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
   public interface IObstacleSpawnService
   {
