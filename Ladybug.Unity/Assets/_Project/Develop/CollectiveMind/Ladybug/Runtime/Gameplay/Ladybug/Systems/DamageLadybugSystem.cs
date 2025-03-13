@@ -8,13 +8,13 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
   public class DamageLadybugSystem : IEcsRunSystem
   {
     private readonly IEcsUniverse _universe;
-    private readonly ICollisionService _collisionSvc;
+    private readonly ICollisionFilter _collisionFilter;
     private readonly EcsEntities _collisions;
 
-    public DamageLadybugSystem(IEcsUniverse universe, ICollisionService collisionSvc)
+    public DamageLadybugSystem(IEcsUniverse universe, ICollisionFilter collisionFilter)
     {
       _universe = universe;
-      _collisionSvc = collisionSvc;
+      _collisionFilter = collisionFilter;
 
       _collisions = _universe
         .FilterMessage<TwoSideCollision>()
@@ -26,10 +26,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       foreach (EcsEntityWrapper col in _collisions)
       {
         ref TwoSideCollision collision = ref col.Get<TwoSideCollision>();
-        CollisionInfo info = _collisionSvc.Info;
-        _collisionSvc.AssignCollision(collision);
-        if (_collisionSvc.TryUnpackBothEntities(_universe.Game)
-          && _collisionSvc.TrySelectByComponents<ObstacleTag, LadybugTag>())
+        CollisionInfo info = _collisionFilter.Info;
+        _collisionFilter.AssignCollision(collision);
+        if (_collisionFilter.TryUnpackBothEntities(_universe.Game)
+          && _collisionFilter.TrySelectByComponents<ObstacleTag, LadybugTag>())
         {
           info.Target
             .Change((ref CurrentHealth health) => --health.HP)

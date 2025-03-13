@@ -4,7 +4,7 @@ using Leopotam.EcsLite;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
 {
-  public interface ICollisionService
+  public interface ICollisionFilter
   {
     CollisionInfo Info { get; }
     void AssignCollision(TwoSideCollision collision);
