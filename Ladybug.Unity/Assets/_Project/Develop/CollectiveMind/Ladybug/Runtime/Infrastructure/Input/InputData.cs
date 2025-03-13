@@ -6,12 +6,14 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Input
   [Serializable]
   public class InputData
   {
-    public bool Draw;
+    public bool StartDraw;
+    public bool EndDraw;
     public Vector2 Position;
 
     public void Clear()
     {
-      Draw = false;
+      StartDraw = false;
+      EndDraw = false;
       Position = Vector2.zero;
     }
   }

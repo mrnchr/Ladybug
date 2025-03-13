@@ -51,28 +51,43 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 
     public void Tick()
     {
-      if (_inputData.Draw)
+      if (_inputData.StartDraw)
+        _isDrawing = true;
+
+      if (_inputData.EndDraw)
+        _isDrawing = false;
+
+      if (_isDrawing)
       {
-        Vector3 currentPoint = Vector2.zero;
-        if (Physics.Raycast(_mainCamera.ScreenPointToRay(_inputData.Position),
-          out _, Mathf.Infinity, _config.CanvasLayer))
+        Vector3 currentPoint = GetWorldCursorPoint();
+        
+        if(_inputData.StartDraw)
         {
-          currentPoint = GetWorldCursorPoint();
-          if (!_isDrawing)
+          _lastPoint = currentPoint;
+        }
+        else
+        {
+          var halfHeight = 0.5f;
+          Vector3 castCenter = _lastPoint + Vector3.up * halfHeight;
+          Vector3 halfSize = new Vector3(0.005f, halfHeight - 0.001f, 0.005f);
+          Vector3 distance = currentPoint - _lastPoint;
+          Vector3 direction = distance.normalized;
+          if (Physics.BoxCast(castCenter, halfSize, direction, out RaycastHit hit, Quaternion.LookRotation(direction),
+            distance.magnitude))
           {
-            _lastPoint = currentPoint;
-            _isDrawing = true;
+            currentPoint = hit.point;
+            _isDrawing = false;
           }
-          
-          var start = new Vector2(_lastPoint.x, _lastPoint.z);
-          var end = new Vector2(currentPoint.x, currentPoint.z);
-          EcsRawEntities canvases = _canvasSvc.FindCanvasesCrossedBySegment(start, end);
-          
-          foreach (EcsEntityWrapper canvas in canvases)
-          {
-            MeshRenderer meshRenderer = canvas.Get<MeshRendererRef>().MeshRenderer;
-            DrawLineOnCanvas(meshRenderer, _lastPoint, currentPoint);
-          }
+        }
+
+        var start = new Vector2(_lastPoint.x, _lastPoint.z);
+        var end = new Vector2(currentPoint.x, currentPoint.z);
+        EcsRawEntities canvases = _canvasSvc.FindCanvasesCrossedBySegment(start, end);
+
+        foreach (EcsEntityWrapper canvas in canvases)
+        {
+          MeshRenderer meshRenderer = canvas.Get<MeshRendererRef>().MeshRenderer;
+          DrawLineOnCanvas(meshRenderer, _lastPoint, currentPoint);
         }
 
         _lastPoint = currentPoint;
