@@ -34,8 +34,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindViewFactory();
       
       BindCanvasService();
-
-      BindHealthBarFacade();
+      
+      InstallHUD();
 
       BindLevelInitializer();
 
@@ -111,11 +111,9 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle();
     }
 
-    private void BindHealthBarFacade()
+    private void InstallHUD()
     {
-      Container
-        .BindInterfacesAndSelfTo<HealthBarFacade>()
-        .AsSingle();
+      HUDInstaller.Install(Container);
     }
 
     private void BindLevelInitializer()
