@@ -27,7 +27,8 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Input
     {
       _inputData.Clear();
       
-      _inputData.Draw = _drawAction.ReadValue<float>() > 0;
+      _inputData.StartDraw = _drawAction.WasPerformedThisFrame();
+      _inputData.EndDraw = _drawAction.WasReleasedThisFrame();
       _inputData.Position = _positionAction.ReadValue<Vector2>();
     }
   }

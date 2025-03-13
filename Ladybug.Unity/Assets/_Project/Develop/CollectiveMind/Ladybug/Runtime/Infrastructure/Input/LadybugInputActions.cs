@@ -31,9 +31,9 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Input
             ""actions"": [
                 {
                     ""name"": ""Draw"",
-                    ""type"": ""Value"",
+                    ""type"": ""Button"",
                     ""id"": ""f64cd571-0da3-43e7-b71b-0085d5df9be6"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
