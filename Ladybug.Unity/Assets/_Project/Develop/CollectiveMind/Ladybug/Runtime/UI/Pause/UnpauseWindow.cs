@@ -1,12 +1,11 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
-using CollectiveMind.Ladybug.Runtime.UI.Pause;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace CollectiveMind.Ladybug.Runtime.UI.HUD
+namespace CollectiveMind.Ladybug.Runtime.UI.Pause
 {
-  public class HUDWindow : BaseWindow
+  public class UnpauseWindow : BaseWindow
   {
     [SerializeField]
     private Button _pauseButton;

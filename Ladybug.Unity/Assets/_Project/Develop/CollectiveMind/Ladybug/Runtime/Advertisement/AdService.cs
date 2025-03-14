@@ -6,7 +6,7 @@ namespace CollectiveMind.Ladybug.Runtime.Advertisement
   {
     public async UniTask ShowAd()
     {
-      await UniTask.WaitForSeconds(3, true);
+      await UniTask.WaitForSeconds(1, true);
     }
   }
 }
