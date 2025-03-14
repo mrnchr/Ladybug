@@ -5,10 +5,10 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Visual
 {
   public class FacadePool : IFacadePool
   {
-    private readonly DiContainer _container;
+    private readonly IInstantiator _container;
     private readonly List<IFacade> _facades = new List<IFacade>();
 
-    public FacadePool(DiContainer container)
+    public FacadePool(IInstantiator container)
     {
       _container = container;
     }

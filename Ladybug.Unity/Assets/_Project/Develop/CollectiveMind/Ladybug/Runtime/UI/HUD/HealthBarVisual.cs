@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using UnityEngine;
 using Zenject;
 using R3;
@@ -11,13 +12,13 @@ namespace CollectiveMind.Ladybug.Runtime.UI.HUD
     [SerializeField]
     private List<Image> _orderedHealthPoints;
     
-    private HealthBarFacade _facade;
+    private GameSessionData _sessionData;
 
     [Inject]
-    public void Construct(HealthBarFacade facade)
+    public void Construct(GameSessionData sessionData)
     {
-      _facade = facade;
-      _facade.HP.Subscribe(OnHealthChanged);
+      _sessionData = sessionData;
+      _sessionData.Health.Subscribe(OnHealthChanged);
     }
 
     private void OnHealthChanged(int health)

@@ -6,11 +6,11 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot;
 using CollectiveMind.Ladybug.Runtime.UI.Defeat;
-using CollectiveMind.Ladybug.Runtime.UI.HUD;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -27,6 +27,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       
       BindRuntimeInitializer();
 
+      BindGameSessionData();
+
       BindReviver();
       
       InstallCollisions();
@@ -41,9 +43,9 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       
       BindCanvasService();
       
-      InstallHUD();
-
       BindLevelInitializer();
+
+      BindSessionInitializer();
 
 #if UNITY_EDITOR
       EditorBridge.InstallGameplay(Container);
@@ -76,6 +78,13 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<IRuntimeInitializer>()
         .To<RuntimeInitializer>()
+        .AsSingle();
+    }
+
+    private void BindGameSessionData()
+    {
+      Container
+        .Bind<GameSessionData>()
         .AsSingle();
     }
 
@@ -132,15 +141,17 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle();
     }
 
-    private void InstallHUD()
-    {
-      HUDInstaller.Install(Container);
-    }
-
     private void BindLevelInitializer()
     {
       Container
         .BindInterfacesTo<LevelInitializer>()
+        .AsSingle();
+    }
+
+    private void BindSessionInitializer()
+    {
+      Container
+        .BindInterfacesTo<SessionInitializer>()
         .AsSingle();
     }
   }

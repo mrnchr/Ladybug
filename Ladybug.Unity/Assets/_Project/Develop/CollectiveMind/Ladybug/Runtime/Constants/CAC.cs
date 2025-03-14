@@ -41,6 +41,9 @@
       
       public const string OBSTACLE_SPAWN_CONFIG_MENU = ENTITY_MENU + "ObstacleSpawn";
       public const string OBSTACLE_SPAWN_CONFIG_FILE = "ObstacleSpawnConfig";
+      
+      public const string GAME_SESSION_CONFIG_MENU = CONFIG_MENU + "GameSession";
+      public const string GAME_SESSION_CONFIG_FILE = "GameSessionConfig";
     }
   }
 }
