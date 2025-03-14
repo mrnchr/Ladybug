@@ -44,6 +44,8 @@
       
       public const string GAME_SESSION_CONFIG_MENU = CONFIG_MENU + "GameSession";
       public const string GAME_SESSION_CONFIG_FILE = "GameSessionConfig";
+      public const string CAMERA_CONFIG_MENU = CONFIG_MENU + "Camera";
+      public const string CAMERA_CONFIG_FILE = "CameraConfig";
     }
   }
 }

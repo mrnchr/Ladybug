@@ -6,7 +6,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
   [Serializable]
   [EcsComponentOrder(EcsComponentOrder.STATIC)]
-  public struct LastPosition : IEcsComponent
+  public struct StartPosition : IEcsComponent
   {
     public Vector3 Position;
   }

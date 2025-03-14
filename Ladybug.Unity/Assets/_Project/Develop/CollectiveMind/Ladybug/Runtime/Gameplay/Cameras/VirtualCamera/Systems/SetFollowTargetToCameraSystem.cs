@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
@@ -10,14 +11,14 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera
   {
     private readonly IEcsUniverse _universe;
     private readonly EcsEntities _convertedCameras;
-    private readonly EcsEntities _ladybugs;
+    private readonly EcsEntities _cameraTargets;
 
     public SetFollowTargetToCameraSystem(IEcsUniverse universe)
     {
       _universe = universe;
 
-      _ladybugs = _universe
-        .FilterGame<LadybugTag>()
+      _cameraTargets = _universe
+        .FilterGame<CameraTargetTag>()
         .Inc<TransformRef>()
         .Collect();
 
@@ -29,10 +30,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera
     
     public void Run(IEcsSystems systems)
     {
-      foreach (EcsEntityWrapper ladybug in _ladybugs)
+      foreach (EcsEntityWrapper target in _cameraTargets)
       foreach (EcsEntityWrapper camera in _convertedCameras)
       {
-        Transform targetTransform = ladybug.Get<TransformRef>().Transform;
+        Transform targetTransform = target.Get<TransformRef>().Transform;
         CinemachineVirtualCamera virtualCamera = camera.Get<VirtualCameraRef>().Camera;
         virtualCamera.Follow = targetTransform;
         camera.Add<Targeted>();
