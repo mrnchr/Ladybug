@@ -8,7 +8,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget
     {
       Add(systems.Create<CalculateCameraSpeedRateSystem>());
       Add(systems.Create<ChangeCameraTargetHorizontalPositionSystem>());
-      Add(systems.Create<ChangeCameraTargetVelocitySystem>());
+      Add(systems.Create<ChangeCameraTargetSpeedSystem>());
     }
   }
 }

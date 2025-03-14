@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: CameraConfig
   m_EditorClassIdentifier: 
   Speed: 3
+  SmoothTime: 1
+  MinSmoothStep: 0.1
   SpeedRates:
   - 0.1
   - 1
