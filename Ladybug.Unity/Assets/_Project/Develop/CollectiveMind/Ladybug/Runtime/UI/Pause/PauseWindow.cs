@@ -7,7 +7,7 @@ using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.UI.Pause
 {
-  public class PauseWindow : WindowBase
+  public class PauseWindow : BaseWindow
   {
     [SerializeField]
     private Button _resumeButton;

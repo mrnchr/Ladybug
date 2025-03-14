@@ -1,3 +1,4 @@
+using CollectiveMind.Ladybug.Runtime.Advertisement;
 using CollectiveMind.Ladybug.Runtime.Boot.Initializers;
 using CollectiveMind.Ladybug.Runtime.Gameplay;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
@@ -5,10 +6,11 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot;
-using CollectiveMind.Ladybug.Runtime.UI.HUD;
+using CollectiveMind.Ladybug.Runtime.UI.Defeat;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -17,11 +19,17 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
   {
     public override void InstallBindings()
     {
+      BindAdService();
+      
       BindPauseSwitcher();
       
       InstallWindow();
       
       BindRuntimeInitializer();
+
+      BindGameSessionData();
+
+      BindReviver();
       
       InstallCollisions();
       
@@ -35,13 +43,21 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       
       BindCanvasService();
       
-      InstallHUD();
-
       BindLevelInitializer();
+
+      BindSessionInitializer();
 
 #if UNITY_EDITOR
       EditorBridge.InstallGameplay(Container);
 #endif
+    }
+
+    private void BindAdService()
+    {
+      Container
+        .Bind<IAdService>()
+        .To<AdService>()
+        .AsSingle();
     }
 
     private void BindPauseSwitcher()
@@ -62,6 +78,20 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<IRuntimeInitializer>()
         .To<RuntimeInitializer>()
+        .AsSingle();
+    }
+
+    private void BindGameSessionData()
+    {
+      Container
+        .Bind<GameSessionData>()
+        .AsSingle();
+    }
+
+    private void BindReviver()
+    {
+      Container
+        .Bind<Reviver>()
         .AsSingle();
     }
 
@@ -111,15 +141,17 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle();
     }
 
-    private void InstallHUD()
-    {
-      HUDInstaller.Install(Container);
-    }
-
     private void BindLevelInitializer()
     {
       Container
         .BindInterfacesTo<LevelInitializer>()
+        .AsSingle();
+    }
+
+    private void BindSessionInitializer()
+    {
+      Container
+        .BindInterfacesAndSelfTo<SessionService>()
         .AsSingle();
     }
   }

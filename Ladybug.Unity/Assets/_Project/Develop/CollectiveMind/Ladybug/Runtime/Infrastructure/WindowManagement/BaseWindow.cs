@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
 {
-  public class WindowBase : MonoBehaviour
+  public class BaseWindow : MonoBehaviour
   {
     public bool IsOpen { get; private set; }
 

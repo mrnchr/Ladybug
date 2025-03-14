@@ -1,4 +1,5 @@
-﻿using R3;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
+using R3;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -9,11 +10,14 @@ namespace CollectiveMind.Ladybug.Runtime.UI.HUD
   {
     [SerializeField]
     private TMP_Text _scoreLabel;
-    
+
+    private GameSessionData _sessionData;
+
     [Inject]
-    public void Construct(ScoreFacade facade)
+    public void Construct(GameSessionData sessionData)
     {
-      facade.Score.Subscribe(ChangeScoreText);
+      _sessionData = sessionData;
+      _sessionData.Score.Subscribe(ChangeScoreText);
     }
 
     private void ChangeScoreText(float score)

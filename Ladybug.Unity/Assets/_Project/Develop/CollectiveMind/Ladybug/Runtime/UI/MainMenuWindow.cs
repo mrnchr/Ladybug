@@ -6,7 +6,7 @@ using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.UI
 {
-  public class MainMenuWindow : WindowBase
+  public class MainMenuWindow : BaseWindow
   {
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _settingsButton;

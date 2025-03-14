@@ -1,5 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
 using UnityEngine;
@@ -10,18 +11,20 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
   {
     private readonly IEcsUniverse _universe;
     private readonly ICollisionFilter _collisionFilter;
+    private readonly GameSessionData _sessionData;
     private readonly EcsEntities _collisions;
 
-    public DamageLadybugSystem(IEcsUniverse universe, ICollisionFilter collisionFilter)
+    public DamageLadybugSystem(IEcsUniverse universe, ICollisionFilter collisionFilter, GameSessionData sessionData)
     {
       _universe = universe;
       _collisionFilter = collisionFilter;
+      _sessionData = sessionData;
 
       _collisions = _universe
         .FilterMessage<TwoSideCollision>()
         .Collect();
     }
-    
+
     public void Run(IEcsSystems systems)
     {
       foreach (EcsEntityWrapper col in _collisions)
@@ -32,9 +35,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
         if (_collisionFilter.TryUnpackBothEntities(_universe.Game)
           && _collisionFilter.TrySelectByComponents<ObstacleTag, LadybugTag>())
         {
-          info.Target
-            .Change((ref CurrentHealth health) => health.HP = Mathf.Clamp(health.HP - 1, 0, health.HP))
-            .Add<DamagedEvent>();
+          info.Target.Add<DamagedEvent>();
+          _sessionData.Health.Value = Mathf.Max(0, _sessionData.Health.Value - 1);
         }
       }
     }

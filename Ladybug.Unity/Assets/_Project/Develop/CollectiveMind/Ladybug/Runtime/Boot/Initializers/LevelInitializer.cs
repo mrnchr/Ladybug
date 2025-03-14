@@ -1,5 +1,5 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
-using CollectiveMind.Ladybug.Runtime.UI.HUD;
+using CollectiveMind.Ladybug.Runtime.UI.Pause;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
@@ -15,7 +15,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     
     public void Initialize()
     {
-      _windowManager.OpenWindow<HUDWindow>();
+      _windowManager.OpenWindow<UnpauseWindow>();
     }
   }
 }
