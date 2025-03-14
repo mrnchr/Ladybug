@@ -1,3 +1,4 @@
+using CollectiveMind.Ladybug.Runtime.Advertisement;
 using CollectiveMind.Ladybug.Runtime.Boot.Initializers;
 using CollectiveMind.Ladybug.Runtime.Gameplay;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
@@ -8,6 +9,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot;
+using CollectiveMind.Ladybug.Runtime.UI.Defeat;
 using CollectiveMind.Ladybug.Runtime.UI.HUD;
 using Zenject;
 
@@ -17,11 +19,15 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
   {
     public override void InstallBindings()
     {
+      BindAdService();
+      
       BindPauseSwitcher();
       
       InstallWindow();
       
       BindRuntimeInitializer();
+
+      BindReviver();
       
       InstallCollisions();
       
@@ -44,6 +50,14 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
 #endif
     }
 
+    private void BindAdService()
+    {
+      Container
+        .Bind<IAdService>()
+        .To<AdService>()
+        .AsSingle();
+    }
+
     private void BindPauseSwitcher()
     {
       Container
@@ -62,6 +76,13 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<IRuntimeInitializer>()
         .To<RuntimeInitializer>()
+        .AsSingle();
+    }
+
+    private void BindReviver()
+    {
+      Container
+        .Bind<Reviver>()
         .AsSingle();
     }
 

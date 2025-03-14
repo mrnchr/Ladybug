@@ -8,6 +8,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     {
       Add(systems.Create<DeleteDamagedEventSystem>());
       Add(systems.Create<DamageLadybugSystem>());
+      
+      Add(systems.Create<LoseOnLadybugDeathSystem>());
     }
   }
 }

@@ -6,27 +6,27 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
 {
   public class WindowManager : IWindowManager
   {
-    private readonly List<WindowBase> _windows = new List<WindowBase>();
-    private readonly Stack<WindowBase> _history = new Stack<WindowBase>();
+    private readonly List<BaseWindow> _windows = new List<BaseWindow>();
+    private readonly Stack<BaseWindow> _history = new Stack<BaseWindow>();
 
-    public void AddWindow(WindowBase window)
+    public void AddWindow(BaseWindow window)
     {
       _windows.Add(window);
     }
 
-    public TWindow GetWindow<TWindow>() where TWindow : WindowBase
+    public TWindow GetWindow<TWindow>() where TWindow : BaseWindow
     {
       return _windows.Find(x => x is TWindow) as TWindow;
     }
 
-    public void RemoveWindow(WindowBase window)
+    public void RemoveWindow(BaseWindow window)
     {
       _windows.Remove(window);
     }
 
-    public async UniTask<TWindow> OpenWindow<TWindow>() where TWindow : WindowBase
+    public async UniTask<TWindow> OpenWindow<TWindow>() where TWindow : BaseWindow
     {
-      if(_history.TryPeek(out WindowBase lastWindow))
+      if(_history.TryPeek(out BaseWindow lastWindow))
         await lastWindow.Hide();
       
       var window = GetWindow<TWindow>();
@@ -35,7 +35,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
       return window;
     }
 
-    public async UniTask<TWindow> CloseWindow<TWindow>() where TWindow : WindowBase
+    public async UniTask<TWindow> CloseWindow<TWindow>() where TWindow : BaseWindow
     {
       if (_history.Peek() is not TWindow)
         return null;
@@ -45,7 +45,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
       return await ShowLastWindow<TWindow>();
     }
 
-    public async UniTask<TWindow> CloseWindowsBy<TWindow>() where TWindow : WindowBase
+    public async UniTask<TWindow> CloseWindowsBy<TWindow>() where TWindow : BaseWindow
     {
       if (!_history.Any(x => x is TWindow))
         return null;
@@ -60,9 +60,9 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
       return await ShowLastWindow<TWindow>();
     }
 
-    private async UniTask<TWindow> ShowLastWindow<TWindow>() where TWindow : WindowBase
+    private async UniTask<TWindow> ShowLastWindow<TWindow>() where TWindow : BaseWindow
     {
-      if (_history.TryPeek(out WindowBase nextWindow))
+      if (_history.TryPeek(out BaseWindow nextWindow))
         await nextWindow.Show();
       
       return nextWindow as TWindow;

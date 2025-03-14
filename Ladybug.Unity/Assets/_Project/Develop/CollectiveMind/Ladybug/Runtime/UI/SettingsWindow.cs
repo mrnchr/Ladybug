@@ -5,7 +5,7 @@ using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.UI
 {
-  public class SettingsWindow : WindowBase
+  public class SettingsWindow : BaseWindow
   {
     [SerializeField] private Button _closeButton;
     private IWindowManager _windowManager;

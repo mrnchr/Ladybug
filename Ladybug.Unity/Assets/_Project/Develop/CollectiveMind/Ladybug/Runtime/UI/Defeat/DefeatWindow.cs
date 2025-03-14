@@ -1,30 +1,35 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
+﻿using CollectiveMind.Ladybug.Runtime.Advertisement;
+using CollectiveMind.Ladybug.Runtime.Gameplay;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace CollectiveMind.Ladybug.Runtime.UI.Pause
+namespace CollectiveMind.Ladybug.Runtime.UI.Defeat
 {
-  public class PauseWindow : BaseWindow
+  public class DefeatWindow : BaseWindow
   {
     [SerializeField]
-    private Button _resumeButton;
+    private Button _reviveButton;
 
     [SerializeField]
     private Button _exitButton;
 
+    private Reviver _reviver;
     private IWindowManager _windowManager;
     private IPauseSwitcher _pauseSwitcher;
+    private IAdService _adSvc;
 
     [Inject]
-    public void Construct(IPauseSwitcher pauseSwitcher, IWindowManager windowManager)
+    public void Construct(Reviver reviver, IWindowManager windowManager, IPauseSwitcher pauseSwitcher, IAdService adSvc)
     {
+      _adSvc = adSvc;
       _pauseSwitcher = pauseSwitcher;
       _windowManager = windowManager;
+      _reviver = reviver;
       
-      _resumeButton.AddListener(ResumeGame);
+      _reviveButton.AddListener(Revive);
       _exitButton.AddListener(AskToExit);
     }
 
@@ -40,19 +45,21 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Pause
       return UniTask.CompletedTask;
     }
 
-    private void ResumeGame()
+    private async void Revive()
     {
-      _windowManager.CloseWindow<PauseWindow>();
+      await _adSvc.ShowAd();
+      await _windowManager.CloseWindow<DefeatWindow>();
+      _reviver.Revive();
     }
 
     private void AskToExit()
     {
-      _windowManager.OpenWindow<ExitToMenuWindow>();
+      _windowManager.OpenWindow<ExitAfterDefeatWindow>();
     }
 
     private void OnDestroy()
     {
-      _resumeButton.RemoveListener(ResumeGame);
+      _reviveButton.RemoveListener(Revive);
       _exitButton.RemoveListener(AskToExit);
     }
   }

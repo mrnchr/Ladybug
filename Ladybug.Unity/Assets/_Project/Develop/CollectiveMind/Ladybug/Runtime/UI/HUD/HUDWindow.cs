@@ -6,7 +6,7 @@ using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.UI.HUD
 {
-  public class HUDWindow : WindowBase
+  public class HUDWindow : BaseWindow
   {
     [SerializeField]
     private Button _pauseButton;

@@ -1,6 +1,4 @@
-﻿using System;
-using CollectiveMind.Ladybug.Runtime.Gameplay;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
+﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
 using CollectiveMind.Ladybug.Runtime.SceneTransition;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +6,7 @@ using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.UI.Pause
 {
-  public class ExitToMenuWindow : WindowBase
+  public class ExitToMenuWindow : BaseWindow
   {
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _backButton;
