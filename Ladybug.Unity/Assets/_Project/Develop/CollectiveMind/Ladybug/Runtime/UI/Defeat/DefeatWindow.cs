@@ -22,27 +22,18 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Defeat
     private IAdService _adSvc;
 
     [Inject]
-    public void Construct(Reviver reviver, IWindowManager windowManager, IPauseSwitcher pauseSwitcher, IAdService adSvc)
+    public void Construct(Reviver reviver,
+      IWindowManager windowManager,
+      IPauseSwitcher pauseSwitcher,
+      IAdService adSvc)
     {
       _adSvc = adSvc;
       _pauseSwitcher = pauseSwitcher;
       _windowManager = windowManager;
       _reviver = reviver;
-      
+
       _reviveButton.AddListener(Revive);
       _exitButton.AddListener(AskToExit);
-    }
-
-    protected override UniTask OnOpened()
-    {
-      _pauseSwitcher.PauseGame();
-      return UniTask.CompletedTask;
-    }
-
-    protected override UniTask OnClosed()
-    {
-      _pauseSwitcher.ResumeGame();
-      return UniTask.CompletedTask;
     }
 
     private async void Revive()
@@ -55,6 +46,18 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Defeat
     private void AskToExit()
     {
       _windowManager.OpenWindow<ExitAfterDefeatWindow>();
+    }
+
+    protected override UniTask OnOpened()
+    {
+      _pauseSwitcher.PauseGame();
+      return UniTask.CompletedTask;
+    }
+
+    protected override UniTask OnClosed()
+    {
+      _pauseSwitcher.ResumeGame();
+      return UniTask.CompletedTask;
     }
 
     private void OnDestroy()
