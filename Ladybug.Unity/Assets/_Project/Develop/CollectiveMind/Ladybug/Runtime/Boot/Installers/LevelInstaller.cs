@@ -151,7 +151,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
     private void BindSessionInitializer()
     {
       Container
-        .BindInterfacesTo<SessionInitializer>()
+        .BindInterfacesAndSelfTo<SessionService>()
         .AsSingle();
     }
   }
