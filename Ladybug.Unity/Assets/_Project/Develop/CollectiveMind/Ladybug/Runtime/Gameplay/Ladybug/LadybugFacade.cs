@@ -56,7 +56,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     public void UpdateVelocity(Vector3 direction)
     {
-      Velocity = direction * _config.Speed;
+      Velocity = direction * (_config.Speed * _sessionData.SpeedRate.Value);
       IsMoving.Value = Velocity != Vector3.zero;
     }
 

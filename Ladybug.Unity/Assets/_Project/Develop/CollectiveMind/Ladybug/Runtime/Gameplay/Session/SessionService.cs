@@ -3,10 +3,12 @@ using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
 {
-  public class SessionService : IInitializable
+  public class SessionService : IInitializable, IFixedTickable
   {
     private readonly GameSessionData _sessionData;
     private readonly GameSessionConfig _config;
+
+    private float _lastRaiseScore;
 
     public SessionService(GameSessionData sessionData, IConfigProvider configProvider)
     {
@@ -23,6 +25,15 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
     public void ResetHealth()
     {
       _sessionData.Health.Value = _config.HealthPoints;
+    }
+
+    public void FixedTick()
+    {
+      if (_sessionData.Score.Value - _lastRaiseScore >= _config.RaiseDistance * _sessionData.SpeedRate.Value)
+      {
+        _lastRaiseScore = _sessionData.Score.Value;
+        _sessionData.SpeedRate.Value *= _config.RaiseRate;
+      }
     }
   }
 }
