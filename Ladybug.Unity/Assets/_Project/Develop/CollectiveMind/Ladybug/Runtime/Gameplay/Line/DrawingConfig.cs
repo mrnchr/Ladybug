@@ -6,6 +6,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
   public class DrawingConfig : ScriptableObject
   {
     public ComputeShader BrushDrawerShader;
+    public RenderTextureFormat RenderTextureFormat;
+    public TextureFormat TextureFormat;
+    
     public LayerMask CanvasLayer;
     public float BrushRadius;
     public Color BrushColor;
