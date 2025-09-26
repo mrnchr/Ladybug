@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 582f2c81b4564ecfb61d950439e7a7a7, type: 3}
-  m_Name: GameSessionConfig
+  m_Script: {fileID: 11500000, guid: a5d2a8e0837a4b61a325a9be4330efef, type: 3}
+  m_Name: CameraConfig
   m_EditorClassIdentifier: 
-  HealthPoints: 5
-  RevivalCount: 3
-  RaiseRate: 1.2
-  RaiseDistance: 50
+  Speed: 3
+  SmoothTime: 1
+  MinSmoothStep: 0.1
+  SpeedRates:
+  - 0.1
+  - 1
+  - 2

@@ -8,5 +8,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
   {
     public int HealthPoints;
     public int RevivalCount;
+    
+    public float RaiseRate;
+    public float RaiseDistance;
   }
 }

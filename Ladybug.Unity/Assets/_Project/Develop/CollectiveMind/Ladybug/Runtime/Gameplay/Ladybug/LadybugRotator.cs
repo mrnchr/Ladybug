@@ -19,7 +19,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       _config = configProvider.Get<DrawingConfig>();
       _ladybugConfig = configProvider.Get<LadybugConfig>();
 
-      _texture = new Texture2D(_config.TextureSize, _config.TextureSize, TextureFormat.RGB565, false);
+      _texture = new Texture2D(_config.TextureSize, _config.TextureSize, _config.TextureFormat, false);
     }
 
     public void CheckBound()

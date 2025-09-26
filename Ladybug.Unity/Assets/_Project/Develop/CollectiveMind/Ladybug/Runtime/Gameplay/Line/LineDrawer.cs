@@ -110,7 +110,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 
     private RenderTexture CreateTexture(Renderer canvas)
     {
-      var resultTexture = new RenderTexture(_config.TextureSize, _config.TextureSize, 0, RenderTextureFormat.RGB565);
+      var resultTexture = new RenderTexture(_config.TextureSize, _config.TextureSize, 0, _config.RenderTextureFormat);
       resultTexture.enableRandomWrite = true;
       resultTexture.Create();
       

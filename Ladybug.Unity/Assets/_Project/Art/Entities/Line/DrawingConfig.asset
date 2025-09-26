@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: DrawingConfig
   m_EditorClassIdentifier: 
   BrushDrawerShader: {fileID: 7200000, guid: 238b3250fd7207344ac64de9907db6d7, type: 3}
+  RenderTextureFormat: 0
+  TextureFormat: 5
   CanvasLayer:
     serializedVersion: 2
     m_Bits: 8

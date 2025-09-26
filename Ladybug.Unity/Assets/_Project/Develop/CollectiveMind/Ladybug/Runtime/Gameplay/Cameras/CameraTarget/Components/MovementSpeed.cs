@@ -1,13 +1,12 @@
 ﻿using System;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
-using UnityEngine;
 
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget
 {
   [Serializable]
   [EcsComponentOrder(EcsComponentOrder.STATIC)]
-  public struct LastPosition : IEcsComponent
+  public struct MovementSpeed : IEcsComponent
   {
-    public Vector3 Position;
+    public float Speed;
   }
 }
