@@ -122,14 +122,6 @@
       "dependencies": {},
       "hash": "184244fa1721e8e5da6aff2aca29b92f0a1e5ec7"
     },
-    "com.unity.multiplayer.center": {
-      "version": "1.0.0",
-      "depth": 0,
-      "source": "builtin",
-      "dependencies": {
-        "com.unity.modules.uielements": "1.0.0"
-      }
-    },
     "com.unity.performance.profile-analyzer": {
       "version": "1.2.3",
       "depth": 1,
