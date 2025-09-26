@@ -1,0 +1,43 @@
+name: Unity WebGL Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Cache Unity Library
+        uses: actions/cache@v3
+        with:
+          path: Ladybug.Unity/Library
+          key: Library-Ladybug.Unity
+          restore-keys: |
+            Library-Ladybug.Unity-
+            Library-
+
+      - name: Set build timestamp
+        run: echo "BUILD_TIMESTAMP=$(date +'%y.%m.%d-%H.%M.%S')" >> $GITHUB_ENV
+
+      - name: Build Project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: WebGL
+          projectPath: Ladybug.Unity
+          buildProfile: 'Assets/Settings/Build Profiles/Web.asset'
+          buildName: Ladybug.GitHub-${{ env.BUILD_TIMESTAMP }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ladybug.GitHub-${{ env.BUILD_TIMESTAMP }}
+          path: Ladybug.Unity/build/WebGL
