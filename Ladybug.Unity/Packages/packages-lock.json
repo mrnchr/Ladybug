@@ -116,11 +116,21 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.localization": {
-      "version": "https://github.com/codewriter-packages/Unity-Localization-Stub-for-Tri-Inspector.git",
-      "depth": 0,
-      "source": "git",
+      "version": "1.5.5",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.addressables": "1.25.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.2.1",
+      "depth": 2,
+      "source": "registry",
       "dependencies": {},
-      "hash": "184244fa1721e8e5da6aff2aca29b92f0a1e5ec7"
+      "url": "https://packages.unity.com"
     },
     "com.unity.performance.profile-analyzer": {
       "version": "1.2.3",

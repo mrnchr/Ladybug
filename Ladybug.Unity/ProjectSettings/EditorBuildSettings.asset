@@ -14,5 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/TechnicalScenes/Core.unity
     guid: 7c784ea3cd6a6644db08c0afb6af99e4
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: ebab87fd56f5aaf4a8ba1e48395b6027, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c1d4d5f71e1fabc46a9821cd5221106d, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: c4f652dd3a59efc408c1face4e4df93d, type: 2}
   m_UseUCBPForAssetBundles: 0
