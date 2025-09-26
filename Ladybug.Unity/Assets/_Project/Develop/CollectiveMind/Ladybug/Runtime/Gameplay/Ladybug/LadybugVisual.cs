@@ -41,7 +41,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     private void UpdateVelocity(Vector3 velocity)
     {
-      _rb.velocity = velocity;
+      _rb.linearVelocity = velocity;
     }
 
     private void UpdateAnimation(bool isMoving)
