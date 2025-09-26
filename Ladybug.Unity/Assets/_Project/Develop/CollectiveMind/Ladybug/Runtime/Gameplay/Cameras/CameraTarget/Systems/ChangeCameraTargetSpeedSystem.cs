@@ -41,7 +41,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget
         
         movementSpeed.Speed += step;
         Rigidbody rb = target.Get<RigidbodyRef>().Rigidbody;
-        rb.velocity = Vector3.forward * movementSpeed.Speed;
+        rb.linearVelocity = Vector3.forward * movementSpeed.Speed;
       }
     }
   }
