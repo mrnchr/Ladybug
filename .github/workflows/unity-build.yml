@@ -35,9 +35,10 @@ jobs:
           projectPath: Ladybug.Unity
           buildProfile: 'Assets/Settings/Build Profiles/Web.asset'
           buildName: Ladybug.GitHub-${{ env.BUILD_TIMESTAMP }}
+          buildsPath: artifacts/
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Ladybug.GitHub-${{ env.BUILD_TIMESTAMP }}
-          path: Ladybug.Unity/build/WebGL
+          path: artifacts/WebGL/Ladybug.GitHub-${{ env.BUILD_TIMESTAMP }}
