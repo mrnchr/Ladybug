@@ -1,6 +1,4 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
-
-namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Visual
+﻿namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Visual
 {
   public interface IFacadePool
   {

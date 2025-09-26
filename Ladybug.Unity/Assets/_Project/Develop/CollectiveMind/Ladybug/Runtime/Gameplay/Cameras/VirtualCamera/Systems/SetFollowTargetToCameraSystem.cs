@@ -1,6 +1,5 @@
 ﻿using Cinemachine;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
 using UnityEngine;
