@@ -653,22 +653,22 @@ PlayerSettings:
   webGLWebAssemblyBigInt: 0
   webGLCloseOnQuit: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN
+    Android: DOTWEEN;PLUGIN_YG_2;TMP_YG2
     Bratwurst: DOTWEEN
     EmbeddedLinux: DOTWEEN
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: DOTWEEN
-    LinuxHeadlessSimulation: DOTWEEN
-    Nintendo Switch: DOTWEEN
-    PS4: DOTWEEN
-    PS5: DOTWEEN
+    LinuxHeadlessSimulation: DOTWEEN;PLUGIN_YG_2;TMP_YG2
+    Nintendo Switch: DOTWEEN;PLUGIN_YG_2;TMP_YG2
+    PS4: DOTWEEN;PLUGIN_YG_2;TMP_YG2
+    PS5: DOTWEEN;PLUGIN_YG_2;TMP_YG2
     QNX: DOTWEEN
-    Standalone: DOTWEEN
-    WebGL: DOTWEEN
-    Windows Store Apps: DOTWEEN
-    XboxOne: DOTWEEN
-    iPhone: DOTWEEN
-    tvOS: DOTWEEN
+    Standalone: DOTWEEN;PLUGIN_YG_2;TMP_YG2
+    WebGL: DOTWEEN;PLUGIN_YG_2;TMP_YG2
+    Windows Store Apps: DOTWEEN;PLUGIN_YG_2;TMP_YG2
+    XboxOne: DOTWEEN;PLUGIN_YG_2;TMP_YG2
+    iPhone: DOTWEEN;PLUGIN_YG_2;TMP_YG2
+    tvOS: DOTWEEN;PLUGIN_YG_2;TMP_YG2
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
