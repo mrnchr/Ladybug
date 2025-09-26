@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Input
@@ -8,28 +8,25 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Input
   {
     private readonly LadybugInputActions _actions;
     private readonly InputData _inputData;
-    private readonly InputAction _drawAction;
-    private readonly InputAction _positionAction;
+    private readonly EventSystem _eventSystem;
 
-    public InputController(LadybugInputActions actions, InputData inputData, PlayerInput input)
+    public InputController(LadybugInputActions actions, InputData inputData, EventSystem eventSystem)
     {
       _actions = actions;
       _inputData = inputData;
+      _eventSystem = eventSystem;
 
-      input.actions = _actions.asset;
-      _drawAction = _actions.Gameplay.Draw;
-      _positionAction = _actions.Gameplay.Position;
-      
       _actions.Gameplay.Enable();
+      _actions.UI.Enable();
     }
 
     public void Tick()
     {
       _inputData.Clear();
-      
-      _inputData.StartDraw = _drawAction.WasPerformedThisFrame();
-      _inputData.EndDraw = _drawAction.WasReleasedThisFrame();
-      _inputData.Position = _positionAction.ReadValue<Vector2>();
+
+      _inputData.StartDraw = _actions.Gameplay.Draw.WasPerformedThisFrame() && !_eventSystem.IsPointerOverGameObject();
+      _inputData.EndDraw = _actions.Gameplay.Draw.WasReleasedThisFrame() && !_eventSystem.IsPointerOverGameObject();
+      _inputData.Position = _actions.Gameplay.Position.ReadValue<Vector2>();
     }
   }
 }

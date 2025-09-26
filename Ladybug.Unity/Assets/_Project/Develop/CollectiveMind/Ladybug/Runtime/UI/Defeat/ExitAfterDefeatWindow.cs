@@ -1,6 +1,7 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Advertisement;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
 using CollectiveMind.Ladybug.Runtime.SceneTransition;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -45,7 +46,7 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Defeat
     private async void AskToExit()
     {
       await _windowManager.CloseWindowsBy<DefeatWindow>();
-      _gameSwitcher.SwitchToMenu();
+      _gameSwitcher.SwitchToMenu().Forget();
     }
 
     private void OnDestroy()

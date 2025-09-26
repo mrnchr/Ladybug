@@ -1,5 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
 using CollectiveMind.Ladybug.Runtime.SceneTransition;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -26,7 +27,7 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Pause
     private async void ExitToMenu()
     {
       await _windowManager.CloseWindowsBy<PauseWindow>();
-      _gameSwitcher.SwitchToMenu();
+      _gameSwitcher.SwitchToMenu().Forget();
     }
 
     private void CloseWindow()

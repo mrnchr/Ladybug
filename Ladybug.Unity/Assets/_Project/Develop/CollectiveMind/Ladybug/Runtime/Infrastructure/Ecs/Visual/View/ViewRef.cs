@@ -1,5 +1,4 @@
 using System;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
