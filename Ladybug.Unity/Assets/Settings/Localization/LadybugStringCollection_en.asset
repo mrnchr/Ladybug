@@ -17,7 +17,43 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 82ca2e8c37a3bd84fb051f211f8a5617, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 894572658688
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1000965373952
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1654777675776
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1729130102784
+    m_Localized: Exit to menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1924064575488
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2036870381568
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2210107719680
+    m_Localized: Revive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2463640813568
+    m_Localized: Score
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2725973557248
+    m_Localized: Exit, exactly
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

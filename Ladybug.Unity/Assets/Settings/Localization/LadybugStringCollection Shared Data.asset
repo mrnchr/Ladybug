@@ -14,7 +14,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: LadybugStringCollection
   m_TableCollectionNameGuidString: 82ca2e8c37a3bd84fb051f211f8a5617
-  m_Entries: []
+  m_Entries:
+  - m_Id: 894572658688
+    m_Key: menu.play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1000965373952
+    m_Key: settings.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1654777675776
+    m_Key: pause.continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1729130102784
+    m_Key: exitToMenu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1924064575488
+    m_Key: exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2036870381568
+    m_Key: back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2210107719680
+    m_Key: defeat.revive
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2463640813568
+    m_Key: hud.score
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2725973557248
+    m_Key: exitExactly
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
