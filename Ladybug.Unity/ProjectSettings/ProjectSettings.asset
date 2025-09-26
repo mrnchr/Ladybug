@@ -47,7 +47,7 @@ PlayerSettings:
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
-  m_ActiveColorSpace: 1
+  m_ActiveColorSpace: 0
   unsupportedMSAAFallback: 0
   m_SpriteBatchMaxVertexCount: 65535
   m_SpriteBatchVertexThreshold: 300
@@ -82,7 +82,7 @@ PlayerSettings:
   androidApplicationEntry: 2
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
-  runInBackground: 1
+  runInBackground: 0
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
   Force IOS Speakers When Recording: 0
@@ -492,6 +492,9 @@ PlayerSettings:
   - serializedVersion: 3
     m_BuildTarget: Android
     m_Formats: 03000000
+  - serializedVersion: 3
+    m_BuildTarget: WebGL
+    m_Formats: 05000000
   playModeTestRunnerEnabled: 0
   runPlayModeTestAsEditModeTest: 0
   actionOnDotNetUnhandledException: 1
@@ -730,17 +733,17 @@ PlayerSettings:
   blurSplashScreenBackground: 1
   spritePackerPolicy: 
   webGLMemorySize: 16
-  webGLExceptionSupport: 1
+  webGLExceptionSupport: 2
   webGLNameFilesAsHashes: 0
   webGLShowDiagnostics: 0
   webGLDataCaching: 1
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: APPLICATION:Default
+  webGLTemplate: PROJECT:YandexGames
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
-  webGLCompressionFormat: 1
+  webGLCompressionFormat: 0
   webGLWasmArithmeticExceptions: 0
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
@@ -758,22 +761,22 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
+    Android: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
     Bratwurst: DOTWEEN
     EmbeddedLinux: DOTWEEN
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: DOTWEEN
-    LinuxHeadlessSimulation: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
-    Nintendo Switch: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
-    PS4: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
-    PS5: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
+    LinuxHeadlessSimulation: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
+    Nintendo Switch: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
+    PS4: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
+    PS5: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
     QNX: DOTWEEN
-    Standalone: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
-    WebGL: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
-    Windows Store Apps: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
-    XboxOne: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
-    iPhone: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
-    tvOS: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2
+    Standalone: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
+    WebGL: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
+    Windows Store Apps: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
+    XboxOne: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
+    iPhone: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
+    tvOS: DOTWEEN;PLUGIN_YG_2;TMP_YG2;NJSON_YG2;YandexGamesPlatform_yg
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -791,7 +794,7 @@ PlayerSettings:
     PS4: 1
     PS5: 1
     QNX: 1
-    WebGL: 1
+    WebGL: 4
     Windows Store Apps: 1
     XboxOne: 1
     iPhone: 1
