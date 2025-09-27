@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6777b07e7424422a5985b27853a38cf, type: 3}
   m_Name: DrawingConfig
   m_EditorClassIdentifier: 
-  BrushDrawerShader: {fileID: 7200000, guid: 238b3250fd7207344ac64de9907db6d7, type: 3}
+  BlitLineBrush: {fileID: 4800000, guid: 3bc6fd58797a4957aa3fc68e1b9c1b2c, type: 3}
   RenderTextureFormat: 0
   TextureFormat: 5
   CanvasLayer:
