@@ -9,29 +9,30 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 {
   public class LineDrawer : ITickable
   {
-    private static readonly int _result = Shader.PropertyToID("result");
-    private static readonly int _segmentStart = Shader.PropertyToID("segment_start");
-    private static readonly int _segmentEnd = Shader.PropertyToID("segment_end");
-    private static readonly int _brushRadius = Shader.PropertyToID("brush_radius");
-    private static readonly int _brushColor = Shader.PropertyToID("brush_color");
-    
+    private static readonly int _segmentStart = Shader.PropertyToID("_SegmentStart");
+    private static readonly int _segmentEnd = Shader.PropertyToID("_SegmentEnd");
+    private static readonly int _brushRadius = Shader.PropertyToID("_BrushRadius");
+    private static readonly int _brushColor = Shader.PropertyToID("_BrushColor");
+
     private readonly InputData _inputData;
     private readonly ICanvasService _canvasSvc;
     private readonly Camera _mainCamera;
     private readonly DrawingConfig _config;
-    private readonly int _kernelIndex;
+    private readonly Material _blitLineMaterial;
 
     private Vector3 _lastPoint;
     private bool _isDrawing;
 
-    public LineDrawer(IConfigProvider configProvider, InputData inputData, ICanvasService canvasSvc)
+    public LineDrawer(IConfigProvider configProvider,
+      InputData inputData,
+      ICanvasService canvasSvc)
     {
       _inputData = inputData;
       _canvasSvc = canvasSvc;
       _mainCamera = Camera.main;
 
       _config = configProvider.Get<DrawingConfig>();
-      _kernelIndex = _config.BrushDrawerShader.FindKernel("CSMain");
+      _blitLineMaterial = new Material(_config.BlitLineBrush);
     }
 
     public void Tick()
@@ -111,7 +112,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
     private RenderTexture CreateTexture(Renderer canvas)
     {
       var resultTexture = new RenderTexture(_config.TextureSize, _config.TextureSize, 0, _config.RenderTextureFormat);
-      resultTexture.enableRandomWrite = true;
       resultTexture.Create();
       
       Graphics.SetRenderTarget(resultTexture);
@@ -124,13 +124,17 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 
     private void DrawLine(RenderTexture texture, Vector2 startPoint, Vector2 endPoint)
     {
-      _config.BrushDrawerShader.SetTexture(_kernelIndex, _result, texture);
-      _config.BrushDrawerShader.SetVector(_segmentStart, startPoint);
-      _config.BrushDrawerShader.SetVector(_segmentEnd, endPoint);
-      _config.BrushDrawerShader.SetFloat(_brushRadius, _config.BrushRadius / _config.TextureSize);
-      _config.BrushDrawerShader.SetVector(_brushColor, _config.BrushColor);
-
-      _config.BrushDrawerShader.Dispatch(_kernelIndex, _config.TextureSize / 8, _config.TextureSize / 8, 1);
+      _blitLineMaterial.SetVector(_segmentStart, new Vector4(startPoint.x, startPoint.y, 0, 0));
+      _blitLineMaterial.SetVector(_segmentEnd, new Vector4(endPoint.x, endPoint.y, 0, 0));
+      _blitLineMaterial.SetFloat(_brushRadius, _config.BrushRadius / _config.TextureSize);
+      _blitLineMaterial.SetVector(_brushColor, _config.BrushColor);
+        
+      RenderTexture temp = RenderTexture.GetTemporary(texture.width, texture.height, 0, texture.format);
+      
+      Graphics.Blit(texture, temp, _blitLineMaterial);
+      Graphics.Blit(temp, texture);
+      
+      RenderTexture.ReleaseTemporary(temp);
     }
   }
 }

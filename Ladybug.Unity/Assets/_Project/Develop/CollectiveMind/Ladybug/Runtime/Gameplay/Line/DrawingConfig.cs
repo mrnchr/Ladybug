@@ -5,7 +5,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
   [CreateAssetMenu(menuName = CAC.Names.DRAWING_CONFIG_MENU, fileName = CAC.Names.DRAWING_CONFIG_FILE)]
   public class DrawingConfig : ScriptableObject
   {
-    public ComputeShader BrushDrawerShader;
+    public Shader BlitLineBrush;
     public RenderTextureFormat RenderTextureFormat;
     public TextureFormat TextureFormat;
     
