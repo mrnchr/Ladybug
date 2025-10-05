@@ -1,16 +1,16 @@
-﻿using Cinemachine;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera
 {
   public class VirtualCameraConverter : MonoBehaviour, IEcsConverter
   {
-    private CinemachineVirtualCamera _camera;
+    private CinemachineCamera _camera;
     
     private void Awake()
     {
-      _camera = GetComponent<CinemachineVirtualCamera>();
+      _camera = GetComponent<CinemachineCamera>();
     }
 
     public void ConvertTo(EcsEntityWrapper entity)

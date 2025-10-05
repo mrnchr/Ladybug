@@ -1,6 +1,6 @@
 ﻿using System;
-using Cinemachine;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using Unity.Cinemachine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera
 {
@@ -8,6 +8,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera
   [EcsComponentOrder(EcsComponentOrder.STATIC)]
   public struct VirtualCameraRef : IEcsComponent
   {
-    public CinemachineVirtualCamera Camera;
+    public CinemachineCamera Camera;
   }
 }

@@ -1,7 +1,7 @@
-﻿using Cinemachine;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera
@@ -33,7 +33,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera
       foreach (EcsEntityWrapper camera in _convertedCameras)
       {
         Transform targetTransform = target.Get<TransformRef>().Transform;
-        CinemachineVirtualCamera virtualCamera = camera.Get<VirtualCameraRef>().Camera;
+        CinemachineCamera virtualCamera = camera.Get<VirtualCameraRef>().Camera;
         virtualCamera.Follow = targetTransform;
         camera.Add<Targeted>();
       }
