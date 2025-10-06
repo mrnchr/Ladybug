@@ -1,6 +1,5 @@
-﻿using CollectiveMind.Ladybug.Runtime.Advertisement;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
-using CollectiveMind.Ladybug.Runtime.SceneTransition;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,36 +15,24 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Defeat
     [SerializeField]
     private Button _exitButton;
 
-    private Reviver _reviver;
-    private IWindowManager _windowManager;
-    private IAdService _adSvc;
-    private IGameSwitcher _gameSwitcher;
+    private GameSwitcher _gameSwitcher;
 
     [Inject]
-    public void Construct(Reviver reviver,
-      IWindowManager windowManager,
-      IAdService adSvc,
-      IGameSwitcher gameSwitcher)
+    public void Construct(GameSwitcher gameSwitcher)
     {
-      _reviver = reviver;
-      _windowManager = windowManager;
-      _adSvc = adSvc;
       _gameSwitcher = gameSwitcher;
 
       _reviveButton.AddListener(Revive);
       _exitButton.AddListener(AskToExit);
     }
 
-    private async void Revive()
+    private void Revive()
     {
-      await _adSvc.ShowAd();
-      await _windowManager.CloseWindow<DefeatWindow>();
-      _reviver.Revive();
+      _gameSwitcher.Revive().Forget();
     }
 
-    private async void AskToExit()
+    private void AskToExit()
     {
-      await _windowManager.CloseWindowsBy<DefeatWindow>();
       _gameSwitcher.SwitchToMenu().Forget();
     }
 

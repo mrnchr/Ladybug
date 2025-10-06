@@ -23,9 +23,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Creation
       {
         ref CreateEntityMessage createMessage = ref message.Get<CreateEntityMessage>();
         if (!createMessage.Entity.TryUnpackEntity(_universe.Game, out EcsEntityWrapper createdEntity))
-        {
           createdEntity.Entity = _universe.Game.NewEntity();
-        }
         
         createMessage.Converter.CreateEntity(createdEntity);
         createdEntity.Add<OnConverted>();

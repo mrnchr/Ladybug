@@ -1,22 +1,21 @@
 ﻿using UnityEngine;
-using Zenject;
 
-namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot
+namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
 {
-  public class WindowInitializer : IInitializable
+  public class WindowInitializer
   {
     private readonly IWindowManager _windowManager;
-    private readonly BaseWindow[] _windows;
 
     public WindowInitializer(IWindowManager windowManager)
     {
       _windowManager = windowManager;
-      _windows = Object.FindObjectsByType<BaseWindow>(FindObjectsInactive.Include, FindObjectsSortMode.None);
     }
-    
+
     public void Initialize()
     {
-      foreach (BaseWindow window in _windows)
+      BaseWindow[] windows =
+        Object.FindObjectsByType<BaseWindow>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+      foreach (BaseWindow window in windows)
       {
         _windowManager.AddWindow(window);
       }

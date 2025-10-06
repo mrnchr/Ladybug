@@ -1,9 +1,8 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Configuration;
-using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
 {
-  public class SessionService : IInitializable, IFixedTickable
+  public class SessionService : IGameFixedStep
   {
     private readonly GameSessionData _sessionData;
     private readonly GameSessionConfig _config;
@@ -18,8 +17,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
     
     public void Initialize()
     {
+      _lastRaiseScore = 0;
       _sessionData.Health.Value = _config.HealthPoints;
+      _sessionData.Score.Value = 0;
       _sessionData.RevivalCount.Value = _config.RevivalCount;
+      _sessionData.SpeedRate.Value = 1;
     }
 
     public void ResetHealth()
@@ -27,7 +29,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
       _sessionData.Health.Value = _config.HealthPoints;
     }
 
-    public void FixedTick()
+    public void FixedStep()
     {
       if (_sessionData.Score.Value - _lastRaiseScore >= _config.RaiseDistance * _sessionData.SpeedRate.Value)
       {

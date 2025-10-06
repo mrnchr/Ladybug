@@ -16,33 +16,33 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Pause
     private Button _exitButton;
 
     private IWindowManager _windowManager;
-    private IPauseSwitcher _pauseSwitcher;
+    private GameSwitcher _gameSwitcher;
 
     [Inject]
-    public void Construct(IPauseSwitcher pauseSwitcher, IWindowManager windowManager)
+    public void Construct(GameSwitcher gameSwitcher, IWindowManager windowManager)
     {
-      _pauseSwitcher = pauseSwitcher;
+      _gameSwitcher = gameSwitcher;
       _windowManager = windowManager;
-      
+
       _resumeButton.AddListener(ResumeGame);
       _exitButton.AddListener(AskToExit);
     }
 
     protected override UniTask OnOpened()
     {
-      _pauseSwitcher.PauseGame();
+      _gameSwitcher.PauseGame();
       return UniTask.CompletedTask;
     }
 
     protected override UniTask OnClosed()
     {
-      _pauseSwitcher.ResumeGame();
+      _gameSwitcher.ResumeGame();
       return UniTask.CompletedTask;
     }
 
     private void ResumeGame()
     {
-      _windowManager.CloseWindow<PauseWindow>();
+      _windowManager.CloseWindow<PauseWindow>().Forget();
     }
 
     private void AskToExit()

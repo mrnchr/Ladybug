@@ -23,6 +23,8 @@ MonoBehaviour:
           rid: 2817292117116191088
       - Value:
           rid: 4080226381241253973
+      - Value:
+          rid: 2860345542256885973
     _scriptableConverter: {fileID: 0}
   references:
     version: 2
@@ -33,6 +35,9 @@ MonoBehaviour:
       type: {class: EntityId, ns: CollectiveMind.Ladybug.Runtime.Gameplay, asm: Ladybug.Runtime}
       data:
         Id: 1000
+    - rid: 2860345542256885973
+      type: {class: Destroyable, ns: CollectiveMind.Ladybug.Runtime.Gameplay, asm: Ladybug.Runtime}
+      data: 
     - rid: 4080226381241253973
       type: {class: Cleanable, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment, asm: Ladybug.Runtime}
       data: 

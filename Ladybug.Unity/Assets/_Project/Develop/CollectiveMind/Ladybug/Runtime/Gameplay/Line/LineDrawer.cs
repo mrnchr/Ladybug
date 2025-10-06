@@ -3,11 +3,10 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using UnityEngine;
-using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
 {
-  public class LineDrawer : ITickable
+  public class LineDrawer : IGameStep
   {
     private static readonly int _segmentStart = Shader.PropertyToID("_SegmentStart");
     private static readonly int _segmentEnd = Shader.PropertyToID("_SegmentEnd");
@@ -35,7 +34,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
       _blitLineMaterial = new Material(_config.BlitLineBrush);
     }
 
-    public void Tick()
+    public void Step()
     {
       if (_inputData.StartDraw)
         _isDrawing = true;

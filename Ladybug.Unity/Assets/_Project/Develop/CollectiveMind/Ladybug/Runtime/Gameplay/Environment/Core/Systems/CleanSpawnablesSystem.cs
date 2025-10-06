@@ -34,7 +34,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Systems
         if (cameraBounds.min.z - objectBounds.max.z > 20)
         {
           Object.Destroy(spawnable.Get<GameObjectRef>().GameObject);
-          spawnable.Dispose();
+          spawnable.DelEntity();
         }
       }
     }

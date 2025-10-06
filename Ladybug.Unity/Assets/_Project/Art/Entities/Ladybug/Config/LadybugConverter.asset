@@ -19,6 +19,8 @@ MonoBehaviour:
       Components:
       - Value:
           rid: 2817292096493060160
+      - Value:
+          rid: 2860345542256885974
     _scriptableConverter: {fileID: 0}
   references:
     version: 2
@@ -27,4 +29,7 @@ MonoBehaviour:
       type: {class: , ns: , asm: }
     - rid: 2817292096493060160
       type: {class: LadybugTag, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug, asm: Ladybug.Runtime}
+      data: 
+    - rid: 2860345542256885974
+      type: {class: Destroyable, ns: CollectiveMind.Ladybug.Runtime.Gameplay, asm: Ladybug.Runtime}
       data: 

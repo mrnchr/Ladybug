@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot
+namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
 {
   public class WindowInstaller : Installer<WindowInstaller>
   {
@@ -21,7 +21,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement.Boot
     private void BindWindowInitializer()
     {
       Container
-        .BindInterfacesTo<WindowInitializer>()
+        .Bind<WindowInitializer>()
         .AsSingle();
     }
   }

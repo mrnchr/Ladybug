@@ -60,7 +60,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
     private void BindEcsEngine()
     {
       Container
-        .BindInterfacesTo<EcsEngine>()
+        .Bind<EcsEngine>()
         .AsSingle();
     }
 

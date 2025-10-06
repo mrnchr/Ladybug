@@ -1,21 +1,12 @@
-﻿using UnityEngine.InputSystem;
-using Zenject;
+﻿using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Input
 {
-  public class InputInstaller : Installer<PlayerInput, InputInstaller>
+  public class InputInstaller : Installer<InputInstaller>
   {
-    private readonly PlayerInput _input;
-
-    public InputInstaller(PlayerInput input)
-    {
-      _input = input;
-    }
-    
     public override void InstallBindings()
     {
       BindLadybugInputActions();
-      BindPlayerInput();
       BindInputData();
       BindInputController();
     }
@@ -24,13 +15,6 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Input
     {
       Container
         .BindInterfacesAndSelfTo<LadybugInputActions>()
-        .AsSingle();
-    }
-
-    private void BindPlayerInput()
-    {
-      Container
-        .BindInstance(_input)
         .AsSingle();
     }
 
