@@ -1,5 +1,6 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
-using CollectiveMind.Ladybug.Runtime.SceneTransition;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -12,10 +13,11 @@ namespace CollectiveMind.Ladybug.Runtime.UI
     [SerializeField] private Button _settingsButton;
     
     private IWindowManager _windowManager;
-    private IGameSwitcher _gameSwitcher;
+    private GameSwitcher _gameSwitcher;
+    private Canvas _canvas;
 
     [Inject]
-    public void Construct(IWindowManager windowManager, IGameSwitcher gameSwitcher)
+    public void Construct(IWindowManager windowManager, GameSwitcher gameSwitcher)
     {
       _gameSwitcher = gameSwitcher;
       _windowManager = windowManager;
@@ -23,24 +25,38 @@ namespace CollectiveMind.Ladybug.Runtime.UI
 
     private void Awake()
     {
+      _canvas = GetComponentInParent<Canvas>(true);
+      
       _playButton.AddListener(StartGame);
       _settingsButton.AddListener(OpenSettings);
-    }
-
-    private void OpenSettings()
-    {
-      _windowManager.OpenWindow<SettingsWindow>();
-    }
-
-    private void StartGame()
-    {
-      _gameSwitcher.SwitchToGame();
     }
 
     private void OnDestroy()
     {
       _playButton.RemoveListener(StartGame);
       _settingsButton.RemoveListener(OpenSettings);
+    }
+
+    private void OpenSettings()
+    {
+      _windowManager.OpenWindow<SettingsWindow>().Forget();
+    }
+
+    private void StartGame()
+    {
+      _gameSwitcher.SwitchToGame().Forget();
+    }
+
+    protected override UniTask OnOpened()
+    {
+      _canvas.gameObject.SetActive(true);
+      return UniTask.CompletedTask;
+    }
+
+    protected override UniTask OnClosed()
+    {
+      _canvas.gameObject.SetActive(false);
+      return UniTask.CompletedTask;
     }
   }
 }

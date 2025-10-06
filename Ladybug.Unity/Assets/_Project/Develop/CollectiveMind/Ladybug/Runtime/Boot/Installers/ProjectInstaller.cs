@@ -6,7 +6,6 @@ using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.SceneTransition.Boot;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
@@ -16,9 +15,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
     [SerializeField]
     private ScriptableConfigProvider _configProvider;
 
-    [SerializeField]
-    private PlayerInput _input;
-    
     [SerializeField]
     private EventSystem _eventSystem;
 
@@ -93,7 +89,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
 
     private void InstallInput()
     {
-      InputInstaller.Install(Container, _input);
+      InputInstaller.Install(Container);
     }
   }
 }

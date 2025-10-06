@@ -1,12 +1,11 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
+﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using R3;
 using UnityEngine;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
-  public class LadybugVisual : MonoBehaviour, IInitializable
+  public class LadybugVisual : MonoBehaviour
   {
     private static readonly int _walk = Animator.StringToHash("Walk");
     
@@ -15,20 +14,18 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     private Animator _animator;
 
     [Inject]
-    public void Construct(IFacadePool pool, IRuntimeInitializer initializer)
+    public void Construct(IFacadePool pool)
     {
       _facade = pool.GetFacade<LadybugFacade>();
       _rb = GetComponent<Rigidbody>();
       _animator = GetComponentInChildren<Animator>();
       
       _facade.SetVisual(this);
-
-      initializer.Add(this);
     }
 
-    public void Initialize()
+    private void Start()
     {
-      _facade.IsMoving.Subscribe(UpdateAnimation);
+      _facade.IsMoving.Subscribe(UpdateAnimation).AddTo(this);
     }
 
     private void FixedUpdate()

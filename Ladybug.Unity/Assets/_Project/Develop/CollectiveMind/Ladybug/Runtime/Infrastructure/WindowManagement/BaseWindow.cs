@@ -9,6 +9,8 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
 
     public bool IsShown { get; private set; }
 
+    public bool IsCovered { get; private set; }
+
     public async UniTask Open()
     {
       IsOpen = true;
@@ -33,6 +35,18 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
     {
       HideInternal();
       await OnHid();
+    }
+
+    public async UniTask Cover()
+    {
+      IsCovered = true;
+      await OnCovered();
+    }
+
+    public async UniTask Reveal()
+    {
+      IsCovered = false;
+      await OnRevealed();
     }
 
     private void ShowInternal()
@@ -65,6 +79,16 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
     }
 
     protected virtual async UniTask OnHid()
+    {
+      await UniTask.CompletedTask;
+    }
+
+    protected virtual async UniTask OnCovered()
+    {
+      await UniTask.CompletedTask;
+    }
+
+    protected virtual async UniTask OnRevealed()
     {
       await UniTask.CompletedTask;
     }

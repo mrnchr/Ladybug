@@ -21,7 +21,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     private void BindObstacleSpawner()
     {
       Container
-        .BindInterfacesTo<ObstacleSpawner>()
+        .Bind<ObstacleSpawner>()
         .AsSingle();
     }
   }

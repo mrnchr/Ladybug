@@ -23,12 +23,27 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
     {
       _windows.Remove(window);
     }
-
-    public async UniTask<TWindow> OpenWindow<TWindow>() where TWindow : BaseWindow
+    
+    public async UniTask<TWindow> OpenWindowAsRoot<TWindow>() where TWindow : BaseWindow
     {
-      if(_history.TryPeek(out BaseWindow lastWindow))
-        await lastWindow.Hide();
+      while (_history.Count > 0)
+        CloseLastWindow().Forget();
       
+      var window = GetWindow<TWindow>();
+      if (window)
+      {
+        _history.Push(window);
+        await window.Open();
+      }
+
+      return window;
+    }
+
+    public async UniTask<TWindow> OpenWindow<TWindow>(bool hide = true) where TWindow : BaseWindow
+    {
+      if (_history.TryPeek(out BaseWindow lastWindow))
+        await (hide ? lastWindow.Hide() : lastWindow.Cover());
+
       var window = GetWindow<TWindow>();
       _history.Push(window);
       await window.Open();
@@ -41,8 +56,8 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
         return null;
 
       await CloseLastWindow();
-      
-      return await ShowLastWindow<TWindow>();
+
+      return await DisplayLastWindow<TWindow>();
     }
 
     public async UniTask<TWindow> CloseWindowsBy<TWindow>() where TWindow : BaseWindow
@@ -56,15 +71,15 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
       }
 
       await CloseLastWindow();
-      
-      return await ShowLastWindow<TWindow>();
+
+      return await DisplayLastWindow<TWindow>();
     }
 
-    private async UniTask<TWindow> ShowLastWindow<TWindow>() where TWindow : BaseWindow
+    private async UniTask<TWindow> DisplayLastWindow<TWindow>() where TWindow : BaseWindow
     {
       if (_history.TryPeek(out BaseWindow nextWindow))
-        await nextWindow.Show();
-      
+        await (nextWindow.IsCovered ? nextWindow.Cover() : nextWindow.Show());
+
       return nextWindow as TWindow;
     }
 

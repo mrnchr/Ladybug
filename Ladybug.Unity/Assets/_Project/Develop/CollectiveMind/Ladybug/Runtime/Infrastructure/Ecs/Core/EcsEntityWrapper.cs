@@ -1,12 +1,11 @@
-﻿using System;
-using Leopotam.EcsLite;
+﻿using Leopotam.EcsLite;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
 {
   public delegate void ActionRef<TComponent>(ref TComponent component);
 
-  public class EcsEntityWrapper : IDisposable
+  public class EcsEntityWrapper
   {
     private int _entity = -1;
     private EcsWorld _world;
@@ -152,7 +151,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       return this;
     }
 
-    public void Dispose()
+    public void DelEntity()
     {
       World.DelEntity(Entity);
       Entity = -1;

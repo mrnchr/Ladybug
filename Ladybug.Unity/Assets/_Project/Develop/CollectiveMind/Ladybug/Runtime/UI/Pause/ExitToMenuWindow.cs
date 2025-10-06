@@ -1,5 +1,5 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
-using CollectiveMind.Ladybug.Runtime.SceneTransition;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +12,10 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Pause
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _backButton;
     private IWindowManager _windowManager;
-    private IGameSwitcher _gameSwitcher;
+    private GameSwitcher _gameSwitcher;
 
     [Inject]
-    public void Construct(IWindowManager windowManager, IGameSwitcher gameSwitcher)
+    public void Construct(IWindowManager windowManager, GameSwitcher gameSwitcher)
     {
       _gameSwitcher = gameSwitcher;
       _windowManager = windowManager;
@@ -24,9 +24,8 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Pause
       _backButton.AddListener(CloseWindow);
     }
 
-    private async void ExitToMenu()
+    private void ExitToMenu()
     {
-      await _windowManager.CloseWindowsBy<PauseWindow>();
       _gameSwitcher.SwitchToMenu().Forget();
     }
 

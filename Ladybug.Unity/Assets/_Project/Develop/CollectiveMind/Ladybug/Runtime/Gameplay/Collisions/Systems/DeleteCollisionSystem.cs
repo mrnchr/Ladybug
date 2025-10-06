@@ -21,7 +21,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
     public void Run(IEcsSystems systems)
     {
       foreach (EcsEntityWrapper col in _collisions)
-        col.Dispose();
+        col.DelEntity();
     }
   }
 }
