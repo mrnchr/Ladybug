@@ -4,11 +4,60 @@ on:
   workflow_dispatch:
 
 jobs:
+  cleanup:
+    name: Aggressive cleanup
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Disk space before cleanup
+        shell: bash
+        run: |
+          echo "📊 Disk space before cleanup:"
+          df -h
+          
+      - name: Remove language/toolchain directories
+        shell: bash
+        run: |
+          echo "🧼 Removing Java..."
+          sudo rm -rf /usr/lib/jvm
+          echo "🧼 Removing Haskell (.ghcup)..."
+          sudo rm -rf /usr/local/.ghcup
+          echo "🧼 Removing Julia..."
+          sudo rm -rf /usr/local/julia*
+          echo "🧼 Removing Azure CLI..."
+          sudo rm -rf /opt/az
+          
+      - name: Remove browsers
+        shell: bash
+        run: |
+          echo "🧼 Removing Chromium..."
+          sudo rm -rf /usr/local/share/chromium
+          echo "🧼 Removing Microsoft Edge/Chrome..."
+          sudo rm -rf /opt/microsoft
+          echo "🧼 Removing Google Chrome..."
+          sudo rm -rf /opt/google
+          echo "🧼 Removing Firefox..."
+          sudo rm -rf /usr/lib/firefox
+          
+      - name: Prune Docker system
+        shell: bash
+        run: |
+          echo "🧼 Cleaning Docker unused state..."
+          docker system prune -af || true
+          docker builder prune -af || true
+          
+      - name: Disk space after cleanup
+        shell: bash
+        run: |
+          echo "📊 Disk space after cleanup:"
+          df -h
+    
   build:
     name: Build project
+    needs: cleanup
     runs-on: ubuntu-latest
 
-    steps:
+    steps:   
       - name: Checkout Repository
         uses: actions/checkout@v4
 
