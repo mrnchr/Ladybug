@@ -20,12 +20,22 @@ jobs:
         run: |
           echo "🧼 Removing Java..."
           sudo rm -rf /usr/lib/jvm
+          echo "🧼 Removing .NET SDKs and Runtimes..."
+          sudo rm -rf /usr/share/dotnet
+          echo "🧼 Removing Swift..."
+          sudo rm -rf /usr/share/swift
           echo "🧼 Removing Haskell (.ghcup)..."
           sudo rm -rf /usr/local/.ghcup
           echo "🧼 Removing Julia..."
           sudo rm -rf /usr/local/julia*
+          echo "🧼 Removing Android SDK..."
+          sudo rm -rf /usr/local/lib/android
           echo "🧼 Removing Azure CLI..."
           sudo rm -rf /opt/az
+          echo "🧼 Removing PowerShell..."
+          sudo rm -rf /usr/local/share/powershell
+          echo "🧼 Removing hostedtoolcache..."
+          sudo rm -rf /opt/hostedtoolcache
           
       - name: Remove browsers
         shell: bash
@@ -72,12 +82,6 @@ jobs:
 
       - name: Set build timestamp
         run: echo "BUILD_TIMESTAMP=$(date +'%y.%m.%d-%H.%M.%S')" >> $GITHUB_ENV
-
-      - name: Prebuild refresh
-        run: |
-          echo "Reimporting Build Profiles..."
-          find Ladybug.Unity/Assets/Settings/Build\ Profiles -type f -name "*.asset" -exec touch {} +
-          sleep 5
 
       - name: Build Project
         uses: game-ci/unity-builder@v4
