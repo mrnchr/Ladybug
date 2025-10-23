@@ -89,7 +89,6 @@ jobs:
           projectPath: Ladybug.Unity
           unityVersion: 6000.0.54f1
           targetPlatform: WebGL
-          buildProfile: 'Assets/Settings/Build Profiles/Web.asset'
           buildName: Ladybug.GitHub-${{ env.BUILD_TIMESTAMP }}
           buildsPath: artifacts/
 
