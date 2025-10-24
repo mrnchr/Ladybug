@@ -4,11 +4,70 @@ on:
   workflow_dispatch:
 
 jobs:
+  cleanup:
+    name: Aggressive cleanup
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Disk space before cleanup
+        shell: bash
+        run: |
+          echo "📊 Disk space before cleanup:"
+          df -h
+          
+      - name: Remove language/toolchain directories
+        shell: bash
+        run: |
+          echo "🧼 Removing Java..."
+          sudo rm -rf /usr/lib/jvm
+          echo "🧼 Removing .NET SDKs and Runtimes..."
+          sudo rm -rf /usr/share/dotnet
+          echo "🧼 Removing Swift..."
+          sudo rm -rf /usr/share/swift
+          echo "🧼 Removing Haskell (.ghcup)..."
+          sudo rm -rf /usr/local/.ghcup
+          echo "🧼 Removing Julia..."
+          sudo rm -rf /usr/local/julia*
+          echo "🧼 Removing Android SDK..."
+          sudo rm -rf /usr/local/lib/android
+          echo "🧼 Removing Azure CLI..."
+          sudo rm -rf /opt/az
+          echo "🧼 Removing PowerShell..."
+          sudo rm -rf /usr/local/share/powershell
+          echo "🧼 Removing hostedtoolcache..."
+          sudo rm -rf /opt/hostedtoolcache
+          
+      - name: Remove browsers
+        shell: bash
+        run: |
+          echo "🧼 Removing Chromium..."
+          sudo rm -rf /usr/local/share/chromium
+          echo "🧼 Removing Microsoft Edge/Chrome..."
+          sudo rm -rf /opt/microsoft
+          echo "🧼 Removing Google Chrome..."
+          sudo rm -rf /opt/google
+          echo "🧼 Removing Firefox..."
+          sudo rm -rf /usr/lib/firefox
+          
+      - name: Prune Docker system
+        shell: bash
+        run: |
+          echo "🧼 Cleaning Docker unused state..."
+          docker system prune -af || true
+          docker builder prune -af || true
+          
+      - name: Disk space after cleanup
+        shell: bash
+        run: |
+          echo "📊 Disk space after cleanup:"
+          df -h
+    
   build:
     name: Build project
+    needs: cleanup
     runs-on: ubuntu-latest
 
-    steps:
+    steps:   
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -31,11 +90,13 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          targetPlatform: WebGL
           projectPath: Ladybug.Unity
-          buildProfile: 'Assets/Settings/Build Profiles/Web.asset'
+          unityVersion: 6000.0.54f1
+          targetPlatform: WebGL
           buildName: Ladybug.GitHub-${{ env.BUILD_TIMESTAMP }}
           buildsPath: artifacts/
+          buildMethod: CollectiveMind.Ladybug.Editor.Builder.Build
+          customParameters: -development
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
