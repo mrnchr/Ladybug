@@ -3,6 +3,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint.Components;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
@@ -21,6 +22,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
     private readonly SessionService _sessionService;
     private readonly ObstacleSpawner _obstacleSpawner;
     private readonly GameplayUpdater _gameplayUpdater;
+    private readonly LineDrawer _lineDrawer;
     private readonly IEcsUniverse _ecsUniverse;
     private readonly IAdService _adSvc;
     private readonly EcsEntities _destroyableEntities;
@@ -31,6 +33,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
       SessionService sessionService,
       ObstacleSpawner obstacleSpawner,
       GameplayUpdater gameplayUpdater,
+      LineDrawer lineDrawer,
       IEcsUniverse ecsUniverse,
       IAdService adSvc)
     {
@@ -38,6 +41,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
       _sessionService = sessionService;
       _obstacleSpawner = obstacleSpawner;
       _gameplayUpdater = gameplayUpdater;
+      _lineDrawer = lineDrawer;
       _ecsUniverse = ecsUniverse;
       _adSvc = adSvc;
 
@@ -114,6 +118,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
     public async UniTask Defeat()
     {
       PauseGame();
+      _lineDrawer.StopDrawing();
       await UniTask.WaitForSeconds(1, true);
       await _windowManager.OpenWindow<DefeatWindow>();
     }

@@ -34,6 +34,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
       _blitLineMaterial = new Material(_config.BlitLineBrush);
     }
 
+    public void StopDrawing()
+    {
+      _isDrawing = false;
+    }
+
     public void Step()
     {
       if (_inputData.StartDraw)
@@ -65,6 +70,13 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
       }
     }
 
+    private Vector3 GetWorldCursorPoint()
+    {
+      var deepMousePosition = new Vector3(_inputData.Position.x, _inputData.Position.y,
+        Mathf.Abs(_mainCamera.transform.position.y));
+      return _mainCamera.ScreenToWorldPoint(deepMousePosition);
+    }
+
     private bool TryFindCollision(Vector3 lastPoint, ref Vector3 currentPoint)
     {
       var halfHeight = 0.5f;
@@ -72,8 +84,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
       Vector3 halfSize = new Vector3(0.005f, halfHeight - 0.001f, 0.005f);
       Vector3 distance = currentPoint - lastPoint;
       Vector3 direction = distance.normalized;
-      if (Physics.BoxCast(castCenter, halfSize, direction, out RaycastHit hit, Quaternion.LookRotation(direction),
-        distance.magnitude))
+      Quaternion orientation = direction != Vector3.zero ? Quaternion.LookRotation(direction) : Quaternion.identity;
+      
+      if (Physics.BoxCast(castCenter, halfSize, direction, out RaycastHit hit, orientation, distance.magnitude))
       {
         currentPoint = hit.point;
         return true;
@@ -82,25 +95,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
       return false;
     }
 
-    private Vector3 GetWorldCursorPoint()
-    {
-      var deepMousePosition = new Vector3(_inputData.Position.x, _inputData.Position.y,
-        Mathf.Abs(_mainCamera.transform.position.y));
-      return _mainCamera.ScreenToWorldPoint(deepMousePosition);
-    }
-
     private void DrawLineOnCanvas(Renderer canvas, Vector3 startPoint, Vector3 endPoint)
     {
       DrawLine(GetTexture(canvas), WorldToUVPoint(canvas, startPoint), WorldToUVPoint(canvas, endPoint));
-    }
-
-    private Vector2 WorldToUVPoint(Renderer canvas, Vector3 worldMousePosition)
-    {
-      Vector3 localMousePosition = canvas.transform.InverseTransformPoint(worldMousePosition);
-      Vector2 localTexturePoint = new Vector2(localMousePosition.x, localMousePosition.z);
-
-      Vector2 unitSize = Vector2.one * 10;
-      return -(localTexturePoint - unitSize / 2) / unitSize;
     }
 
     private RenderTexture GetTexture(Renderer canvas)
@@ -119,6 +116,15 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
       
       canvas.material.mainTexture = resultTexture;
       return resultTexture;
+    }
+
+    private Vector2 WorldToUVPoint(Renderer canvas, Vector3 worldMousePosition)
+    {
+      Vector3 localMousePosition = canvas.transform.InverseTransformPoint(worldMousePosition);
+      Vector2 localTexturePoint = new Vector2(localMousePosition.x, localMousePosition.z);
+
+      Vector2 unitSize = Vector2.one * 10;
+      return -(localTexturePoint - unitSize / 2) / unitSize;
     }
 
     private void DrawLine(RenderTexture texture, Vector2 startPoint, Vector2 endPoint)
