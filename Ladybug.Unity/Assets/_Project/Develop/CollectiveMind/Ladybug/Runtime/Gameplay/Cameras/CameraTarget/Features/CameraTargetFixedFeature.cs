@@ -6,9 +6,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget
   {
     public CameraTargetFixedFeature(IEcsSystemFactory systems)
     {
-      Add(systems.Create<CalculateCameraSpeedRateSystem>());
-      Add(systems.Create<ChangeCameraTargetHorizontalPositionSystem>());
-      Add(systems.Create<ChangeCameraTargetSpeedSystem>());
+      Add(systems.Create<ChangeCameraTargetPositionSystem>());
     }
   }
 }

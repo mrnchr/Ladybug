@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthPoints: 5
   RevivalCount: 3
-  RaiseRate: 1.2
+  RaiseRate: 1.01
   RaiseDistance: 50
