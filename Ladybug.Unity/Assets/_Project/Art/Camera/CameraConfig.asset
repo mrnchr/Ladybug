@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: CameraConfig
   m_EditorClassIdentifier: 
   Positions:
-  - Direction: 3
-    Offset: 2
+  - Direction: 2
+    Offset: 1
   - Direction: 0
     Offset: 0
-  - Direction: 7
-    Offset: 2
+  - Direction: 6
+    Offset: 1
   - Direction: 0
     Offset: 0
-  ShakingDuration: 4
-  ShakingColor: {r: 1, g: 0, b: 0, a: 1}
+  ShakingDuration: 0.3
+  ShakingColor: {r: 0.6679245, g: 0.15500885, b: 0.15500885, a: 0.3529412}
