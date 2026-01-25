@@ -1,5 +1,4 @@
-﻿using CollectiveMind.Ladybug.Runtime.Configuration;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -9,10 +8,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
   public class LadybugFacade : IFacade
   {
+    private readonly LadybugConfig _config;
     private readonly ILadybugRotator _rotator;
     private readonly GameSessionData _sessionData;
     private readonly GameSwitcher _gameSwitcher;
-    private readonly LadybugConfig _config;
 
     private LadybugVisual _visual;
 
@@ -20,15 +19,15 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     public Vector3 Velocity { get; private set; }
     public ReactiveProperty<bool> IsMoving { get; }
 
-    public LadybugFacade(IConfigProvider configProvider,
+    public LadybugFacade(LadybugConfig config,
       ILadybugRotator rotator,
       GameSessionData sessionData,
       GameSwitcher gameSwitcher)
     {
+      _config = config;
       _rotator = rotator;
       _sessionData = sessionData;
       _gameSwitcher = gameSwitcher;
-      _config = configProvider.Get<LadybugConfig>();
 
       IsMoving = new ReactiveProperty<bool>(false);
       _sessionData.Health.Subscribe(CheckToDie);

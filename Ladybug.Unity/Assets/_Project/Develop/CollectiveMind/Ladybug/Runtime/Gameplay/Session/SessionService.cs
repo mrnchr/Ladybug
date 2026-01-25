@@ -1,6 +1,4 @@
-﻿using CollectiveMind.Ladybug.Runtime.Configuration;
-
-namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
+﻿namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
 {
   public class SessionService : IGameFixedStep
   {
@@ -9,10 +7,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
 
     private float _lastRaiseScore;
 
-    public SessionService(GameSessionData sessionData, IConfigProvider configProvider)
+    public SessionService(GameSessionData sessionData, GameSessionConfig config)
     {
       _sessionData = sessionData;
-      _config = configProvider.Get<GameSessionConfig>();
+      _config = config;
     }
     
     public void Initialize()

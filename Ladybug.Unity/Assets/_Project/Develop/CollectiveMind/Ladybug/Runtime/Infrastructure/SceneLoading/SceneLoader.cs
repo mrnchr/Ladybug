@@ -1,5 +1,4 @@
 ﻿using System;
-using CollectiveMind.Ladybug.Runtime.Configuration;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,10 +12,10 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.SceneLoading
 
     private bool _wasSceneChanged;
 
-    public SceneLoader(SceneLoadingData loadingData, IConfigProvider configProvider)
+    public SceneLoader(SceneLoadingData loadingData, ScenesProvider config)
     {
       _loadingData = loadingData;
-      _config = configProvider.Get<ScenesProvider>();
+      _config = config;
 
       SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }

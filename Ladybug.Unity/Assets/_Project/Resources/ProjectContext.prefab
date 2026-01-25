@@ -154,6 +154,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e57870b3874035bb75dc0158281aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _configProvider: {fileID: 11400000, guid: 87f63685832e29241885a724da2e0a52, type: 2}
-  _input: {fileID: 0}
+  _configBinder:
+    Configs:
+    - {fileID: 11400000, guid: f82d08bffd0986f4db9b9fbbe9b1431e, type: 2}
+    - {fileID: 11400000, guid: e6d9404d5669ed544b0ae762125a50fd, type: 2}
+    - {fileID: 11400000, guid: e346b6e1e910af347b9846df0969295f, type: 2}
+    - {fileID: 11400000, guid: 3e70f46aafa962847a8d16b643c54aef, type: 2}
+    - {fileID: 11400000, guid: 962b13c7f35735e4098d80f46a6d5532, type: 2}
+    - {fileID: 11400000, guid: 0a3c978506fd6514ab0ba74f262b4e27, type: 2}
+    - {fileID: 11400000, guid: f4f8e079e03bb29489303e1a7c35aff0, type: 2}
+    - {fileID: 11400000, guid: 6f20cdda04b87b64c8f36da64931f4a5, type: 2}
   _eventSystem: {fileID: 7867559068340848916}

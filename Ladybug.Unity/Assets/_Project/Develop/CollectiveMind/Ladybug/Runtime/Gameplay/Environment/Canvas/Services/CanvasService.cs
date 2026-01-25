@@ -1,5 +1,4 @@
 ﻿using System;
-using CollectiveMind.Ladybug.Runtime.Configuration;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using UnityEngine;
 
@@ -7,16 +6,14 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas
 {
   public class CanvasService : ICanvasService
   {
-    private readonly IEcsUniverse _universe;
     private readonly EcsEntities _canvases;
     private readonly CanvasConfig _config;
 
-    public CanvasService(IEcsUniverse universe, IConfigProvider configProvider)
+    public CanvasService(IEcsUniverse universe, CanvasConfig config)
     {
-      _universe = universe;
-      _config = configProvider.Get<CanvasConfig>();
+      _config = config;
 
-      _canvases = _universe
+      _canvases = universe
         .FilterGame<CanvasTag>()
         .Inc<ConverterRef>()
         .Collect();

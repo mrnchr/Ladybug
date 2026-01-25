@@ -4,6 +4,7 @@ using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.CoroutineRunner;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.SceneTransition.Boot;
+using TriInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -13,14 +14,16 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
   public class ProjectInstaller : MonoInstaller
   {
     [SerializeField]
-    private ScriptableConfigProvider _configProvider;
+    [InlineProperty]
+    [HideLabel]
+    private ConfigBinder _configBinder;
 
     [SerializeField]
     private EventSystem _eventSystem;
 
     public override void InstallBindings()
     {
-      BindConfigProvider();
+      _configBinder.BindConfigs(Container);
 
       BindCoroutineRunner();
       BindLifeCycleBinder();
@@ -35,14 +38,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
 #if UNITY_EDITOR
       EditorBridge.InstallProject(Container);
 #endif
-    }
-
-    private void BindConfigProvider()
-    {
-      Container
-        .Bind<IConfigProvider>()
-        .FromInstance(_configProvider)
-        .AsSingle();
     }
 
     private void BindCoroutineRunner()

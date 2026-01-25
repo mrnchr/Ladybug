@@ -1,5 +1,4 @@
-﻿using CollectiveMind.Ladybug.Runtime.Configuration;
-using CollectiveMind.Ladybug.Runtime.Gameplay;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
 using UnityEngine;
 using Zenject;
 
@@ -10,10 +9,10 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Visual
     private readonly IInstantiator _instantiator;
     private readonly PrefabsProvider _prefabsProvider;
 
-    public ViewFactory(IInstantiator instantiator, IConfigProvider configProvider)
+    public ViewFactory(IInstantiator instantiator, PrefabsProvider prefabsProvider)
     {
       _instantiator = instantiator;
-      _prefabsProvider = configProvider.Get<PrefabsProvider>();
+      _prefabsProvider = prefabsProvider;
     }
     
     public TComponent Create<TComponent>(EntityType id) where TComponent : Component

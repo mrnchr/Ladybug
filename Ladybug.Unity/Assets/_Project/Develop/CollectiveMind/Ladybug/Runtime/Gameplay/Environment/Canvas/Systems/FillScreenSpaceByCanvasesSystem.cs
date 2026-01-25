@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CollectiveMind.Ladybug.Runtime.Configuration;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
@@ -11,24 +10,22 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas
 {
   public class FillScreenSpaceByCanvasesSystem : IEcsRunSystem
   {
-    private readonly IEcsUniverse _universe;
     private readonly IViewFactory _viewFactory;
     private readonly EcsEntities _cameras;
     private readonly EcsEntities _canvases;
     private readonly CanvasConfig _canvasConfig;
 
-    public FillScreenSpaceByCanvasesSystem(IEcsUniverse universe, IViewFactory viewFactory, IConfigProvider configProvider)
+    public FillScreenSpaceByCanvasesSystem(IEcsUniverse universe, IViewFactory viewFactory, CanvasConfig config)
     {
-      _universe = universe;
       _viewFactory = viewFactory;
-      _canvasConfig = configProvider.Get<CanvasConfig>();
-
-      _cameras = _universe
+      _canvasConfig = config;
+      
+      _cameras = universe
         .FilterGame<CameraTag>()
         .Inc<CameraData>()
         .Collect();
 
-      _canvases = _universe
+      _canvases = universe
         .FilterGame<CanvasTag>()
         .Inc<ConverterRef>()
         .Collect();

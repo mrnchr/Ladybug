@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using CollectiveMind.Ladybug.Runtime.Configuration;
 using CollectiveMind.Ladybug.Runtime.Infrastructure;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -9,14 +8,14 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
   public class ObstacleSpawner
   {
-    private readonly IObstacleSpawnService _obstacleSpawnSvc;
     private readonly ObstacleSpawnConfig _config;
+    private readonly IObstacleSpawnService _obstacleSpawnSvc;
     private CancellationTokenSource _cts;
 
-    public ObstacleSpawner(IConfigProvider configProvider, IObstacleSpawnService obstacleSpawnSvc)
+    public ObstacleSpawner(ObstacleSpawnConfig config, IObstacleSpawnService obstacleSpawnSvc)
     {
+      _config = config;
       _obstacleSpawnSvc = obstacleSpawnSvc;
-      _config = configProvider.Get<ObstacleSpawnConfig>();
     }
 
     public void StartSpawn()
