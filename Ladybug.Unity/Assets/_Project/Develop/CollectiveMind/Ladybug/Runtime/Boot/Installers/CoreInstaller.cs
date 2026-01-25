@@ -1,6 +1,7 @@
 using CollectiveMind.Ladybug.Runtime.Advertisement;
 using CollectiveMind.Ladybug.Runtime.Boot.Initializers;
 using CollectiveMind.Ladybug.Runtime.Gameplay;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
@@ -55,6 +56,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<ICanvasService>()
         .To<CanvasService>()
+        .AsSingle();
+
+      Container
+        .BindInterfacesAndSelfTo<CameraShakeController>()
         .AsSingle();
       
       Container

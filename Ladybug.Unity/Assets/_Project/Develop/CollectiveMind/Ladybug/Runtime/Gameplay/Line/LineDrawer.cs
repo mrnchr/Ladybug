@@ -1,5 +1,4 @@
-﻿using CollectiveMind.Ladybug.Runtime.Configuration;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using UnityEngine;
@@ -13,24 +12,24 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Line
     private static readonly int _brushRadius = Shader.PropertyToID("_BrushRadius");
     private static readonly int _brushColor = Shader.PropertyToID("_BrushColor");
 
+    private readonly DrawingConfig _config;
     private readonly InputData _inputData;
     private readonly ICanvasService _canvasSvc;
     private readonly Camera _mainCamera;
-    private readonly DrawingConfig _config;
     private readonly Material _blitLineMaterial;
 
     private Vector3 _lastPoint;
     private bool _isDrawing;
 
-    public LineDrawer(IConfigProvider configProvider,
+    public LineDrawer(DrawingConfig config,
       InputData inputData,
       ICanvasService canvasSvc)
     {
+      _config = config;
       _inputData = inputData;
       _canvasSvc = canvasSvc;
       _mainCamera = Camera.main;
 
-      _config = configProvider.Get<DrawingConfig>();
       _blitLineMaterial = new Material(_config.BlitLineBrush);
     }
 

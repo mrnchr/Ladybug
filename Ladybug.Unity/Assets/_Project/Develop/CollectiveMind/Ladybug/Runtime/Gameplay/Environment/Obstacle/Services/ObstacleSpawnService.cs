@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CollectiveMind.Ladybug.Runtime.Configuration;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
@@ -10,24 +9,22 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
   public class ObstacleSpawnService : IObstacleSpawnService
   {
-    private readonly IEcsUniverse _universe;
+    private readonly ObstacleSpawnConfig _config;
     private readonly IViewFactory _viewFactory;
     private readonly EcsEntities _ladybugs;
-    private readonly ObstacleSpawnConfig _config;
     private readonly EcsEntities _obstacles;
 
-    public ObstacleSpawnService(IEcsUniverse universe, IConfigProvider configProvider, IViewFactory viewFactory)
+    public ObstacleSpawnService(IEcsUniverse universe, ObstacleSpawnConfig config, IViewFactory viewFactory)
     {
-      _universe = universe;
       _viewFactory = viewFactory;
-      _config = configProvider.Get<ObstacleSpawnConfig>();
+      _config = config;
 
-      _ladybugs = _universe
+      _ladybugs = universe
         .FilterGame<LadybugTag>()
         .Inc<ConverterRef>()
         .Collect();
 
-      _obstacles = _universe
+      _obstacles = universe
         .FilterGame<ObstacleTag>()
         .Inc<ConverterRef>()
         .Collect();

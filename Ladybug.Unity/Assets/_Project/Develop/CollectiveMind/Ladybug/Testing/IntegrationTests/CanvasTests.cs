@@ -21,11 +21,10 @@ namespace CollectiveMind.Ladybug.Testing.IntegrationTests
       var message = new MessageWorldWrapper();
       List<IEcsWorldWrapper> worldWrappers = new List<IEcsWorldWrapper> { game, message };
       IEcsUniverse universe = new EcsUniverse(worldWrappers);
-      var configProvider = Substitute.For<IConfigProvider>();
       CanvasConfig canvasConfig = ScriptableObject.CreateInstance<CanvasConfig>();
-      configProvider.Get<CanvasConfig>().Returns(canvasConfig);
+      // configProvider.Get<CanvasConfig>().Returns(canvasConfig);
       canvasConfig.CanvasScale = 1;
-      CanvasService canvasSvc = new CanvasService(universe, configProvider);
+      CanvasService canvasSvc = new CanvasService(universe, canvasConfig);
 
       CreateCanvas(Vector3.zero);
       CreateCanvas(Vector3.one * 10);

@@ -1,5 +1,4 @@
-﻿using CollectiveMind.Ladybug.Runtime.Configuration;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using UnityEngine;
 
@@ -7,17 +6,17 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
   public class LadybugRotator : ILadybugRotator
   {
-    private readonly DrawingConfig _config;
     private readonly IFacadePool _facadePool;
+    private readonly DrawingConfig _config;
     private readonly LadybugConfig _ladybugConfig;
     private readonly Texture2D _texture;
     private LadybugFacade _ladybugFacade;
 
-    public LadybugRotator(IFacadePool facadePool, IConfigProvider configProvider)
+    public LadybugRotator(IFacadePool facadePool, DrawingConfig config, LadybugConfig ladybugConfig)
     {
       _facadePool = facadePool;
-      _config = configProvider.Get<DrawingConfig>();
-      _ladybugConfig = configProvider.Get<LadybugConfig>();
+      _config = config;
+      _ladybugConfig = ladybugConfig;
 
       _texture = new Texture2D(_config.TextureSize, _config.TextureSize, _config.TextureFormat, false);
     }
