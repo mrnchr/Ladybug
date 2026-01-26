@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using CollectiveMind.Ladybug.Runtime.Infrastructure;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
@@ -9,10 +8,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
   public class ObstacleSpawner
   {
     private readonly ObstacleSpawnConfig _config;
-    private readonly IObstacleSpawnService _obstacleSpawnSvc;
+    private readonly ObstacleSpawnService _obstacleSpawnSvc;
     private CancellationTokenSource _cts;
 
-    public ObstacleSpawner(ObstacleSpawnConfig config, IObstacleSpawnService obstacleSpawnSvc)
+    public ObstacleSpawner(ObstacleSpawnConfig config, ObstacleSpawnService obstacleSpawnSvc)
     {
       _config = config;
       _obstacleSpawnSvc = obstacleSpawnSvc;
@@ -31,11 +30,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 
       while (!token.IsCancellationRequested)
       {
-        Vector3 rawSpawnPosition = _obstacleSpawnSvc.CalculateSpawnPosition();
-        var spawnPosition = new Vector2(rawSpawnPosition.x, rawSpawnPosition.z);
-        if (!_obstacleSpawnSvc.IsObstacleNear(spawnPosition))
-          _obstacleSpawnSvc.CreateObstacle(rawSpawnPosition);
-
+        _obstacleSpawnSvc.SpawnObstacle();
+        
         await UniTask.WaitForSeconds(Random.Range(_config.SpawnTime.x, _config.SpawnTime.y), cancellationToken: token)
           .SuppressCancellationThrow();
       }
