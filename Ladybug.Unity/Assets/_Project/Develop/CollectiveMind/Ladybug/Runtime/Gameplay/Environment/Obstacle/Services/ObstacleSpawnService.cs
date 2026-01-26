@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
@@ -7,10 +8,11 @@ using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
-  public class ObstacleSpawnService : IObstacleSpawnService
+  public class ObstacleSpawnService
   {
     private readonly ObstacleSpawnConfig _config;
     private readonly IViewFactory _viewFactory;
+    private readonly EcsEntities _cameras;
     private readonly EcsEntities _ladybugs;
     private readonly EcsEntities _obstacles;
 
@@ -18,6 +20,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     {
       _viewFactory = viewFactory;
       _config = config;
+
+      _cameras = universe
+        .FilterGame<CameraTag>()
+        .Inc<CameraData>()
+        .Collect();
 
       _ladybugs = universe
         .FilterGame<LadybugTag>()
@@ -29,19 +36,38 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
         .Inc<ConverterRef>()
         .Collect();
     }
-    
-    public Vector3 CalculateSpawnPosition()
+
+    public void SpawnObstacle()
     {
-      foreach (EcsEntityWrapper ladybug in _ladybugs)
+      Vector3 rawSpawnPosition = CalculateSpawnPosition();
+      var spawnPosition = new Vector2(rawSpawnPosition.x, rawSpawnPosition.z);
+      if (!IsObstacleNear(spawnPosition))
+        CreateObstacle(rawSpawnPosition);
+    }
+
+    private Vector3 CalculateSpawnPosition()
+    {
+      foreach (EcsEntityWrapper camera in _cameras)
       {
-        Transform transform = ladybug.Get<TransformRef>().Transform;
-        return transform.position + transform.forward * Random.Range(_config.SpawnDistance.x, _config.SpawnDistance.y);
+        Rect worldBounds = camera.Get<CameraData>().WorldDeepBounds;
+        float cameraDiagonal = Mathf.Sqrt(Mathf.Pow(worldBounds.width, 2) + Mathf.Pow(worldBounds.height, 2));
+        float safetyDiagonal = cameraDiagonal * _config.CameraDiagonalSafetyMultiplier;
+        
+        foreach (EcsEntityWrapper ladybug in _ladybugs)
+        {
+          float angularDeviation = Random.Range(-_config.AngularDeviation, _config.AngularDeviation);
+          float extraDistance = Random.Range(_config.DistanceRange.x, _config.DistanceRange.y);
+          float distance = safetyDiagonal + _config.MaxObstacleSize + extraDistance;
+          Transform transform = ladybug.Get<TransformRef>().Transform;
+          Vector3 deviatedForward = Quaternion.AngleAxis(angularDeviation, Vector3.up) * transform.forward;
+          return transform.position + deviatedForward.normalized * distance;
+        }
       }
 
       return Vector3.negativeInfinity;
     }
 
-    public bool IsObstacleNear(Vector2 checkedPosition)
+    private bool IsObstacleNear(Vector2 checkedPosition)
     {
       foreach (EcsEntityWrapper obstacle in _obstacles)
       {
@@ -54,7 +80,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
       return false;
     }
 
-    public void CreateObstacle(Vector3 spawnPosition)
+    private void CreateObstacle(Vector3 spawnPosition)
     {
       EntityType entityType = SelectObstacleType();
       var converter = _viewFactory.Create<GameObjectConverter>(entityType);

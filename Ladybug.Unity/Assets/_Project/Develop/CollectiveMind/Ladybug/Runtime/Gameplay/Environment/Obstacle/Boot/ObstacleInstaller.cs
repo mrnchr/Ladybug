@@ -13,8 +13,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     private void BindObstacleSpawnService()
     {
       Container
-        .Bind<IObstacleSpawnService>()
-        .To<ObstacleSpawnService>()
+        .Bind<ObstacleSpawnService>()
         .AsSingle();
     }
 

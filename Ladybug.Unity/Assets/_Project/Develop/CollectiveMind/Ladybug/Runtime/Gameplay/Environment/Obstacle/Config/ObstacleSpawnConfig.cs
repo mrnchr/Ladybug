@@ -11,7 +11,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
   public class ObstacleSpawnConfig : ScriptableObject
   {
     public Vector2 SpawnTime;
-    public Vector2 SpawnDistance;
+    public float AngularDeviation;
+    public float CameraDiagonalSafetyMultiplier = 1;
+    public float MaxObstacleSize;
+    public Vector2 DistanceRange;
     public float DistanceBetweenObstacles;
 
     [ValidateInput("ValidateChances")]

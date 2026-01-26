@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: ObstacleSpawnConfig
   m_EditorClassIdentifier: 
   SpawnTime: {x: 2, y: 5}
-  SpawnDistance: {x: 7, y: 10}
+  AngularDeviation: 15
+  CameraDiagonalSafetyMultiplier: 1
+  MaxObstacleSize: 10
+  DistanceRange: {x: 5, y: 15}
   DistanceBetweenObstacles: 10
   SpawnChances:
   - EntityType: 1001
