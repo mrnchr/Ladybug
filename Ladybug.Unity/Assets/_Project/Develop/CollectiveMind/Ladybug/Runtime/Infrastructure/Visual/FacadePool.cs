@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Visual
 {
   public class FacadePool : IFacadePool
   {
-    private readonly IInstantiator _container;
     private readonly List<IFacade> _facades = new List<IFacade>();
+    private readonly IInstantiator _container;
 
     public FacadePool(IInstantiator container)
     {
@@ -22,6 +23,12 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Visual
       }
 
       return facade;
+    }
+
+    public void DisposeFacade<TFacade>(TFacade facade) where TFacade : class, IFacade
+    {
+      (facade as IDisposable)?.Dispose();
+      _facades.Remove(facade);
     }
   }
 }

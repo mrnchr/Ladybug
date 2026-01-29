@@ -1,7 +1,9 @@
-﻿using CollectiveMind.Ladybug.Runtime.Configuration;
+﻿using CollectiveMind.Ladybug.Runtime.Boot.Initializers;
+using CollectiveMind.Ladybug.Runtime.Configuration;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.CoroutineRunner;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Timing;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.SceneTransition.Boot;
 using TriInspector;
@@ -28,12 +30,23 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       BindCoroutineRunner();
       BindLifeCycleBinder();
       BindFacadePool();
+
+      Container
+        .Bind<TimeService>()
+        .AsSingle();
+      Container
+        .Bind<TimerFactory>()
+        .AsSingle();
       
       InstallSceneTransition();
 
       BindEventSystem();
       
       InstallInput();
+
+      Container
+        .BindInterfacesTo<ProjectInitializer>()
+        .AsSingle();
 
 #if UNITY_EDITOR
       EditorBridge.InstallProject(Container);

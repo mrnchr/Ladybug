@@ -21,7 +21,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       _texture = new Texture2D(_config.TextureSize, _config.TextureSize, _config.TextureFormat, false);
     }
 
-    public void CheckBound()
+    public void CheckBounds()
     {
       _ladybugFacade = _facadePool.GetFacade<LadybugFacade>();
       if (Physics.Raycast(_ladybugFacade.Transform.position, Vector3.down,

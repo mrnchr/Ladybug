@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Body
-    second: {fileID: 2100000, guid: 34d70f407fa661a4793d22e0fd7e3528, type: 2}
+    second: {fileID: 2100000, guid: 83e6c7fc88267aa4ead7bfe112d3618d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: EyeBlack
-    second: {fileID: 2100000, guid: 34d70f407fa661a4793d22e0fd7e3528, type: 2}
+    second: {fileID: 2100000, guid: 83e6c7fc88267aa4ead7bfe112d3618d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: EyeWhite
-    second: {fileID: 2100000, guid: 5b68016e06b5af54daa021aa5f3441c5, type: 2}
+    second: {fileID: 2100000, guid: bc4c81cd955f4c149a51807299b433cb, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mouth
-    second: {fileID: 2100000, guid: 0b7afec0d88c7c447ae215d6aba5b0c7, type: 2}
+    second: {fileID: 2100000, guid: d0095308a354ca345a87d08589001bd3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

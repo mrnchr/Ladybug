@@ -2,6 +2,6 @@
 {
   public interface ILadybugRotator
   {
-    void CheckBound();
+    void CheckBounds();
   }
 }

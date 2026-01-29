@@ -15,3 +15,15 @@ MonoBehaviour:
   Speed: 5
   ViewDistance: 1
   ViewWidth: 1
+  InvincibilityTime: 6
+  MinInvincibleAlpha: 0
+  BlinkTime: 1
+  InterchangeableMaterials:
+  - Opaque: {fileID: 2100000, guid: fb89b66eeac033847977ec94d96d5da9, type: 2}
+    Transparent: {fileID: 2100000, guid: 4d2665393341e664ba6799377de45696, type: 2}
+  - Opaque: {fileID: 2100000, guid: 34d70f407fa661a4793d22e0fd7e3528, type: 2}
+    Transparent: {fileID: 2100000, guid: 83e6c7fc88267aa4ead7bfe112d3618d, type: 2}
+  - Opaque: {fileID: 2100000, guid: 0b7afec0d88c7c447ae215d6aba5b0c7, type: 2}
+    Transparent: {fileID: 2100000, guid: d0095308a354ca345a87d08589001bd3, type: 2}
+  - Opaque: {fileID: 2100000, guid: 5b68016e06b5af54daa021aa5f3441c5, type: 2}
+    Transparent: {fileID: 2100000, guid: bc4c81cd955f4c149a51807299b433cb, type: 2}
