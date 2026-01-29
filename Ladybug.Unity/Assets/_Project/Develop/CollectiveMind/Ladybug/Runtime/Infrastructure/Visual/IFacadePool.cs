@@ -3,5 +3,6 @@
   public interface IFacadePool
   {
     TFacade GetFacade<TFacade>() where TFacade : class, IFacade;
+    void DisposeFacade<TFacade>(TFacade facade) where TFacade : class, IFacade;
   }
 }

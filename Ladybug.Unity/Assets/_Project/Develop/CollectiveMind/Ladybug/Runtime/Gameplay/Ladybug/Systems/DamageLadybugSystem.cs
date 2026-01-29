@@ -30,10 +30,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       foreach (EcsEntityWrapper col in _collisions)
       {
         ref TwoSideCollision collision = ref col.Get<TwoSideCollision>();
-        CollisionInfo info = _collisionFilter.Info;
         _collisionFilter.AssignCollision(collision);
+        CollisionInfo info = _collisionFilter.Info;
+        
         if (_collisionFilter.TryUnpackBothEntities(_universe.Game)
-          && _collisionFilter.TrySelectByComponents<ObstacleTag, LadybugTag>())
+          && _collisionFilter.TrySelectByComponents<ObstacleTag, LadybugTag>()
+          && !info.Target.Has<Invincible>())
         {
           info.Target.Add<DamagedEvent>();
           _sessionData.Health.Value = Mathf.Max(0, _sessionData.Health.Value - 1);

@@ -178,6 +178,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -433,6 +434,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -651,6 +653,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1092,6 +1095,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1277,6 +1281,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1526,6 +1531,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1678,6 +1684,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2119,6 +2126,7 @@ SkinnedMeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2240,6 +2248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb20494260c4af58948d43e0de40452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skin: {fileID: 8479115933582900484}
 --- !u!54 &1114944063249598352
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2354,6 +2363,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7426694949816297376}
+  - component: {fileID: 8479115933582900484}
   - component: {fileID: 4551829402798223178}
   - component: {fileID: 8162663926337253560}
   - component: {fileID: 2508211693489576859}
@@ -2388,6 +2398,28 @@ Transform:
   - {fileID: 6754418980220287573}
   m_Father: {fileID: 2418117536915329142}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8479115933582900484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807899361702886682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6bf4d5c29d485e885c0215054f3fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderers:
+  - {fileID: 3329873617322328474}
+  - {fileID: 8519664439647493401}
+  - {fileID: 4088705809514204670}
+  - {fileID: 8112332926037912393}
+  - {fileID: 2638072494036297797}
+  - {fileID: 5554149052908764683}
+  - {fileID: 2477454726695519748}
+  - {fileID: 6120013203710266427}
+  _slots: []
 --- !u!95 &4551829402798223178
 Animator:
   serializedVersion: 7

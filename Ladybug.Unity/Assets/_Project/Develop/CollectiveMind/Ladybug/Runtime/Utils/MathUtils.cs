@@ -13,5 +13,10 @@ namespace CollectiveMind.Ladybug.Runtime.Utils
     {
       return new Vector2Int(Mathf.RoundToInt(v.x), Mathf.RoundToInt(v.y));
     }
+
+    public static float DivideOrZero(float dividend, float divisor)
+    {
+      return divisor != 0 ? dividend / divisor : 0;
+    }
   }
 }
