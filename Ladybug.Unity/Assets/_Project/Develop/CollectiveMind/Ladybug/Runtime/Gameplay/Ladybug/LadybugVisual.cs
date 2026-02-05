@@ -79,6 +79,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     private void ApplyVelocity(Vector3 velocity)
     {
       _rb.linearVelocity = velocity;
+      float animationSpeed = velocity.magnitude * _config.AnimationSpeedMultiplier;
+      Skin.SetWalkAnimationSpeed(animationSpeed);
     }
   }
 }

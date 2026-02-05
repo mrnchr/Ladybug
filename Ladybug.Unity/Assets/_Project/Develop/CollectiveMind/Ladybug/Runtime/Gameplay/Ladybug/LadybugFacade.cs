@@ -97,8 +97,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     private float GetCurrentSpeed()
     {
       float boostMultiplier = _entity.Has<Boosting>() ? _booster.BoostMultiplier : 1;
-      float totalSpeed = GetScrollSpeed() * boostMultiplier;
-      return totalSpeed;
+      float currentSpeed = GetScrollSpeed() * boostMultiplier;
+      return currentSpeed;
     }
 
     private void OnHealthChanged(int health)

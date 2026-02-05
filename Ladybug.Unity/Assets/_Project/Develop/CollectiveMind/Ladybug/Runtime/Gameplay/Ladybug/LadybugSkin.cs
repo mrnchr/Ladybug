@@ -7,11 +7,16 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
   public class LadybugSkin : MonoBehaviour
   {
+    private static readonly int _walkSpeed = Animator.StringToHash("WalkSpeed");
+    
     [SerializeField]
     private List<Renderer> _renderers;
     
     [field: SerializeField]
     public CapsuleCollider CapsuleCollider { get; private set; }
+
+    [SerializeField]
+    private Animator _animator;
 
     private readonly List<MaterialSlot> _slots = new List<MaterialSlot>();
     private readonly Dictionary<Material, Material> _swapMap = new Dictionary<Material, Material>();
@@ -97,6 +102,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
         _slots[s] = slot;
       }
+    }
+
+    public void SetWalkAnimationSpeed(float speed)
+    {
+      _animator.SetFloat(_walkSpeed, speed);
     }
 
     private Material SwapSlotMaterial(Renderer renderer, int materialIndex, Material newSharedAsset)
