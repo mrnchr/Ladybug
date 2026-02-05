@@ -2420,6 +2420,7 @@ MonoBehaviour:
   - {fileID: 2477454726695519748}
   - {fileID: 6120013203710266427}
   <CapsuleCollider>k__BackingField: {fileID: 8162663926337253560}
+  _animator: {fileID: 4551829402798223178}
 --- !u!95 &4551829402798223178
 Animator:
   serializedVersion: 7

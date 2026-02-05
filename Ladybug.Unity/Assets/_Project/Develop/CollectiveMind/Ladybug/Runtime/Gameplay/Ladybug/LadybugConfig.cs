@@ -10,6 +10,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
   {
     [Title("Movement")]
     public float Speed;
+
+    public float AnimationSpeedMultiplier = 1;
     public float ViewDistance;
     public float ViewWidth;
     

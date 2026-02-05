@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: LadybugConfig
   m_EditorClassIdentifier: 
   Speed: 5
+  AnimationSpeedMultiplier: 1
   ViewDistance: 1
   ViewWidth: 1
   InvincibilityTime: 6
   MinInvincibleAlpha: 0
-  BlinkTime: 1
+  BlinkCount: 1
   InterchangeableMaterials:
   - Opaque: {fileID: 2100000, guid: fb89b66eeac033847977ec94d96d5da9, type: 2}
     Transparent: {fileID: 2100000, guid: 4d2665393341e664ba6799377de45696, type: 2}
