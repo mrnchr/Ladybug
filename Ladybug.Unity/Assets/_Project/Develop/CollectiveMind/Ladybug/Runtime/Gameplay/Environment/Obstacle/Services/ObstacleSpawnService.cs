@@ -49,7 +49,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     {
       foreach (EcsEntityWrapper camera in _cameras)
       {
-        Rect worldBounds = camera.Get<CameraData>().WorldDeepBounds;
+        Rect worldBounds = camera.Get<CameraData>().WorldXZBounds;
         float cameraDiagonal = Mathf.Sqrt(Mathf.Pow(worldBounds.width, 2) + Mathf.Pow(worldBounds.height, 2));
         float safetyDiagonal = cameraDiagonal * _config.CameraDiagonalSafetyMultiplier;
         

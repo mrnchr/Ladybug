@@ -1,5 +1,4 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
@@ -16,7 +15,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     private readonly LineDrawer _lineDrawer;
     private readonly EcsEngine _ecsEngine;
     private readonly SessionService _sessionService;
-    private readonly CameraShakeController _cameraShakeController;
     private readonly WindowInitializer _windowInitializer;
     private readonly IWindowManager _windowManager;
 
@@ -25,7 +23,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       LineDrawer lineDrawer,
       EcsEngine ecsEngine,
       SessionService sessionService,
-      CameraShakeController cameraShakeController,
       WindowInitializer windowInitializer)
     {
       _gameSwitcher = gameSwitcher;
@@ -33,7 +30,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       _lineDrawer = lineDrawer;
       _ecsEngine = ecsEngine;
       _sessionService = sessionService;
-      _cameraShakeController = cameraShakeController;
       _windowInitializer = windowInitializer;
     }
     
@@ -42,7 +38,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       _gameplayUpdater.Add(_lineDrawer);
       _gameplayUpdater.Add(_ecsEngine);
       _gameplayUpdater.Add(_sessionService);
-      _gameplayUpdater.Add(_cameraShakeController);
 
       _windowInitializer.Initialize();
       _ecsEngine.Initialize();

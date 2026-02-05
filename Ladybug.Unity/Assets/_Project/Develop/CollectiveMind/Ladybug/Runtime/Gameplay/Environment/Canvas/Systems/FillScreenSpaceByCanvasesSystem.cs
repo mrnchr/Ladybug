@@ -38,10 +38,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas
         ref CameraData cameraData = ref camera.Get<CameraData>();
         var cells = new List<Vector2Int>();
         
-        Rect increasedBounds = cameraData.WorldDeepBounds;
+        Rect increasedBounds = cameraData.WorldXZBounds;
         increasedBounds.size += Vector2.one * _canvasConfig.CanvasSize / 2;
         increasedBounds.size /= _canvasConfig.CanvasSize;
-        increasedBounds.center = cameraData.WorldDeepBounds.center / _canvasConfig.CanvasSize;
+        increasedBounds.center = cameraData.WorldXZBounds.center / _canvasConfig.CanvasSize;
         
         Vector2Int min = MathUtils.RoundToInt(increasedBounds.min);
         Vector2Int max = MathUtils.RoundToInt(increasedBounds.max) + Vector2Int.one;

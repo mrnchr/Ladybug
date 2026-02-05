@@ -77,8 +77,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
     private void BindFacadePool()
     {
       Container
-        .Bind<IFacadePool>()
-        .To<FacadePool>()
+        .Bind<IFacadeRegistry>()
+        .To<FacadeRegistry>()
         .AsSingle()
         .CopyIntoAllSubContainers();
     }

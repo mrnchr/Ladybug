@@ -1,6 +1,5 @@
 ﻿using System;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using DG.Tweening;
 using DG.Tweening.Core;
 using R3;
@@ -8,13 +7,13 @@ using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
 {
-  public class CameraShakeController : IGameStep, IDisposable
+  public class CameraShakeController : IDisposable
   {
     public ReadOnlyReactiveProperty<Color> ShakingColor { get; }
     public ReadOnlyReactiveProperty<Vector2> ShakingOffset { get; }
     
     private readonly CameraConfig _config;
-    private readonly EcsEntities _damagedLadybugs;
+    private readonly GameSessionData _sessionData;
     
     private readonly ReactiveProperty<Color> _shakingColor = new ReactiveProperty<Color>();
     private readonly ReactiveProperty<Vector2> _shakingOffset = new ReactiveProperty<Vector2>();
@@ -28,14 +27,18 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
     private Sequence _fadeSequence;
     private Sequence _offsetSequence;
 
-    public CameraShakeController(IEcsUniverse ecsUniverse, CameraConfig config)
+    private DisposableBag _disposables;
+
+    public CameraShakeController(CameraConfig config, GameSessionData sessionData)
     {
       _config = config;
+      _sessionData = sessionData;
 
-      _damagedLadybugs = ecsUniverse
-        .FilterGame<LadybugTag>()
-        .Inc<DamagedEvent>()
-        .Collect();
+      _disposables.Add(_sessionData.Health
+        .Pairwise()
+        .Where(pair => pair.Current < pair.Previous)
+        .Select(pair => pair.Current)
+        .Subscribe(OnHealthChanged));
       
       ShakingColor = _shakingColor.ToReadOnlyReactiveProperty();
       ShakingOffset = _shakingOffset.ToReadOnlyReactiveProperty();
@@ -47,20 +50,18 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
       _shakingOffsetSetter = x => _shakingOffset.Value = x;
     }
 
-    public void Step()
-    {
-      if (_damagedLadybugs.Any())
-      {
-        StopShaking();
-
-        Fade();
-        Animate();
-      }
-    }
-
     public void Dispose()
     {
       StopShaking();
+      _disposables.Dispose();
+    }
+    
+    private void OnHealthChanged(int health)
+    {
+      StopShaking();
+
+      Fade();
+      Animate();
     }
 
     private void StopShaking()

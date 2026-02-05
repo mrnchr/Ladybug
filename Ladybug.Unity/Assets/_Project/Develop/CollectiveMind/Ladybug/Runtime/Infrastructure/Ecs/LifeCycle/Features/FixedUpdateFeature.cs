@@ -1,5 +1,4 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
 {
@@ -8,7 +7,6 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     public FixedUpdateFeature(IEcsSystemFactory systems)
     {
       Add(systems.Create<CollisionFixedFeature>());
-      Add(systems.Create<CamerasFixedFeature>());
     }
   }
 }

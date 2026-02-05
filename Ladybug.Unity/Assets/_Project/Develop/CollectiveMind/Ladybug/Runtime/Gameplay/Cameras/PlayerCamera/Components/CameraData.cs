@@ -8,6 +8,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
   [EcsComponentOrder(EcsComponentOrder.STATIC)]
   public struct CameraData : IEcsComponent
   {
-    public Rect WorldDeepBounds;
+    public Rect WorldXZBounds;
   }
 }

@@ -33,7 +33,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
         Vector3 max = camera.ViewportToWorldPoint(point);
         
         var bounds = Rect.MinMaxRect(min.x, min.z, max.x, max.z);
-        _entityWrapper.Replace((ref CameraData cameraData) => cameraData.WorldDeepBounds = bounds);
+        _entityWrapper.Replace((ref CameraData cameraData) => cameraData.WorldXZBounds = bounds);
       }
     }
   }

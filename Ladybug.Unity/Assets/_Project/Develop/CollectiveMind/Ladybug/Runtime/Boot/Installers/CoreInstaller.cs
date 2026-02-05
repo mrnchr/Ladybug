@@ -1,3 +1,4 @@
+using System;
 using CollectiveMind.Ladybug.Runtime.Advertisement;
 using CollectiveMind.Ladybug.Runtime.Boot.Initializers;
 using CollectiveMind.Ladybug.Runtime.Gameplay;
@@ -5,7 +6,6 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
@@ -38,12 +38,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       CollisionsInstaller.Install(Container);
       
       Container
-        .Bind<LineDrawer>()
+        .Bind(typeof(IDisposable), typeof(LineDrawer))
+        .To<LineDrawer>()
         .AsSingle();
-      Container
-        .Bind<ILadybugRotator>()
-        .To<LadybugRotator>()
-        .AsSingle();
+      
       ObstacleInstaller.Install(Container);
 
       EcsInstaller.Install(Container);
@@ -60,6 +58,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
 
       Container
         .BindInterfacesAndSelfTo<CameraShakeController>()
+        .AsSingle();
+
+      Container
+        .BindInterfacesTo<LadybugCameraObserver>()
         .AsSingle();
       
       Container

@@ -12,10 +12,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     
     public EcsEntityWrapper Entity => _converter.EntityWrapper;
 
-    [SerializeField]
-    private LadybugSkin _skin;
+    [field: SerializeField]
+    public LadybugSkin Skin { get; private set; }
 
-    private IFacadePool _pool;
+    private IFacadeRegistry _registry;
     private LadybugConfig _config;
     private LadybugFacade _facade;
     private Rigidbody _rb;
@@ -23,11 +23,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     private GameObjectConverter _converter;
 
     [Inject]
-    public void Construct(IFacadePool pool, LadybugConfig config)
+    public void Construct(IFacadeRegistry registry, LadybugConfig config)
     {
-      _pool = pool;
+      _registry = registry;
       _config = config;
-      _facade = pool.GetFacade<LadybugFacade>();
+      _facade = registry.GetFacade<LadybugFacade>();
       _rb = GetComponent<Rigidbody>();
       _animator = GetComponentInChildren<Animator>();
       _converter = GetComponent<GameObjectConverter>();
@@ -47,7 +47,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     private void Start()
     {
-      _skin.Initialize();
+      Skin.Initialize();
 
       _facade.IsMoving.Subscribe(UpdateAnimation).AddTo(this);
       _facade.Opacity.Subscribe(ApplyOpacity).AddTo(this);
@@ -63,7 +63,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     private void OnDestroy()
     {
-      _pool.DisposeFacade(_facade);
+      _registry.DisposeFacade(_facade);
     }
 
     private void UpdateAnimation(bool isMoving)
@@ -71,9 +71,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       _animator.SetBool(_walk, isMoving);
     }
 
-    private void ApplyOpacity(float transparency)
+    private void ApplyOpacity(float opacity)
     {
-      _skin.ApplyOpacity(_config.MinInvincibleAlpha, transparency);
+      Skin.ApplyOpacity(_config.MinInvincibleAlpha, opacity);
     }
 
     private void ApplyVelocity(Vector3 velocity)

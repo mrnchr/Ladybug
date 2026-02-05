@@ -9,6 +9,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
   {
     [SerializeField]
     private List<Renderer> _renderers;
+    
+    [field: SerializeField]
+    public CapsuleCollider CapsuleCollider { get; private set; }
 
     private readonly List<MaterialSlot> _slots = new List<MaterialSlot>();
     private readonly Dictionary<Material, Material> _swapMap = new Dictionary<Material, Material>();
@@ -46,8 +49,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
           {
             RendererIndex = r,
             MaterialIndex = m,
-            SharedAsset = sharedAsset,
-            Instance = instance,
+            SharedMaterial = sharedAsset,
+            InstanceMaterial = instance,
             OriginalAlpha = c.a
           });
         }
@@ -65,12 +68,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
         renderer.GetMaterials(_liveMaterials);
         Material live = _liveMaterials[slot.MaterialIndex];
 
-        if (!ReferenceEquals(live, slot.Instance))
+        if (!ReferenceEquals(live, slot.InstanceMaterial))
         {
-          slot.Instance = live;
+          slot.InstanceMaterial = live;
         }
 
-        Material currentInstance = slot.Instance;
+        Material currentInstance = slot.InstanceMaterial;
 
         float targetAlpha = Mathf.Lerp(minAlpha, slot.OriginalAlpha, opacity);
         float currentAlpha = currentInstance.color.a;
@@ -80,11 +83,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
         if (crossToOpaque || crossToTransparent)
         {
-          Material otherShared = _swapMap[slot.SharedAsset];
+          Material otherShared = _swapMap[slot.SharedMaterial];
           Material newInstance = SwapSlotMaterial(renderer, slot.MaterialIndex, otherShared);
 
-          slot.SharedAsset = otherShared;
-          slot.Instance = newInstance;
+          slot.SharedMaterial = otherShared;
+          slot.InstanceMaterial = newInstance;
           currentInstance = newInstance;
         }
 
@@ -96,7 +99,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       }
     }
 
-    private static Material SwapSlotMaterial(Renderer renderer, int materialIndex, Material newSharedAsset)
+    private Material SwapSlotMaterial(Renderer renderer, int materialIndex, Material newSharedAsset)
     {
       Material[] materials = renderer.materials;
       Material newInstance = new Material(newSharedAsset);
@@ -110,8 +113,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     {
       public int RendererIndex;
       public int MaterialIndex;
-      public Material SharedAsset;
-      public Material Instance;
+      public Material SharedMaterial;
+      public Material InstanceMaterial;
       public float OriginalAlpha;
     }
   }

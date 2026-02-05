@@ -2248,7 +2248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb20494260c4af58948d43e0de40452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skin: {fileID: 8479115933582900484}
+  <Skin>k__BackingField: {fileID: 8479115933582900484}
 --- !u!54 &1114944063249598352
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2419,7 +2419,7 @@ MonoBehaviour:
   - {fileID: 5554149052908764683}
   - {fileID: 2477454726695519748}
   - {fileID: 6120013203710266427}
-  _slots: []
+  <CapsuleCollider>k__BackingField: {fileID: 8162663926337253560}
 --- !u!95 &4551829402798223178
 Animator:
   serializedVersion: 7

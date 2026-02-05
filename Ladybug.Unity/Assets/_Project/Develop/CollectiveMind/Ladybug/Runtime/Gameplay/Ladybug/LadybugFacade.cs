@@ -1,71 +1,104 @@
-﻿using System.Threading;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
-using CollectiveMind.Ladybug.Runtime.Utils;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using DG.Tweening.Core;
 using R3;
 using UnityEngine;
+using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
-  public class LadybugFacade : IFacade
+  public class LadybugFacade : IFacade, IGameStep
   {
     public Transform Transform => _visual.transform;
     public Vector3 Velocity { get; private set; }
     public ReadOnlyReactiveProperty<bool> IsMoving => _isMoving;
-    public ReadOnlyReactiveProperty<float> Opacity => _opacity;
-    
-    private readonly ReactiveProperty<float> _opacity = new ReactiveProperty<float>(1);
-    private readonly ReactiveProperty<bool> _isMoving = new ReactiveProperty<bool>();
+    public ReadOnlyReactiveProperty<float> Opacity => _invincibilityHandler.Opacity;
+
     private readonly LadybugConfig _config;
-    private readonly ILadybugRotator _rotator;
     private readonly GameSessionData _sessionData;
     private readonly GameSwitcher _gameSwitcher;
-    private readonly DOGetter<float> _transparencyGetter; 
-    private readonly DOSetter<float> _transparencySetter;
+    private readonly LineDrawer _lineDrawer;
+    private readonly LadybugContext _context;
+    private readonly ILadybugRotator _rotator;
+    private readonly LadybugInvincibilityHandler _invincibilityHandler;
+    private readonly LadybugBooster _booster;
+    private readonly ReactiveProperty<bool> _isMoving = new ReactiveProperty<bool>();
 
-    private LadybugVisual _visual;
-    private EcsEntityWrapper Entity => _visual.Entity;
-    private Sequence _blinkingTween;
-    private CancellationTokenSource _invincibilityTimeResetCts;
+    private LadybugVisual _visual => _context.Visual;
+    private EcsEntityWrapper _entity => _context.Entity;
 
     public LadybugFacade(LadybugConfig config,
-      ILadybugRotator rotator,
       GameSessionData sessionData,
-      GameSwitcher gameSwitcher)
+      GameSwitcher gameSwitcher,
+      IInstantiator instantiator, 
+      LineDrawer lineDrawer)
     {
       _config = config;
-      _rotator = rotator;
       _sessionData = sessionData;
       _gameSwitcher = gameSwitcher;
+      _lineDrawer = lineDrawer;
 
-      _transparencyGetter = () => _opacity.Value;
-      _transparencySetter = value => _opacity.Value = value;
+      _context = instantiator.Instantiate<LadybugContext>();
+      _rotator = instantiator.Instantiate<LadybugRotator>(new object[] { this });
+      _invincibilityHandler = instantiator.Instantiate<LadybugInvincibilityHandler>(new object[] { _context });
+      _booster = instantiator.Instantiate<LadybugBooster>(new object[] { this, _context });
+    }
+
+    public float GetScrollSpeed()
+    {
+      float commonSpeed = _config.Speed * _sessionData.SpeedRate.Value;
+      return commonSpeed;
+    }
+
+    public void CheckBounds()
+    {
+      if (!_entity.Has<Boosting>())
+      {
+        _rotator.CheckBounds();
+      }
+    }
+
+    public void UpdateVelocity(Vector3 direction)
+    {
+      Velocity = direction * GetCurrentSpeed();
+      _isMoving.Value = Velocity != Vector3.zero;
+    }
+
+    public void Boost()
+    {
+      _booster.Boost();
+    }
+
+    public void DrawLine(Vector3 startPoint, Vector3 endPoint, float width, Color color)
+    {
+      _lineDrawer.DrawLine(startPoint, endPoint, width, color);
     }
 
     public void Bind(LadybugVisual visual)
     {
-      _visual = visual;
+      _context.Visual = visual;
       _sessionData.Health
         .Pairwise()
         .Where(pair => pair.Current < pair.Previous)
         .Select(pair => pair.Current)
         .Subscribe(OnHealthChanged)
         .AddTo(_visual);
+      
+      _booster.Initialize();
     }
 
-    public void CheckBounds()
+    public void Step()
     {
-      _rotator.CheckBounds();
+      _booster.Step();
     }
 
-    public void UpdateVelocity(Vector3 direction)
+    private float GetCurrentSpeed()
     {
-      Velocity = direction * (_config.Speed * _sessionData.SpeedRate.Value);
-      _isMoving.Value = Velocity != Vector3.zero;
+      float boostMultiplier = _entity.Has<Boosting>() ? _booster.BoostMultiplier : 1;
+      float totalSpeed = GetScrollSpeed() * boostMultiplier;
+      return totalSpeed;
     }
 
     private void OnHealthChanged(int health)
@@ -75,66 +108,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
         _gameSwitcher.Defeat().Forget();
         return;
       }
-      
-      if (Entity.Has<Invincible>())
-      {
-        _invincibilityTimeResetCts.Cancel();
-      }
-      else
-      {
-        RunInvincibilityAsync(_visual.GetCancellationTokenOnDestroy()).Forget();
-      }
-    }
 
-    private async UniTask RunInvincibilityAsync(CancellationToken token = default(CancellationToken))
-    {
-      Entity.Add<Invincible>();
-      StartBlinking();
-      bool cancelled;
-      
-      do
-      {
-        _invincibilityTimeResetCts?.Dispose();
-        _invincibilityTimeResetCts = new CancellationTokenSource();
-        using var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(token, _invincibilityTimeResetCts.Token);
-        cancelled = await UniTask
-          .WaitForSeconds(_config.InvincibilityTime, cancellationToken: linkedTokenSource.Token)
-          .SuppressCancellationThrow();
-      } while (cancelled && _visual);
-
-      _invincibilityTimeResetCts.Dispose();
-      _invincibilityTimeResetCts = null;
-      
-      if(Entity.IsAlive())
-      {
-        Entity.Del<Invincible>();
-      }
-
-      if (!_visual)
-      {
-        return;
-      }
-      
-      StopBlinking();
-    }
-
-    private void StartBlinking()
-    {
-      StopBlinking();
-
-      float tweenTime = MathUtils.DivideOrZero(_config.InvincibilityTime, _config.BlinkCount);
-      _blinkingTween = DOTween.Sequence()
-        .Append(DOTween.To(_transparencyGetter, _transparencySetter, 0, tweenTime))
-        .SetLoops(-1, LoopType.Yoyo)
-        .SetLink(_visual.gameObject, LinkBehaviour.KillOnDestroy)
-        .Play();
-    }
-
-    private void StopBlinking()
-    {
-      _blinkingTween?.Kill();
-      _blinkingTween = null;
-      _opacity.Value = 1;
+      _invincibilityHandler.HandleInvincibility();
     }
   }
 }

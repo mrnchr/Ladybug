@@ -28,7 +28,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Systems
       foreach (EcsEntityWrapper camera in _cameras)
       foreach (EcsEntityWrapper spawnable in _spawnables)
       {
-        Bounds cameraBounds = GetCameraBounds(camera.Get<CameraData>().WorldDeepBounds);
+        Bounds cameraBounds = GetCameraBounds(camera.Get<CameraData>().WorldXZBounds);
         Bounds objectBounds = spawnable.Get<MeshRendererRef>().MeshRenderer.bounds;
 
         if (cameraBounds.min.z - objectBounds.max.z > 20)
