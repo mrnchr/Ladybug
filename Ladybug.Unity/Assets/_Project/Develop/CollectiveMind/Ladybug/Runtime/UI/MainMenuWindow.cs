@@ -13,13 +13,13 @@ namespace CollectiveMind.Ladybug.Runtime.UI
     [SerializeField] private Button _settingsButton;
     
     private IWindowManager _windowManager;
-    private GameSwitcher _gameSwitcher;
+    private GameSessionController _gameSessionController;
     private Canvas _canvas;
 
     [Inject]
-    public void Construct(IWindowManager windowManager, GameSwitcher gameSwitcher)
+    public void Construct(IWindowManager windowManager, GameSessionController gameSessionController)
     {
-      _gameSwitcher = gameSwitcher;
+      _gameSessionController = gameSessionController;
       _windowManager = windowManager;
     }
 
@@ -44,7 +44,7 @@ namespace CollectiveMind.Ladybug.Runtime.UI
 
     private void StartGame()
     {
-      _gameSwitcher.SwitchToGame().Forget();
+      _gameSessionController.SwitchToGame().Forget();
     }
 
     protected override UniTask OnOpened()

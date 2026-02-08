@@ -36,6 +36,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle();
 
       CollisionsInstaller.Install(Container);
+
+      Container
+        .Bind<CameraService>()
+        .AsSingle();
       
       Container
         .Bind(typeof(IDisposable), typeof(LineDrawer))
@@ -61,8 +65,13 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle();
 
       Container
-        .BindInterfacesTo<LadybugCameraObserver>()
+        .BindInterfacesAndSelfTo<OutOfViewObserver>()
         .AsSingle();
+
+      Container
+        .BindInterfacesTo<HealthObserver>()
+        .AsSingle()
+        .NonLazy();
       
       Container
         .BindInterfacesAndSelfTo<SessionService>()
@@ -73,7 +82,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .AsSingle();
       
       Container
-        .Bind<GameSwitcher>()
+        .Bind<GameSessionController>()
         .AsSingle();
       
       Container

@@ -10,7 +10,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
 {
   public class CoreInitializer : IInitializable
   {
-    private readonly GameSwitcher _gameSwitcher;
+    private readonly GameSessionController _gameSessionController;
     private readonly GameplayUpdater _gameplayUpdater;
     private readonly LineDrawer _lineDrawer;
     private readonly EcsEngine _ecsEngine;
@@ -18,14 +18,14 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     private readonly WindowInitializer _windowInitializer;
     private readonly IWindowManager _windowManager;
 
-    public CoreInitializer(GameSwitcher gameSwitcher,
+    public CoreInitializer(GameSessionController gameSessionController,
       GameplayUpdater gameplayUpdater,
       LineDrawer lineDrawer,
       EcsEngine ecsEngine,
       SessionService sessionService,
       WindowInitializer windowInitializer)
     {
-      _gameSwitcher = gameSwitcher;
+      _gameSessionController = gameSessionController;
       _gameplayUpdater = gameplayUpdater;
       _lineDrawer = lineDrawer;
       _ecsEngine = ecsEngine;
@@ -41,7 +41,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
 
       _windowInitializer.Initialize();
       _ecsEngine.Initialize();
-      _gameSwitcher.SwitchToMenu().Forget();
+      _gameSessionController.SwitchToMenu().Forget();
     }
   }
 }

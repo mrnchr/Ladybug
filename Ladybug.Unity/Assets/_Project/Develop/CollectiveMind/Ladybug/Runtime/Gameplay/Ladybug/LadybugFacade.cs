@@ -1,8 +1,9 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
-using Cysharp.Threading.Tasks;
+using CollectiveMind.Ladybug.Runtime.Utils;
 using R3;
 using UnityEngine;
 using Zenject;
@@ -18,8 +19,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     private readonly LadybugConfig _config;
     private readonly GameSessionData _sessionData;
-    private readonly GameSwitcher _gameSwitcher;
     private readonly LineDrawer _lineDrawer;
+    private readonly CameraService _cameraService;
     private readonly LadybugContext _context;
     private readonly ILadybugRotator _rotator;
     private readonly LadybugInvincibilityHandler _invincibilityHandler;
@@ -31,14 +32,14 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     public LadybugFacade(LadybugConfig config,
       GameSessionData sessionData,
-      GameSwitcher gameSwitcher,
-      IInstantiator instantiator, 
-      LineDrawer lineDrawer)
+      IInstantiator instantiator,
+      LineDrawer lineDrawer,
+      CameraService cameraService)
     {
       _config = config;
       _sessionData = sessionData;
-      _gameSwitcher = gameSwitcher;
       _lineDrawer = lineDrawer;
+      _cameraService = cameraService;
 
       _context = instantiator.Instantiate<LadybugContext>();
       _rotator = instantiator.Instantiate<LadybugRotator>(new object[] { this });
@@ -66,9 +67,17 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       _isMoving.Value = Velocity != Vector3.zero;
     }
 
+    public void TurnOnInvincibility()
+    {
+      _invincibilityHandler.HandleInvincibility();
+    }
+
     public void Boost()
     {
-      _booster.Boost();
+      if(_sessionData.Health.Value > 0)
+      {
+        _booster.Boost();
+      }
     }
 
     public void DrawLine(Vector3 startPoint, Vector3 endPoint, float width, Color color)
@@ -76,16 +85,21 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       _lineDrawer.DrawLine(startPoint, endPoint, width, color);
     }
 
+    public void OnRevived()
+    {
+      Transform.forward = Vector3.forward;
+      _invincibilityHandler.HandleInvincibility();
+      
+      if (_cameraService.IsEntityOutsideCamera(_entity))
+      {
+        Rect cameraBounds = _cameraService.GetCameraBounds();
+        Transform.SetPosition(Axis.X, Axis.Z, cameraBounds.center);
+      }
+    }
+
     public void Bind(LadybugVisual visual)
     {
       _context.Visual = visual;
-      _sessionData.Health
-        .Pairwise()
-        .Where(pair => pair.Current < pair.Previous)
-        .Select(pair => pair.Current)
-        .Subscribe(OnHealthChanged)
-        .AddTo(_visual);
-      
       _booster.Initialize();
     }
 
@@ -99,17 +113,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       float boostMultiplier = _entity.Has<Boosting>() ? _booster.BoostMultiplier : 1;
       float currentSpeed = GetScrollSpeed() * boostMultiplier;
       return currentSpeed;
-    }
-
-    private void OnHealthChanged(int health)
-    {
-      if (health <= 0)
-      {
-        _gameSwitcher.Defeat().Forget();
-        return;
-      }
-
-      _invincibilityHandler.HandleInvincibility();
     }
   }
 }
