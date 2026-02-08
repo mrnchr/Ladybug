@@ -15,12 +15,12 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Defeat
     [SerializeField]
     private Button _exitButton;
 
-    private GameSwitcher _gameSwitcher;
+    private GameSessionController _gameSessionController;
 
     [Inject]
-    public void Construct(GameSwitcher gameSwitcher)
+    public void Construct(GameSessionController gameSessionController)
     {
-      _gameSwitcher = gameSwitcher;
+      _gameSessionController = gameSessionController;
 
       _reviveButton.AddListener(Revive);
       _exitButton.AddListener(AskToExit);
@@ -28,12 +28,12 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Defeat
 
     private void Revive()
     {
-      _gameSwitcher.Revive().Forget();
+      _gameSessionController.Revive().Forget();
     }
 
     private void AskToExit()
     {
-      _gameSwitcher.SwitchToMenu().Forget();
+      _gameSessionController.SwitchToMenu().Forget();
     }
 
     private void OnDestroy()

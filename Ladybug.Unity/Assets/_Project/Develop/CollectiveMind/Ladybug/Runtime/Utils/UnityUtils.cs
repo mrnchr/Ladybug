@@ -22,11 +22,16 @@ namespace CollectiveMind.Ladybug.Runtime.Utils
       {
         return;
       }
-      
+
       Vector3 position = transform.position;
       position[(int)axis1 - 1] = value1;
       position[(int)axis2 - 1] = value2;
       transform.position = position;
+    }
+
+    public static void SetPosition(this Transform transform, Axis axis1, Axis axis2, Vector2 values)
+    {
+      SetPosition(transform, axis1, values.x, axis2, values.y);
     }
   }
 

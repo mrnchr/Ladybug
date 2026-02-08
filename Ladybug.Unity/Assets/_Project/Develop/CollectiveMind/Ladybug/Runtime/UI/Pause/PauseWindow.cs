@@ -16,12 +16,12 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Pause
     private Button _exitButton;
 
     private IWindowManager _windowManager;
-    private GameSwitcher _gameSwitcher;
+    private GameSessionController _gameSessionController;
 
     [Inject]
-    public void Construct(GameSwitcher gameSwitcher, IWindowManager windowManager)
+    public void Construct(GameSessionController gameSessionController, IWindowManager windowManager)
     {
-      _gameSwitcher = gameSwitcher;
+      _gameSessionController = gameSessionController;
       _windowManager = windowManager;
 
       _resumeButton.AddListener(ResumeGame);
@@ -30,13 +30,13 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Pause
 
     protected override UniTask OnOpened()
     {
-      _gameSwitcher.PauseGame();
+      _gameSessionController.PauseGame();
       return UniTask.CompletedTask;
     }
 
     protected override UniTask OnClosed()
     {
-      _gameSwitcher.ResumeGame();
+      _gameSessionController.ResumeGame();
       return UniTask.CompletedTask;
     }
 

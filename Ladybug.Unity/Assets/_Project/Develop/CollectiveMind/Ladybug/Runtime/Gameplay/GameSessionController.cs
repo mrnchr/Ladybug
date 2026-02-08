@@ -1,8 +1,10 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Advertisement;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint.Components;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
@@ -16,7 +18,7 @@ using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay
 {
-  public class GameSwitcher
+  public class GameSessionController
   {
     private readonly IWindowManager _windowManager;
     private readonly SessionService _sessionService;
@@ -25,17 +27,22 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
     private readonly LineDrawer _lineDrawer;
     private readonly IEcsUniverse _ecsUniverse;
     private readonly IAdService _adSvc;
+    private readonly OutOfViewObserver _outOfViewObserver;
+    private readonly CameraShakeController _cameraShakeController;
     private readonly EcsEntities _destroyableEntities;
     private readonly EcsEntities _cameraTargets;
     private readonly EcsEntities _virtualCameras;
+    private readonly EcsEntities _ladybugs;
 
-    public GameSwitcher(IWindowManager windowManager,
+    public GameSessionController(IWindowManager windowManager,
       SessionService sessionService,
       ObstacleSpawner obstacleSpawner,
       GameplayUpdater gameplayUpdater,
       LineDrawer lineDrawer,
       IEcsUniverse ecsUniverse,
-      IAdService adSvc)
+      IAdService adSvc,
+      OutOfViewObserver outOfViewObserver,
+      CameraShakeController cameraShakeController)
     {
       _windowManager = windowManager;
       _sessionService = sessionService;
@@ -44,6 +51,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
       _lineDrawer = lineDrawer;
       _ecsUniverse = ecsUniverse;
       _adSvc = adSvc;
+      _outOfViewObserver = outOfViewObserver;
+      _cameraShakeController = cameraShakeController;
 
       _destroyableEntities = ecsUniverse
         .FilterGame<Destroyable>()
@@ -57,6 +66,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
       
       _virtualCameras = _ecsUniverse
         .FilterGame<VirtualCameraRef>()
+        .Collect();
+
+      _ladybugs = _ecsUniverse
+        .FilterGame<LadybugTag>()
+        .Inc<VisualFacadeRef>()
         .Collect();
     }
 
@@ -98,6 +112,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
     {
       _sessionService.Initialize();
       _obstacleSpawner.StartSpawn();
+      _outOfViewObserver.Start();
       _gameplayUpdater.SetActive(true);
       
       await _windowManager.OpenWindowAsRoot<UnpauseWindow>();
@@ -118,6 +133,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
     public async UniTask Defeat()
     {
       PauseGame();
+      _outOfViewObserver.Stop();
+      _cameraShakeController.StopShaking();
       _lineDrawer.StopDrawing();
       await UniTask.WaitForSeconds(1, true);
       await _windowManager.OpenWindow<DefeatWindow>();
@@ -128,6 +145,15 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
       await _adSvc.ShowAd();
       _sessionService.ResetHealth();
       await _windowManager.OpenWindowAsRoot<UnpauseWindow>();
+      
+      foreach (EcsEntityWrapper ladybug in _ladybugs)
+      {
+        var facade = ladybug.GetFacade<LadybugFacade>();
+        facade.OnRevived();
+      }
+      
+      _outOfViewObserver.Start();
+      
       ResumeGame();
     }
   }

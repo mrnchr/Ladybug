@@ -12,12 +12,12 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Pause
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _backButton;
     private IWindowManager _windowManager;
-    private GameSwitcher _gameSwitcher;
+    private GameSessionController _gameSessionController;
 
     [Inject]
-    public void Construct(IWindowManager windowManager, GameSwitcher gameSwitcher)
+    public void Construct(IWindowManager windowManager, GameSessionController gameSessionController)
     {
-      _gameSwitcher = gameSwitcher;
+      _gameSessionController = gameSessionController;
       _windowManager = windowManager;
       
       _exitButton.AddListener(ExitToMenu);
@@ -26,7 +26,7 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Pause
 
     private void ExitToMenu()
     {
-      _gameSwitcher.SwitchToMenu().Forget();
+      _gameSessionController.SwitchToMenu().Forget();
     }
 
     private void CloseWindow()

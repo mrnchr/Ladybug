@@ -1,5 +1,4 @@
 ﻿using System;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using DG.Tweening;
 using DG.Tweening.Core;
 using R3;
@@ -13,7 +12,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
     public ReadOnlyReactiveProperty<Vector2> ShakingOffset { get; }
     
     private readonly CameraConfig _config;
-    private readonly GameSessionData _sessionData;
     
     private readonly ReactiveProperty<Color> _shakingColor = new ReactiveProperty<Color>();
     private readonly ReactiveProperty<Vector2> _shakingOffset = new ReactiveProperty<Vector2>();
@@ -27,19 +25,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
     private Sequence _fadeSequence;
     private Sequence _offsetSequence;
 
-    private DisposableBag _disposables;
 
-    public CameraShakeController(CameraConfig config, GameSessionData sessionData)
+    public CameraShakeController(CameraConfig config)
     {
       _config = config;
-      _sessionData = sessionData;
 
-      _disposables.Add(_sessionData.Health
-        .Pairwise()
-        .Where(pair => pair.Current < pair.Previous)
-        .Select(pair => pair.Current)
-        .Subscribe(OnHealthChanged));
-      
       ShakingColor = _shakingColor.ToReadOnlyReactiveProperty();
       ShakingOffset = _shakingOffset.ToReadOnlyReactiveProperty();
       
@@ -53,18 +43,16 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
     public void Dispose()
     {
       StopShaking();
-      _disposables.Dispose();
     }
-    
-    private void OnHealthChanged(int health)
+
+    public void Shake()
     {
       StopShaking();
-
       Fade();
       Animate();
     }
 
-    private void StopShaking()
+    public void StopShaking()
     {
       _fadeSequence?.Kill();
       _fadeSequence = null;

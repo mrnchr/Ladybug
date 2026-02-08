@@ -16,12 +16,12 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Defeat
     private Button _exitButton;
 
     private IWindowManager _windowManager;
-    private GameSwitcher _gameSwitcher;
+    private GameSessionController _gameSessionController;
 
     [Inject]
-    public void Construct(IWindowManager windowManager, GameSwitcher pauseSwitcher)
+    public void Construct(IWindowManager windowManager, GameSessionController pauseSessionController)
     {
-      _gameSwitcher = pauseSwitcher;
+      _gameSessionController = pauseSessionController;
       _windowManager = windowManager;
 
       _reviveButton.AddListener(Revive);
@@ -30,7 +30,7 @@ namespace CollectiveMind.Ladybug.Runtime.UI.Defeat
 
     private void Revive()
     {
-      _gameSwitcher.Revive().Forget();
+      _gameSessionController.Revive().Forget();
     }
 
     private void AskToExit()
