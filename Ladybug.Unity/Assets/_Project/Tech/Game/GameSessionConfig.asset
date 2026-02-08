@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582f2c81b4564ecfb61d950439e7a7a7, type: 3}
   m_Name: GameSessionConfig
   m_EditorClassIdentifier: 
-  HealthPoints: 1
+  HealthPoints: 5
   RevivalCount: 3
   RaiseRate: 1.01
   RaiseDistance: 50

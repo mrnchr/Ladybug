@@ -71,7 +71,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       BoostMultiplier = _cameraConfig.CameraSpeedMultiplier
         + distance / (_facade.GetScrollSpeed() * _cameraConfig.DamageBoostDuration);
 
-      while (_facade.Transform.position.z < targetPositionZ && !token.IsCancellationRequested)
+      while (!token.IsCancellationRequested && _facade.Transform.position.z < targetPositionZ)
       {
         await UniTask.Yield(token).SuppressCancellationThrow();
         targetPositionZ = GetCameraPositionZ();
