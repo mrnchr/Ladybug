@@ -47,11 +47,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     private async UniTask RunInvincibilityAsync(CancellationToken token = default(CancellationToken))
     {
       _entity.Add<Invincible>();
-      StartBlinking();
       bool cancelled;
 
       do
       {
+        StartBlinking();
+        
         _invincibilityTimeResetCts?.Dispose();
         _invincibilityTimeResetCts = new CancellationTokenSource();
         using var linkedTokenSource =
