@@ -15,7 +15,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas
 
       _canvases = universe
         .FilterGame<CanvasTag>()
-        .Inc<ConverterRef>()
+        .Inc<GameObjectRef>()
         .Collect();
     }
 

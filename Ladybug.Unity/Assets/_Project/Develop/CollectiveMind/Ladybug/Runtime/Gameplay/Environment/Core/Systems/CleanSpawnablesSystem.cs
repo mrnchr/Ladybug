@@ -1,5 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using Leopotam.EcsLite;
 using UnityEngine;
 
@@ -7,19 +8,21 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Systems
 {
   public class CleanSpawnablesSystem : IEcsRunSystem
   {
+    private readonly EntityFactory _entityFactory;
     private readonly EcsEntities _spawnables;
     private readonly EcsEntities _cameras;
 
-    public CleanSpawnablesSystem(IEcsUniverse universe)
+    public CleanSpawnablesSystem(IEcsUniverse universe, EntityFactory entityFactory)
     {
+      _entityFactory = entityFactory;
       _cameras = universe
         .FilterGame<CameraTag>()
-        .Inc<ConverterRef>()
+        .Inc<GameObjectRef>()
         .Collect();
 
       _spawnables = universe
         .FilterGame<Cleanable>()
-        .Inc<ConverterRef>()
+        .Inc<GameObjectRef>()
         .Collect();
     }
 
@@ -33,8 +36,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Systems
 
         if (cameraBounds.min.z - objectBounds.max.z > 20)
         {
-          Object.Destroy(spawnable.Get<GameObjectRef>().GameObject);
-          spawnable.DelEntity();
+          _entityFactory.DestroyEntity(spawnable);
         }
       }
     }

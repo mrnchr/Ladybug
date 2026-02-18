@@ -32,7 +32,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
 
       _ladybugs = universe
         .FilterGame<LadybugTag>()
-        .Inc<VisualFacadeRef>()
+        .Inc<FacadeRef>()
         .Collect();
     }
 

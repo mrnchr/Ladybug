@@ -27,9 +27,6 @@
       public const string DRAWING_CONFIG_MENU = ENTITY_MENU + "Drawing";
       public const string DRAWING_CONFIG_FILE = "DrawingConfig";
 
-      public const string PREFAB_PROVIDER_MENU = CONFIG_MENU + "PrefabProvider";
-      public const string PREFAB_PROVIDER_FILE = "PrefabProvider";
-
       public const string CANVAS_CONFIG_MENU = ENTITY_MENU + "Canvas";
       public const string CANVAS_CONFIG_FILE = "CanvasConfig";
 

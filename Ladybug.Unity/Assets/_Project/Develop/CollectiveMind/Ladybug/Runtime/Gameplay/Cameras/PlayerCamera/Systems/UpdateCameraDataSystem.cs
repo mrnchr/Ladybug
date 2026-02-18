@@ -14,7 +14,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
 
       _convertedCameras = _universe
         .FilterGame<CameraTag>()
-        .Inc<ConverterRef>()
+        .Inc<EntityVisualRef>()
         .Collect();
     }
     

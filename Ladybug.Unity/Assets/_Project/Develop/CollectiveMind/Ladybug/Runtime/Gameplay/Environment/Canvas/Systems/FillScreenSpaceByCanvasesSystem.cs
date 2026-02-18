@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Utils;
 using Leopotam.EcsLite;
@@ -10,14 +11,14 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas
 {
   public class FillScreenSpaceByCanvasesSystem : IEcsRunSystem
   {
-    private readonly IViewFactory _viewFactory;
+    private readonly EntityFactory _entityFactory;
+    private readonly CanvasConfig _canvasConfig;
     private readonly EcsEntities _cameras;
     private readonly EcsEntities _canvases;
-    private readonly CanvasConfig _canvasConfig;
 
-    public FillScreenSpaceByCanvasesSystem(IEcsUniverse universe, IViewFactory viewFactory, CanvasConfig config)
+    public FillScreenSpaceByCanvasesSystem(IEcsUniverse universe, EntityFactory entityFactory, CanvasConfig config)
     {
-      _viewFactory = viewFactory;
+      _entityFactory = entityFactory;
       _canvasConfig = config;
       
       _cameras = universe
@@ -27,7 +28,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas
 
       _canvases = universe
         .FilterGame<CanvasTag>()
-        .Inc<ConverterRef>()
+        .Inc<GameObjectRef>()
         .Collect();
     }
 
@@ -64,9 +65,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas
 
         foreach (Vector2Int cell in cells)
         {
-          var converter = _viewFactory.Create<GameObjectConverter>(EntityType.Canvas);
-          converter.transform.position = new Vector3(cell.x, 0, cell.y) * _canvasConfig.CanvasSize;
-          converter.transform.localScale = Vector3.one * _canvasConfig.CanvasScale;
+          EntityVisual visual = _entityFactory.CreateVisual(EntityType.Canvas);
+          visual.transform.position = new Vector3(cell.x, 0, cell.y) * _canvasConfig.CanvasSize;
+          visual.transform.localScale = Vector3.one * _canvasConfig.CanvasScale;
         }
       }
     }

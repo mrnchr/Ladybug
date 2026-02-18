@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa798c40f124fc5b4d0feb94a142847, type: 3}
+  m_Name: EcsConvertersProvider
+  m_EditorClassIdentifier: 
+  EcsConverters:
+  - Type: 1
+    Converter: {fileID: 11400000, guid: 48a9cb40a1b78b4498db021b8c1fe721, type: 2}
+  - Type: 1000
+    Converter: {fileID: 11400000, guid: 9d694a22184e2fa428ecc58733945426, type: 2}
+  - Type: 1001
+    Converter: {fileID: 11400000, guid: 6a4d0830e0eb6e44aae662a26b05463f, type: 2}
+  - Type: 1002
+    Converter: {fileID: 11400000, guid: 06b3adb9b4f815c4a9425dd063c80cfe, type: 2}
+  - Type: 1003
+    Converter: {fileID: 11400000, guid: b352d7971ee06604cac33d2e8713b4ea, type: 2}
+  - Type: 1004
+    Converter: {fileID: 11400000, guid: c74b82f6bdd8f79498112005e0523b8f, type: 2}
+  - Type: 1005
+    Converter: {fileID: 11400000, guid: cdcb2df0bcc022d478b3feedc660dbed, type: 2}
+  - Type: 1006
+    Converter: {fileID: 11400000, guid: 637d29bc5382a394cbd008ad012da5ac, type: 2}
+  - Type: 1007
+    Converter: {fileID: 11400000, guid: 2a4727192fca1a04db973c11f7e16a8f, type: 2}
+  - Type: 9000
+    Converter: {fileID: 0}
+  - Type: 10000
+    Converter: {fileID: 11400000, guid: 555501b2340634148b52d372fed772c8, type: 2}
+  - Type: 10001
+    Converter: {fileID: 11400000, guid: 351531c9abb240c4da4f703593275692, type: 2}
+  - Type: 10002
+    Converter: {fileID: 11400000, guid: c7b5521ba9c183f47bce2a74f2fd9bed, type: 2}
+  - Type: 10003
+    Converter: {fileID: 11400000, guid: 5cffe9b745ad0db42bbb19b58c7468ab, type: 2}

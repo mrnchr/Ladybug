@@ -1,4 +1,4 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using TriInspector;
 using UnityEngine;
 using Zenject;
@@ -25,7 +25,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
     private bool WhenCollider = true;
 
     private ICollisionFiller _filler;
-    private GameObjectConverter _converter;
+    private EntityVisual _visual;
     private Collider _collider;
     private bool _hasRigidBody;
 
@@ -33,7 +33,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
     public void Construct(ICollisionFiller filler)
     {
       _filler = filler;
-      _converter = GetComponentInParent<GameObjectConverter>(true);
+      _visual = GetComponentInParent<EntityVisual>(true);
       _collider = GetComponentInChildren<Collider>(true);
       _hasRigidBody = TryGetComponent<Rigidbody>(out _);
     }
@@ -104,7 +104,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
     private void SendCollision(CollisionType type, Collider current, Collider other)
     {
       _filler.Fill(
-        new OneSideCollision(type, new PackedCollider(current, _converter.EntityWrapper.PackedEntity), other));
+        new OneSideCollision(type, new PackedCollider(current, _visual.Entity.PackedEntity), other));
     }
   }
 }

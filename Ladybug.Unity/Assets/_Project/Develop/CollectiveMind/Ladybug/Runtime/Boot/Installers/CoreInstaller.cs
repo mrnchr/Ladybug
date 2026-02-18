@@ -9,16 +9,24 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
+using UnityEngine;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot
 {
   public class CoreInstaller : MonoInstaller
   {
+    [SerializeField]
+    private CoreInitializer _initializer;
+    
     public override void InstallBindings()
     {
+      Container
+        .Bind<EntityFactory>()
+        .AsSingle();
+      
       Container
         .Bind<IAdService>()
         .To<AdService>()
@@ -51,11 +59,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       EcsInstaller.Install(Container);
 
       Container
-        .Bind<IViewFactory>()
-        .To<ViewFactory>()
-        .AsSingle();
-      
-      Container
         .Bind<ICanvasService>()
         .To<CanvasService>()
         .AsSingle();
@@ -84,9 +87,14 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<GameSessionController>()
         .AsSingle();
+
+      Container
+        .BindInterfacesAndSelfTo<CoreCreationRecipeRegistrar>()
+        .AsSingle();
       
       Container
         .BindInterfacesTo<CoreInitializer>()
+        .FromInstance(_initializer)
         .AsSingle();
 
 #if UNITY_EDITOR

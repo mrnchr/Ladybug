@@ -1,29 +1,31 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
 {
-  public class CameraFacade : IFacade
+  public class CameraFacade : IFacade, IBindable
   {
-    private EcsEntityWrapper _entityWrapper;
-
-    public void SetVisual(EcsEntityWrapper entityWrapper)
-    {
-      _entityWrapper = entityWrapper;
-    }
+    private EntityVisual _visual;
+    private EcsEntityWrapper _entity => _visual.Entity;
 
     public void CalculateCameraData()
     {
       CalculateLocalDeepBounds();
     }
 
+    public void Bind(EcsEntityWrapper entity)
+    {
+      _visual = entity.Get<EntityVisualRef>().Visual;
+    }
+
     private void CalculateLocalDeepBounds()
     {
-      if (_entityWrapper.IsAlive())
+      if (_entity.IsAlive())
       {
-        Camera camera = _entityWrapper.Get<CameraRef>().Camera;
-        Transform transform = _entityWrapper.Get<TransformRef>().Transform;
+        Camera camera = _entity.Get<CameraRef>().Camera;
+        Transform transform = _entity.Get<TransformRef>().Transform;
 
         var point = new Vector3(0, 0, Mathf.Abs(transform.position.y));
         Vector3 min = camera.ViewportToWorldPoint(point);
@@ -33,7 +35,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
         Vector3 max = camera.ViewportToWorldPoint(point);
         
         var bounds = Rect.MinMaxRect(min.x, min.z, max.x, max.z);
-        _entityWrapper.Replace((ref CameraData cameraData) => cameraData.WorldXZBounds = bounds);
+        _entity.Replace((ref CameraData cameraData) => cameraData.WorldXZBounds = bounds);
       }
     }
   }

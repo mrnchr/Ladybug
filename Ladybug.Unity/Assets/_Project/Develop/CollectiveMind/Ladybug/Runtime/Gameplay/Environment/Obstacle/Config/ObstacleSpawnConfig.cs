@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CollectiveMind.Ladybug.Runtime.TriInspector;
 using TriInspector;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     public float DistanceBetweenObstacles;
 
     [ValidateInput("ValidateChances")]
+    [OnInspectorUpdate(nameof(OnInspectorUpdate))]
     [ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, Draggable = false)]
     public List<SpawnChance> SpawnChances = CreateSpawnChances();
     
@@ -25,6 +27,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     {
       return SpawnableEntities()
         .Select(x => new SpawnChance { EntityType = x })
+        .OrderBy(x => x.EntityType.ToString())
         .ToList();
     }
 
@@ -32,10 +35,22 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     {
       return Enum.GetValues(typeof(EntityType))
         .Cast<EntityType>()
-        .Where(x => x is >= EntityType.Blob and <= EntityType.PushPin2);
+        .Where(EntityTypeUtils.IsObstacle);
     }
 
 #if UNITY_EDITOR
+    private void OnInspectorUpdate()
+    {
+      List<EntityType> spawnableEntities = SpawnableEntities().ToList();
+
+      if (spawnableEntities.Count != SpawnChances.Count)
+      {
+        IEnumerable<EntityType> restEntities = spawnableEntities.Except(SpawnChances.Select(x => x.EntityType));
+        SpawnChances.AddRange(restEntities.Select(x => new SpawnChance { EntityType = x }));
+        SpawnChances.Sort((a, b) => string.Compare(a.EntityType.ToString(), b.EntityType.ToString(), StringComparison.Ordinal));
+      }
+    }
+    
     private TriValidationResult ValidateChances()
     {
       float sum = SpawnChances.Sum(x => x.Chance);
