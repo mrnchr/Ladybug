@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using CollectiveMind.Ladybug.Editor.Monitoring.Entity;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds;
 using Leopotam.EcsLite;
 

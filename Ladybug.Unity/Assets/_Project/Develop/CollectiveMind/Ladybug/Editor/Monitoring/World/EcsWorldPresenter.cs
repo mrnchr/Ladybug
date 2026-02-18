@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CollectiveMind.Ladybug.Editor.Monitoring.Entity;
 using CollectiveMind.Ladybug.Editor.Monitoring.Universe;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds;
 using Leopotam.EcsLite;
 using Unity.Profiling;
@@ -20,7 +19,6 @@ namespace CollectiveMind.Ladybug.Editor.Monitoring.World
     private readonly HashSet<int> _dirtyEntities = new HashSet<int>();
     private readonly List<int> _updatables = new List<int>();
     private Type[] _typesCache;
-    private int[] _entities;
     private IEcsPool[] _pools;
 
     public IEcsWorldWrapper Wrapper => _wrapper;
@@ -47,9 +45,11 @@ namespace CollectiveMind.Ladybug.Editor.Monitoring.World
       _wrapper.World.AddEventListener(this);
 
       var entities = new int[_wrapper.World.GetUsedEntitiesCount()];
-      _wrapper.World.GetAllEntities(ref _entities);
+      _wrapper.World.GetAllEntities(ref entities);
       foreach (int entity in entities)
+      {
         OnEntityCreated(entity);
+      }
     }
 
     public void Tick()

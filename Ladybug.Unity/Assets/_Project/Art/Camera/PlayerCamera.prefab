@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1615842411379974245}
   - component: {fileID: 6444329169122427380}
   - component: {fileID: 1605153905235074595}
-  - component: {fileID: 3360853069986998518}
-  - component: {fileID: 3261649198070772823}
+  - component: {fileID: 3671035957906734817}
+  - component: {fileID: 5556569304716560582}
   - component: {fileID: 2876105921781492619}
   m_Layer: 0
   m_Name: VirtualCamera
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bae75a8d9e41fa95ae42366f293019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3360853069986998518
+--- !u!114 &3671035957906734817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,10 +132,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 171316250234769251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a4dec42b09c48be9cf8f509f58b2a36, type: 3}
+  m_Script: {fileID: 11500000, guid: afdb257572d24989ad5635fde281b623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3261649198070772823
+  _ecsBinder: {fileID: 5556569304716560582}
+--- !u!114 &5556569304716560582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,21 +145,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 171316250234769251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc7f384b43d4a218aed0e82fd56407b, type: 3}
+  m_Script: {fileID: 11500000, guid: a9dd8667a5f8490486c82a2d85da62e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _converters:
-  - _serializedConverter:
-      rid: -2
-    _components:
-      Components: []
-    _scriptableConverter: {fileID: 11400000, guid: c7b5521ba9c183f47bce2a74f2fd9bed, type: 2}
-  _createEntityOnStart: 1
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!114 &2876105921781492619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,9 +203,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2109997472321500436}
   - component: {fileID: 1297026529115990337}
-  - component: {fileID: 2157465514400928349}
-  - component: {fileID: 4444267674153614867}
   - component: {fileID: 4547837970652434445}
+  - component: {fileID: 374385511222219830}
   - component: {fileID: 2635593143109627544}
   m_Layer: 0
   m_Name: CameraTarget
@@ -252,42 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0ad799c14f487c99b8aaa2583b6d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2157465514400928349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5510424902946071316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a4dec42b09c48be9cf8f509f58b2a36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4444267674153614867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5510424902946071316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc7f384b43d4a218aed0e82fd56407b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _converters:
-  - _serializedConverter:
-      rid: -2
-    _components:
-      Components: []
-    _scriptableConverter: {fileID: 11400000, guid: 5cffe9b745ad0db42bbb19b58c7468ab, type: 2}
-  _createEntityOnStart: 1
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+  _ecsBinder: {fileID: 374385511222219830}
 --- !u!54 &4547837970652434445
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -315,6 +268,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 118
   m_CollisionDetection: 0
+--- !u!114 &374385511222219830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5510424902946071316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dd8667a5f8490486c82a2d85da62e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2635593143109627544
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 ﻿using CollectiveMind.Ladybug.Editor.Monitoring.Universe;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds;
 using Zenject;
 

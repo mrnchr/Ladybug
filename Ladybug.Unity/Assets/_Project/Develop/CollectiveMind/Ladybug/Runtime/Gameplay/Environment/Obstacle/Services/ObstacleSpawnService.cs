@@ -3,6 +3,7 @@ using System.Linq;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using UnityEngine;
 
@@ -11,15 +12,15 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
   public class ObstacleSpawnService
   {
     private readonly ObstacleSpawnConfig _config;
-    private readonly IViewFactory _viewFactory;
+    private readonly EntityFactory _entityFactory;
     private readonly EcsEntities _cameras;
     private readonly EcsEntities _ladybugs;
     private readonly EcsEntities _obstacles;
 
-    public ObstacleSpawnService(IEcsUniverse universe, ObstacleSpawnConfig config, IViewFactory viewFactory)
+    public ObstacleSpawnService(IEcsUniverse universe, ObstacleSpawnConfig config, EntityFactory entityFactory)
     {
-      _viewFactory = viewFactory;
       _config = config;
+      _entityFactory = entityFactory;
 
       _cameras = universe
         .FilterGame<CameraTag>()
@@ -28,12 +29,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 
       _ladybugs = universe
         .FilterGame<LadybugTag>()
-        .Inc<ConverterRef>()
+        .Inc<GameObjectRef>()
         .Collect();
 
       _obstacles = universe
         .FilterGame<ObstacleTag>()
-        .Inc<ConverterRef>()
+        .Inc<GameObjectRef>()
         .Collect();
     }
 
@@ -83,9 +84,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     private void CreateObstacle(Vector3 spawnPosition)
     {
       EntityType entityType = SelectObstacleType();
-      var converter = _viewFactory.Create<GameObjectConverter>(entityType);
+      EntityVisual visual = _entityFactory.CreateVisual(entityType);
       Quaternion rotation = Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.up);
-      converter.transform.SetPositionAndRotation(spawnPosition, rotation);
+      visual.transform.SetPositionAndRotation(spawnPosition, rotation);
     }
 
     private EntityType SelectObstacleType()

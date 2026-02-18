@@ -4,7 +4,6 @@ using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.CoroutineRunner;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Timing;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.SceneTransition.Boot;
 using TriInspector;
 using UnityEngine;
@@ -29,7 +28,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
 
       BindCoroutineRunner();
       BindLifeCycleBinder();
-      BindFacadePool();
 
       Container
         .Bind<TimeService>()
@@ -70,15 +68,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<ILifeCycleBinder>()
         .To<LifeCycleBinder>()
-        .AsSingle()
-        .CopyIntoAllSubContainers();
-    }
-
-    private void BindFacadePool()
-    {
-      Container
-        .Bind<IFacadeRegistry>()
-        .To<FacadeRegistry>()
         .AsSingle()
         .CopyIntoAllSubContainers();
     }

@@ -21,7 +21,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
 
       _ladybugs = universe
         .FilterGame<LadybugTag>()
-        .Inc<VisualFacadeRef>()
+        .Inc<FacadeRef>()
         .Exc<Boosting>()
         .Collect();
     }

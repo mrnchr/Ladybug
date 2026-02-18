@@ -12,8 +12,12 @@
     Pencil = PaperClip + 1,
     PushPin1 = Pencil + 1,
     PushPin2 = PushPin1 + 1,
-    Marker = PushPin2 + 1,
+    Ruler = PushPin2 + 1,
+    Marker = 9000,
     
-    SpawnPoint = 10000
+    SpawnPoint = 10000,
+    Camera = SpawnPoint + 1,
+    VirtualCamera = Camera + 1,
+    CameraTarget = VirtualCamera + 1
   }
 }

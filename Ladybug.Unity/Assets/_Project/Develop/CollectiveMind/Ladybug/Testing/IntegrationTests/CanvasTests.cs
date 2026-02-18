@@ -55,7 +55,7 @@ namespace CollectiveMind.Ladybug.Testing.IntegrationTests
       {
         game.World.CreateEntity()
           .Add<CanvasTag>()
-          .Add<ConverterRef>()
+          .Add<EntityVisualRef>()
           .Add((ref TransformRef transformRef) =>
           {
             transformRef.Transform = new GameObject().transform;

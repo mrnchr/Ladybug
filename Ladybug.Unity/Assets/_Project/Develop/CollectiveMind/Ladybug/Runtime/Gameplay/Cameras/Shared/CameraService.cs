@@ -16,11 +16,17 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
       _cameras = universe
         .FilterGame<CameraTag>()
         .Inc<CameraData>()
+        .Inc<GameObjectRef>()
         .Collect();
     }
     
     public bool IsEntityOutsideCamera(EcsEntityWrapper entity)
     {
+      if (!_cameras.Any())
+      {
+        return false;
+      }
+        
       Rect cameraBounds = GetCameraBounds();
       Transform transform = entity.Get<TransformRef>().Transform;
       bool isOutside = transform.position.z < cameraBounds.yMin - _cameraConfig.FrameOffset;

@@ -2,6 +2,7 @@
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Utils;
 using R3;
@@ -10,7 +11,7 @@ using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
-  public class LadybugFacade : IFacade, IGameStep
+  public class LadybugFacade : IFacade, IGameStep, IBindable
   {
     public Transform Transform => _visual.transform;
     public Vector3 Velocity { get; private set; }
@@ -96,10 +97,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
         Transform.SetPosition(Axis.X, Axis.Z, cameraBounds.center);
       }
     }
-
-    public void Bind(LadybugVisual visual)
+    
+    public void Bind(EcsEntityWrapper entity)
     {
-      _context.Visual = visual;
+      _context.Visual = entity.GetVisual<LadybugVisual>();
       _booster.Initialize();
     }
 

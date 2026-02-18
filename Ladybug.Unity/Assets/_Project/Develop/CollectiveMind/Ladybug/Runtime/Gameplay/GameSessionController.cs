@@ -2,6 +2,7 @@
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint.Components;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
@@ -33,6 +34,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
     private readonly EcsEntities _cameraTargets;
     private readonly EcsEntities _virtualCameras;
     private readonly EcsEntities _ladybugs;
+    private readonly EcsEntities _spawnablePoints;
 
     public GameSessionController(IWindowManager windowManager,
       SessionService sessionService,
@@ -70,7 +72,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
 
       _ladybugs = _ecsUniverse
         .FilterGame<LadybugTag>()
-        .Inc<VisualFacadeRef>()
+        .Inc<FacadeRef>()
+        .Collect();
+
+      _spawnablePoints = _ecsUniverse
+        .FilterGame<SpawnPointTag>()
+        .Inc<Spawnable>()
         .Collect();
     }
 
@@ -111,6 +118,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
     public async UniTask SwitchToGame()
     {
       _sessionService.Initialize();
+
+      foreach (EcsEntityWrapper spawnPoint in _spawnablePoints)
+      {
+        spawnPoint.GetFacade<SpawnPointFacade>().Spawn();
+      }
+      
       _obstacleSpawner.StartSpawn();
       _outOfViewObserver.Start();
       _gameplayUpdater.SetActive(true);

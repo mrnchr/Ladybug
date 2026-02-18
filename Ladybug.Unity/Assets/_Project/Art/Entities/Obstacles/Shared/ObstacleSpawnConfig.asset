@@ -31,3 +31,5 @@ MonoBehaviour:
     Chance: 0.2
   - EntityType: 1006
     Chance: 0.2
+  - EntityType: 1007
+    Chance: 0

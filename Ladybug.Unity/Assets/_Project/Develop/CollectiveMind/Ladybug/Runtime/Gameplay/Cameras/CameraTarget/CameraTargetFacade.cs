@@ -1,5 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Utils;
 using R3;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget
 {
-  public class CameraTargetFacade : IFacade, IGameFixedStep
+  public class CameraTargetFacade : IFacade, IBindable, IGameFixedStep
   {
     public ReadOnlyReactiveProperty<float> Speed => _speed;
 
@@ -16,7 +17,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget
     private readonly ReactiveProperty<float> _speed = new ReactiveProperty<float>();
     
     private CameraTargetVisual _visual;
-    private EcsEntityWrapper Entity => _visual.Entity;
+    private EcsEntityWrapper _entity => _visual.Entity;
 
     public CameraTargetFacade(CameraConfig config, IEcsUniverse universe)
     {
@@ -24,13 +25,14 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget
 
       _ladybugs = universe
         .FilterGame<LadybugTag>()
-        .Inc<VisualFacadeRef>()
+        .Inc<FacadeRef>()
         .Collect();
     }
 
-    public void Bind(CameraTargetVisual visual)
+    public void Bind(EcsEntityWrapper entity)
     {
-      _visual = visual;
+      _visual = entity.GetVisual<CameraTargetVisual>();
+      _entity.Replace((ref StartPosition startPosition) => startPosition.Position = _visual.transform.position);
     }
 
     public void FixedStep()

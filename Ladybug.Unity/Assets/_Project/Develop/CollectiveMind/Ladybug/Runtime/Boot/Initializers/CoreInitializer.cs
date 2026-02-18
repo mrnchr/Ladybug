@@ -1,46 +1,81 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
+﻿using System.Collections.Generic;
+using CollectiveMind.Ladybug.Runtime.Gameplay;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
 {
-  public class CoreInitializer : IInitializable
+  public class CoreInitializer : MonoBehaviour, IInitializable
   {
-    private readonly GameSessionController _gameSessionController;
-    private readonly GameplayUpdater _gameplayUpdater;
-    private readonly LineDrawer _lineDrawer;
-    private readonly EcsEngine _ecsEngine;
-    private readonly SessionService _sessionService;
-    private readonly WindowInitializer _windowInitializer;
-    private readonly IWindowManager _windowManager;
+    [SerializeField]
+    private EntityVisual _cameraVisual;
 
-    public CoreInitializer(GameSessionController gameSessionController,
+    [SerializeField]
+    private CameraTargetVisual _cameraTargetVisual;
+
+    [SerializeField]
+    private EntityVisual _virtualCameraVisual;
+
+    [SerializeField]
+    private List<SpawnPointVisual> _spawnPointVisuals;
+
+    private CoreCreationRecipeRegistrar _creationRecipeRegistrar;
+    private GameSessionController _gameSessionController;
+    private GameplayUpdater _gameplayUpdater;
+    private LineDrawer _lineDrawer;
+    private EcsEngine _ecsEngine;
+    private SessionService _sessionService;
+    private WindowInitializer _windowInitializer;
+    private EntityFactory _entityFactory;
+
+    [Inject]
+    private void Construct(CoreCreationRecipeRegistrar creationRecipeRegistrar,
+      GameSessionController gameSessionController,
       GameplayUpdater gameplayUpdater,
       LineDrawer lineDrawer,
       EcsEngine ecsEngine,
       SessionService sessionService,
-      WindowInitializer windowInitializer)
+      WindowInitializer windowInitializer,
+      EntityFactory entityFactory)
     {
+      _creationRecipeRegistrar = creationRecipeRegistrar;
       _gameSessionController = gameSessionController;
       _gameplayUpdater = gameplayUpdater;
       _lineDrawer = lineDrawer;
       _ecsEngine = ecsEngine;
       _sessionService = sessionService;
       _windowInitializer = windowInitializer;
+      _entityFactory = entityFactory;
     }
-    
+
     public void Initialize()
     {
+      _creationRecipeRegistrar.RegisterRecipes();
       _gameplayUpdater.Add(_lineDrawer);
       _gameplayUpdater.Add(_ecsEngine);
       _gameplayUpdater.Add(_sessionService);
 
       _windowInitializer.Initialize();
       _ecsEngine.Initialize();
+
+      _entityFactory.CreateEntityWithVisual(EntityType.Camera, _cameraVisual);
+      _entityFactory.CreateEntityWithVisual(EntityType.VirtualCamera, _virtualCameraVisual);
+      _entityFactory.CreateEntityWithVisual(EntityType.CameraTarget, _cameraTargetVisual);
+
+      foreach (SpawnPointVisual spawnPointVisual in _spawnPointVisuals)
+      {
+        _entityFactory.CreateEntityWithVisual(EntityType.SpawnPoint, spawnPointVisual);
+      }
+
       _gameSessionController.SwitchToMenu().Forget();
     }
   }

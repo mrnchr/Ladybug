@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6170493338930769741}
-  - component: {fileID: 2421890899609117582}
-  - component: {fileID: 693040525525607013}
-  - component: {fileID: 4916449752314856009}
-  - component: {fileID: 5503721850951775318}
+  - component: {fileID: 7844807698468817424}
+  - component: {fileID: 9211268692076099024}
+  - component: {fileID: 6673577582511167654}
   - component: {fileID: 7025453826946370874}
   m_Layer: 0
   m_Name: SpawnPoint
@@ -36,7 +35,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2421890899609117582
+--- !u!114 &7844807698468817424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8223007035447772763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d0b84b1d204f0eb5ad67d3d47ec679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ecsBinder: {fileID: 6673577582511167654}
+  <SpawnedEntity>k__BackingField: 1
+--- !u!114 &9211268692076099024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4dec42b09c48be9cf8f509f58b2a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &693040525525607013
+--- !u!114 &6673577582511167654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,55 +70,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8223007035447772763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc7f384b43d4a218aed0e82fd56407b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _converters:
-  - _serializedConverter:
-      rid: -2
-    _components:
-      Components: []
-    _scriptableConverter: {fileID: 11400000, guid: 555501b2340634148b52d372fed772c8, type: 2}
-  - _serializedConverter:
-      rid: -2
-    _components:
-      Components:
-      - Value:
-          rid: 2817292098324922786
-    _scriptableConverter: {fileID: 0}
-  _createEntityOnStart: 1
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 2817292098324922786
-      type: {class: SpawnedEntityId, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint.Components, asm: Ladybug.Runtime}
-      data:
-        Id: 1
---- !u!114 &4916449752314856009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8223007035447772763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585acf1e5c3b4dff80c11a2e48b7a341, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Converter: {fileID: 0}
---- !u!114 &5503721850951775318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8223007035447772763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ff5a74139b4a6b981f2c68394d15f6, type: 3}
+  m_Script: {fileID: 11500000, guid: a9dd8667a5f8490486c82a2d85da62e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7025453826946370874

@@ -19,12 +19,18 @@ MonoBehaviour:
       Components:
       - Value:
           rid: 2817292138555637823
+      - Value:
+          rid: 2776570732361285727
     _scriptableConverter: {fileID: 0}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2776570732361285727
+      type: {class: EntityId, ns: CollectiveMind.Ladybug.Runtime.Gameplay, asm: Ladybug.Runtime}
+      data:
+        Id: 10002
     - rid: 2817292138555637823
       type: {class: VirtualCameraTag, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.VirtualCamera, asm: Ladybug.Runtime}
       data: 
