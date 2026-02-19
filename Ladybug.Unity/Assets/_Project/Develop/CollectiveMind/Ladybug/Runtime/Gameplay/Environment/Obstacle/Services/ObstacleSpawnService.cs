@@ -4,7 +4,6 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
-using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
@@ -84,9 +83,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     private void CreateObstacle(Vector3 spawnPosition)
     {
       EntityType entityType = SelectObstacleType();
-      EntityVisual visual = _entityFactory.CreateVisual(entityType);
-      Quaternion rotation = Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.up);
-      visual.transform.SetPositionAndRotation(spawnPosition, rotation);
+      var obstacleInitContext = new ObstacleInitContext { SpawnPosition = spawnPosition };
+      _entityFactory.CreateVisual(entityType, obstacleInitContext);
     }
 
     private EntityType SelectObstacleType()

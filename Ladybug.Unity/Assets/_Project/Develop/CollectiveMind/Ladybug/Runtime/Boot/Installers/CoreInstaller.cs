@@ -91,6 +91,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .BindInterfacesAndSelfTo<CoreCreationRecipeRegistrar>()
         .AsSingle();
+
+      Container
+        .BindInterfacesAndSelfTo<CoreEntityInitializerRegistrar>()
+        .AsSingle();
       
       Container
         .BindInterfacesTo<CoreInitializer>()

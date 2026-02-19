@@ -29,6 +29,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     private List<SpawnPointVisual> _spawnPointVisuals;
 
     private CoreCreationRecipeRegistrar _creationRecipeRegistrar;
+    private CoreEntityInitializerRegistrar _entityInitializerRegistrar;
     private GameSessionController _gameSessionController;
     private GameplayUpdater _gameplayUpdater;
     private LineDrawer _lineDrawer;
@@ -39,6 +40,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
 
     [Inject]
     private void Construct(CoreCreationRecipeRegistrar creationRecipeRegistrar,
+      CoreEntityInitializerRegistrar entityInitializerRegistrar,
       GameSessionController gameSessionController,
       GameplayUpdater gameplayUpdater,
       LineDrawer lineDrawer,
@@ -48,6 +50,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       EntityFactory entityFactory)
     {
       _creationRecipeRegistrar = creationRecipeRegistrar;
+      _entityInitializerRegistrar = entityInitializerRegistrar;
       _gameSessionController = gameSessionController;
       _gameplayUpdater = gameplayUpdater;
       _lineDrawer = lineDrawer;
@@ -60,6 +63,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     public void Initialize()
     {
       _creationRecipeRegistrar.RegisterRecipes();
+      _entityInitializerRegistrar.RegisterInitializers();
       _gameplayUpdater.Add(_lineDrawer);
       _gameplayUpdater.Add(_ecsEngine);
       _gameplayUpdater.Add(_sessionService);
