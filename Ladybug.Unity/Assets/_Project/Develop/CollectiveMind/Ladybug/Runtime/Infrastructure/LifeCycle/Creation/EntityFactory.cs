@@ -8,14 +8,21 @@ using Object = UnityEngine.Object;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation
 {
-  public class EntityFactory
+  public class EntityFactory : IDisposable
   {
-    private readonly Dictionary<EntityType, CreationRecipe> _recipes = new Dictionary<EntityType, CreationRecipe>();
+    private const int MAX_POOL_SIZE = 10;
+
     private readonly IInstantiator _instantiator;
     private readonly IEcsUniverse _universe;
     private readonly GameplayUpdater _gameplayUpdater;
-    private readonly CreationContext _cachedContext = new CreationContext();
     private readonly FacadeEcsConverter _facadeEcsConverter;
+    private readonly CreationContext _cachedContext = new CreationContext();
+    
+    private readonly Dictionary<Type, Stack<EntityInitContext>> _initContextPools =
+      new Dictionary<Type, Stack<EntityInitContext>>();
+
+    private readonly Dictionary<EntityType, RecipeHandle> _recipes = new Dictionary<EntityType, RecipeHandle>();
+    private readonly Dictionary<Type, InitializerHandle> _initializers = new Dictionary<Type, InitializerHandle>();
 
     public EntityFactory(IInstantiator instantiator, IEcsUniverse universe, GameplayUpdater gameplayUpdater)
     {
@@ -25,62 +32,112 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation
       _facadeEcsConverter = new FacadeEcsConverter();
     }
 
-    public void RegisterRecipe(CreationRecipe creationRecipe)
+    public IDisposable RegisterRecipe(CreationRecipe creationRecipe)
     {
-      _recipes[creationRecipe.EntityType] = creationRecipe.Clone();
+      if (_recipes.ContainsKey(creationRecipe.EntityType))
+      {
+        return null;
+      }
+
+      var handle = new RecipeHandle(() => UnregisterRecipe(creationRecipe.EntityType));
+      handle.RegisteredRecipe = creationRecipe.Clone();
+      _recipes[creationRecipe.EntityType] = handle;
+      return handle;
     }
 
-    public void UnregisterRecipe(EntityType entityType)
+    public IDisposable RegisterInitializer<TInitializer>() where TInitializer : IEntityInitializer
     {
-      _recipes.Remove(entityType);
+      Type initializerType = typeof(TInitializer);
+
+      if (_initializers.ContainsKey(initializerType))
+      {
+        return null;
+      }
+
+      var handle = new InitializerHandle(UnregisterInitializer<TInitializer>);
+      handle.RegisteredInitializer = _instantiator.Instantiate<TInitializer>();
+      _initializers[initializerType] = handle;
+      return handle;
     }
 
     public EcsEntityWrapper CreateEntity(EntityType entityType)
     {
       var createdEntity = new EcsEntityWrapper();
-      _cachedContext.Clear();
-      _cachedContext.EntityType = entityType;
-      _cachedContext.Entity = createdEntity;
-      CreateEntity(_cachedContext);
+      CreateEntity(entityType, createdEntity);
+      return createdEntity;
+    }
+
+    public EcsEntityWrapper CreateEntity<TContext>(EntityType entityType, TContext initContext) where TContext : struct
+    {
+      var createdEntity = new EcsEntityWrapper();
+      CreateEntity(entityType, createdEntity, initContext);
       return createdEntity;
     }
 
     public void CreateEntity(EntityType entityType, EcsEntityWrapper entity)
     {
-      _cachedContext.Clear();
-      _cachedContext.EntityType = entityType;
-      _cachedContext.Entity = entity;
+      _cachedContext.Reset(entityType, entity);
       CreateEntity(_cachedContext);
+    }
+
+    public void CreateEntity<TContext>(EntityType entityType, EcsEntityWrapper entity, TContext initContext)
+      where TContext : struct
+    {
+      EntityInitContext context = Get<TContext>();
+      context.Set(initContext);
+      _cachedContext.Reset(entityType, entity, initContext: context);
+      CreateEntity(_cachedContext);
+      Release<TContext>(context);
     }
 
     public EntityVisual CreateVisual(EntityType entityType)
     {
       var createdEntity = new EcsEntityWrapper();
-      _cachedContext.Clear();
-      _cachedContext.EntityType = entityType;
-      _cachedContext.Entity = createdEntity;
-      CreateEntity(_cachedContext);
+      CreateEntity(entityType, createdEntity);
       return _cachedContext.Visual;
     }
 
-    public void CreateEntityWithVisual(EntityType entityType, EntityVisual existingVisual, EcsEntityWrapper cachedEntity)
+    public EntityVisual CreateVisual<TContext>(EntityType entityType, TContext initContext) where TContext : struct
     {
-      _cachedContext.Clear();
-      _cachedContext.EntityType = entityType;
-      _cachedContext.Visual = existingVisual;
-      _cachedContext.Entity = cachedEntity;
-      CreateEntity(_cachedContext);
+      var createdEntity = new EcsEntityWrapper();
+      CreateEntity(entityType, createdEntity, initContext);
+      return _cachedContext.Visual;
     }
 
     public EcsEntityWrapper CreateEntityWithVisual(EntityType entityType, EntityVisual existingVisual)
     {
       var createdEntity = new EcsEntityWrapper();
-      _cachedContext.Clear();
-      _cachedContext.EntityType = entityType;
-      _cachedContext.Visual = existingVisual;
-      _cachedContext.Entity = createdEntity;
-      CreateEntity(_cachedContext);
+      CreateEntityWithVisual(entityType, existingVisual, createdEntity);
       return createdEntity;
+    }
+
+    public EcsEntityWrapper CreateEntityWithVisual<TContext>(EntityType entityType,
+      EntityVisual existingVisual,
+      TContext initContext) where TContext : struct
+    {
+      var createdEntity = new EcsEntityWrapper();
+      CreateEntityWithVisual(entityType, existingVisual, createdEntity, initContext);
+      return createdEntity;
+    }
+
+    public void CreateEntityWithVisual(EntityType entityType,
+      EntityVisual existingVisual,
+      EcsEntityWrapper entity)
+    {
+      _cachedContext.Reset(entityType, entity, visual: existingVisual);
+      CreateEntity(_cachedContext);
+    }
+
+    public void CreateEntityWithVisual<TContext>(EntityType entityType,
+      EntityVisual existingVisual,
+      EcsEntityWrapper entity,
+      TContext initContext) where TContext : struct
+    {
+      EntityInitContext context = Get<TContext>();
+      context.Set(initContext);
+      _cachedContext.Reset(entityType, entity, visual: existingVisual, initContext: context);
+      CreateEntity(_cachedContext);
+      Release<TContext>(context);
     }
 
     public void DestroyEntity(EcsEntityWrapper entity)
@@ -128,18 +185,47 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation
       entity.DelEntity();
     }
 
+    public void Dispose()
+    {
+      foreach (InitializerHandle handle in _initializers.Values)
+      {
+        (handle.RegisteredInitializer as IDisposable)?.Dispose();
+      }
+    }
+
+    private void UnregisterRecipe(EntityType entityType)
+    {
+      _recipes.Remove(entityType);
+    }
+
+    private void UnregisterInitializer<TInitializer>() where TInitializer : IEntityInitializer
+    {
+      Type initializerType = typeof(TInitializer);
+
+      if (_initializers.TryGetValue(initializerType, out InitializerHandle handle))
+      {
+        (handle.RegisteredInitializer as IDisposable)?.Dispose();
+        _initializers.Remove(initializerType);
+      }
+    }
+
     private void CreateEntity(CreationContext context)
     {
       EcsEntityWrapper entity = context.Entity;
       entity.SetWorld(null);
 
-      CreationRecipe recipe;
+      CreationRecipe recipe = null;
 
-      if (context.CreationRecipe != null)
+      if (context.Recipe != null)
       {
-        recipe = context.CreationRecipe;
+        recipe = context.Recipe;
       }
-      else if (!_recipes.TryGetValue(context.EntityType, out recipe))
+      else if (_recipes.TryGetValue(context.EntityType, out RecipeHandle handle))
+      {
+        recipe = handle.RegisteredRecipe;
+      }
+
+      if (recipe == null)
       {
         return;
       }
@@ -165,7 +251,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation
       }
 
       _facadeEcsConverter.AttachFacade(context.Facade, entity);
-      
+
       if (context.Facade is IGameCycle gameCycle)
       {
         _gameplayUpdater.Add(gameCycle);
@@ -173,6 +259,48 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation
 
       (context.Facade as IBindable)?.Bind(entity);
       (context.Visual as IBindable)?.Bind(entity);
+
+      foreach (InitializerHandle handle in _initializers.Values)
+      {
+        handle.RegisteredInitializer.Initialize(context);
+      }
+    }
+    
+    private EntityInitContext Get<TContextValue>() where TContextValue : struct
+    {
+      EntityInitContext contextInstance;
+      
+      if (!_initContextPools.TryGetValue(typeof(TContextValue), out Stack<EntityInitContext> initContexts)
+        || initContexts.Count == 0)
+      {
+        contextInstance = new EntityInitContext();
+      }
+      else
+      {
+        contextInstance = initContexts.Pop();
+      }
+
+      contextInstance.SetDefault<TContextValue>();
+      return contextInstance;
+    }
+
+    private void Release<TContextValue>(EntityInitContext initContext) where TContextValue : struct
+    {
+      Type contextValueType = typeof(TContextValue);
+      
+      if (!_initContextPools.TryGetValue(contextValueType, out Stack<EntityInitContext> initContexts))
+      {
+        initContexts = new Stack<EntityInitContext>();
+        _initContextPools[contextValueType] = initContexts;
+      }
+
+      if (initContexts.Count >= MAX_POOL_SIZE)
+      {
+        return;
+      }
+
+      initContext.SetDefault<TContextValue>();
+      initContexts.Push(initContext);
     }
 
     private void DisposeFacade(IFacade facade)
