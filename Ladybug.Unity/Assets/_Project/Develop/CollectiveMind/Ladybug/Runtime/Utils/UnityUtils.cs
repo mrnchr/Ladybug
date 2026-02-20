@@ -33,6 +33,11 @@ namespace CollectiveMind.Ladybug.Runtime.Utils
     {
       SetPosition(transform, axis1, values.x, axis2, values.y);
     }
+
+    public static Vector3 GetXZY(this Vector3 vector)
+    {
+      return new Vector3(vector.x, vector.z, vector.y);
+    }
   }
 
   public enum Axis

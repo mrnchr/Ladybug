@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CollectiveMind.Ladybug.Runtime.Gameplay;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
@@ -34,6 +35,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     private GameplayUpdater _gameplayUpdater;
     private LineDrawer _lineDrawer;
     private EcsEngine _ecsEngine;
+    private CameraService _cameraService;
     private SessionService _sessionService;
     private WindowInitializer _windowInitializer;
     private EntityFactory _entityFactory;
@@ -45,6 +47,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       GameplayUpdater gameplayUpdater,
       LineDrawer lineDrawer,
       EcsEngine ecsEngine,
+      CameraService cameraService,
       SessionService sessionService,
       WindowInitializer windowInitializer,
       EntityFactory entityFactory)
@@ -55,6 +58,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       _gameplayUpdater = gameplayUpdater;
       _lineDrawer = lineDrawer;
       _ecsEngine = ecsEngine;
+      _cameraService = cameraService;
       _sessionService = sessionService;
       _windowInitializer = windowInitializer;
       _entityFactory = entityFactory;
@@ -71,7 +75,9 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       _windowInitializer.Initialize();
       _ecsEngine.Initialize();
 
-      _entityFactory.CreateEntityWithVisual(EntityType.Camera, _cameraVisual);
+      EcsEntityWrapper camera = _entityFactory.CreateEntityWithVisual(EntityType.Camera, _cameraVisual);
+      _cameraService.Initialize(camera);
+      
       _entityFactory.CreateEntityWithVisual(EntityType.VirtualCamera, _virtualCameraVisual);
       _entityFactory.CreateEntityWithVisual(EntityType.CameraTarget, _cameraTargetVisual);
 

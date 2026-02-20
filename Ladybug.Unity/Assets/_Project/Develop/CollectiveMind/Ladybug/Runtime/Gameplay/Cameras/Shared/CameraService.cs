@@ -1,32 +1,46 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Utils;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
 {
   public class CameraService
   {
-    private readonly CameraConfig _cameraConfig;
-    private readonly EcsEntities _cameras;
+    public EcsEntityWrapper Camera { get; } = new EcsEntityWrapper();
 
-    public CameraService(IEcsUniverse universe, CameraConfig cameraConfig)
+    private readonly CameraConfig _cameraConfig;
+
+    public CameraService(CameraConfig cameraConfig)
     {
       _cameraConfig = cameraConfig;
-
-      _cameras = universe
-        .FilterGame<CameraTag>()
-        .Inc<CameraData>()
-        .Inc<GameObjectRef>()
-        .Collect();
     }
-    
-    public bool IsEntityOutsideCamera(EcsEntityWrapper entity)
+
+    public void Initialize(EcsEntityWrapper camera)
     {
-      if (!_cameras.Any())
+      Camera.Copy(camera);
+    }
+
+    public bool IsInCameraView(Vector3 position)
+    {
+      if (!Camera.IsAlive())
       {
         return false;
       }
-        
+
+      Rect cameraBounds = GetCameraBounds();
+      Vector3 positionXZ = position.GetXZY();
+      bool isInView = cameraBounds.Contains(positionXZ);
+      return isInView;
+    }
+
+    public bool IsEntityOutsideCamera(EcsEntityWrapper entity)
+    {
+      if (!Camera.IsAlive())
+      {
+        return false;
+      }
+
       Rect cameraBounds = GetCameraBounds();
       Transform transform = entity.Get<TransformRef>().Transform;
       bool isOutside = transform.position.z < cameraBounds.yMin - _cameraConfig.FrameOffset;
@@ -35,15 +49,15 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
 
     public Rect GetCameraBounds()
     {
-      foreach (EcsEntityWrapper camera in _cameras)
+      if (!Camera.IsAlive())
       {
-        var cameraFacade = camera.GetFacade<CameraFacade>();
-        cameraFacade.CalculateCameraData();
-        Rect bounds = camera.Get<CameraData>().WorldXZBounds;
-        return bounds;
+        return new Rect();
       }
 
-      return new Rect();
+      var cameraFacade = Camera.GetFacade<CameraFacade>();
+      cameraFacade.CalculateCameraData();
+      Rect bounds = Camera.Get<CameraData>().WorldXZBounds;
+      return bounds;
     }
   }
 }

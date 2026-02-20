@@ -30,7 +30,7 @@ MonoBehaviour:
   - Id: 1006
     Prefab: {fileID: 1528642060906917596, guid: 3fba7e86165d11340a30d68d7c5b8fb7, type: 3}
   - Id: 1007
-    Prefab: {fileID: 0}
+    Prefab: {fileID: 221647301567791743, guid: fb7b4058900d96641bd575297aaf6049, type: 3}
   - Id: 9000
     Prefab: {fileID: 0}
   - Id: 10000

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
 {
-  [CreateAssetMenu(menuName = CAC.Names.CAMERA_CONFIG_MENU, fileName = CAC.Names.CAMERA_CONFIG_FILE)]
+  [CreateAssetMenu(menuName = CAC.ENTITY_MENU + "Camera", fileName = "CameraConfig")]
   public class CameraConfig : ScriptableObject
   {
     [Title("Moving")]

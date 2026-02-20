@@ -14,14 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Converters:
   - _serializedConverter:
-      rid: 2776570732361285719
+      rid: -2
     _components:
-      Components: []
+      Components:
+      - Value:
+          rid: 2776570790001508421
     _scriptableConverter: {fileID: 0}
   references:
     version: 2
     RefIds:
-    - rid: 2776570732361285719
-      type: {class: ObstacleConverter, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2776570790001508421
+      type: {class: YawDeviationRange, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data:
-        _entityId: 0
+        MaxAngle: 45

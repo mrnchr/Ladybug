@@ -18,6 +18,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     public void RegisterInitializers()
     {
       RegisterInitializer<ObstacleTransformInitializer>();
+      RegisterInitializer<ObstacleYawDeviationInitializer>();
     }
 
     public void Dispose()

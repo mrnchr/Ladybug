@@ -6,7 +6,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
   public class ObstacleTransformInitializer : IEntityInitializer
   {
-    public void Initialize(CreationContext creationContext)
+    public void InitializeEntity(CreationContext creationContext)
     {
       EcsEntityWrapper entity = creationContext.Entity;
       
