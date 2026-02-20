@@ -1,4 +1,5 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds;
+﻿using System;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.Worlds;
 using Leopotam.EcsLite;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
@@ -11,5 +12,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     EcsWorld Message { get; }
     EcsWorld.Mask FilterGame<TComponent>() where TComponent : struct;
     EcsWorld.Mask FilterMessage<TComponent>() where TComponent : struct;
+    IDisposable Subscribe<T>(EcsEntityWrapper entity, Action action) where T : struct;
+    void Publish<T>(EcsEntityWrapper entity) where T : struct;
   }
 }

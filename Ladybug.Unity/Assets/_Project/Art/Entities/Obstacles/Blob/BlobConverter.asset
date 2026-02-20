@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Converters:
   - _serializedConverter:
+      rid: -2
+    _components:
+      Components: []
+    _scriptableConverter: {fileID: 11400000, guid: 2a4727192fca1a04db973c11f7e16a8f, type: 2}
+  - _serializedConverter:
       rid: 2776570732361285719
     _components:
       Components: []
@@ -21,6 +26,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2776570732361285719
       type: {class: ObstacleConverter, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data:

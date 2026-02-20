@@ -262,8 +262,11 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation
 
       foreach (InitializerHandle handle in _initializers.Values)
       {
-        handle.RegisteredInitializer.Initialize(context);
+        handle.RegisteredInitializer.InitializeEntity(context);
       }
+      
+      (context.Facade as IEntityInitializable)?.Initialize(context.InitContext);
+      (context.Visual as IEntityInitializable)?.Initialize(context.InitContext);
     }
     
     private EntityInitContext Get<TContextValue>() where TContextValue : struct

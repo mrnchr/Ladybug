@@ -2,6 +2,6 @@
 {
   public interface IEntityInitializer
   {
-    void Initialize(CreationContext creationContext);
+    void InitializeEntity(CreationContext creationContext);
   }
 }

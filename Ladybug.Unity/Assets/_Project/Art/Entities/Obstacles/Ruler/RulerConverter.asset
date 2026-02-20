@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 133c2ae489ef48fc81c331d6cf2618a2, type: 3}
-  m_Name: PaperclipConverter
+  m_Name: RulerConverter
   m_EditorClassIdentifier: 
   Converters:
   - _serializedConverter:
@@ -23,6 +23,15 @@ MonoBehaviour:
     _components:
       Components: []
     _scriptableConverter: {fileID: 0}
+  - _serializedConverter:
+      rid: -2
+    _components:
+      Components:
+      - Value:
+          rid: 2776570776812257364
+      - Value:
+          rid: 2776570778292847588
+    _scriptableConverter: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -31,4 +40,10 @@ MonoBehaviour:
     - rid: 2776570732361285719
       type: {class: ObstacleConverter, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data:
-        _entityId: 1003
+        _entityId: 1007
+    - rid: 2776570776812257364
+      type: {class: YawDeviationEnabled, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+      data: 
+    - rid: 2776570778292847588
+      type: {class: CameraViewTracked, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+      data: 
