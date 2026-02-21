@@ -1,5 +1,8 @@
 ﻿using System;
 using TriInspector;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
@@ -19,12 +22,12 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     public Type Type => _type ??= Value?.GetType();
 
 #if UNITY_EDITOR
-    private string Name => Value?.GetType().Name ?? "[None]";
+    private string Name => EcsComponentNameResolver.GetComponentName(Value?.GetType());
     
     private void OnValueChanged()
     {
-      if (UnityEditor.EditorApplication.isPlaying)
-        _type = Value.GetType();
+      if (EditorApplication.isPlaying)
+        _type = Value?.GetType();
     }
 #endif
   }
