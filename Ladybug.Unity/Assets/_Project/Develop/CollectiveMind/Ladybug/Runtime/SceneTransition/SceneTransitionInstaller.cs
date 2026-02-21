@@ -1,7 +1,7 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.SceneLoading;
 using Zenject;
 
-namespace CollectiveMind.Ladybug.Runtime.SceneTransition.Boot
+namespace CollectiveMind.Ladybug.Runtime.SceneTransition
 {
   public class SceneTransitionInstaller : Installer<SceneTransitionInstaller>
   {

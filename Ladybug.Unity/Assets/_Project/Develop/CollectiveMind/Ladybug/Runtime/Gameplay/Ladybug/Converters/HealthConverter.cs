@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
@@ -18,8 +19,18 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     public void ConvertBack(EcsEntityWrapper entity)
     {
       entity
-        .Del<CurrentHealth>()
-        .Del<DefaultHealth>();
+        .Has<CurrentHealth>(false)
+        .Has<DefaultHealth>(false);
     }
+
+#if UNITY_EDITOR
+    private static readonly List<Type> _componentTypes = new List<Type>
+    {
+      typeof(DefaultHealth),
+      typeof(CurrentHealth)
+    };
+
+    public IReadOnlyList<Type> ComponentTypes => _componentTypes;
+#endif
   }
 }

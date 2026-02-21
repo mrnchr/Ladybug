@@ -1,5 +1,6 @@
 ﻿using System;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using TriInspector;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
@@ -7,6 +8,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
   [EcsComponentOrder(EcsComponentOrder.STATIC)]
   public struct YawDeviationRange : IEcsComponent
   {
+#if UNITY_EDITOR
+    public const string ANGULAR_DEVIATION = "Angular Deviation";
+    
+    [LabelText(ANGULAR_DEVIATION)]
+#endif
     public float MaxAngle;
+
   }
 }

@@ -7,6 +7,7 @@ using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
 using TriInspector;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using Zenject;
 
@@ -89,11 +90,9 @@ namespace CollectiveMind.Ladybug.Editor
 
       private static bool IsPropertyOfSceneObject(TriProperty property)
       {
-        Object obj = property.TryGetSerializedProperty(out SerializedProperty serializedProperty)
-          ? serializedProperty.serializedObject.targetObject
-          : null;
-        
-        return !obj || !AssetDatabase.Contains(obj);
+        string scene = property?.Owner?.Value is MonoBehaviour monoBehaviour ? monoBehaviour.gameObject.scene.name : null;
+        bool isSceneObject = scene != null && scene != PrefabStageUtility.GetCurrentPrefabStage()?.scene.name; 
+        return isSceneObject;
       }
     }
   }
