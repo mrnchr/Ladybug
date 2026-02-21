@@ -4,7 +4,7 @@ using CollectiveMind.Ladybug.Runtime.Infrastructure.Input;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.CoroutineRunner;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Timing;
-using CollectiveMind.Ladybug.Runtime.SceneTransition.Boot;
+using CollectiveMind.Ladybug.Runtime.SceneTransition;
 using TriInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
