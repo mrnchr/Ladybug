@@ -18,14 +18,14 @@ MonoBehaviour:
     _components:
       Components:
       - Value:
-          rid: 2776570790001508421
+          rid: 2776570814148116597
     _scriptableConverter: {fileID: 0}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2776570790001508421
-      type: {class: YawDeviationRange, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+    - rid: 2776570814148116597
+      type: {class: AngularDeviation, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data:
-        MaxAngle: 45
+        MaxAngle: 15

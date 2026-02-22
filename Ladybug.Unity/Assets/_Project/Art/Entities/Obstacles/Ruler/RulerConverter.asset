@@ -31,6 +31,8 @@ MonoBehaviour:
           rid: 2776570776812257364
       - Value:
           rid: 2776570778292847588
+      - Value:
+          rid: 2776570814148116598
     _scriptableConverter: {fileID: 0}
   references:
     version: 2
@@ -47,3 +49,7 @@ MonoBehaviour:
     - rid: 2776570778292847588
       type: {class: CameraViewTracked, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data: 
+    - rid: 2776570814148116598
+      type: {class: AngularDeviation, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+      data:
+        MaxAngle: 15

@@ -27,7 +27,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
         
         Quaternion look = Quaternion.LookRotation(direction);
 
-        float angleRange = entity.Get<YawDeviationRange>().MaxAngle;
+        float angleRange = entity.Get<AngularDeviation>().MaxAngle;
         float offsetAngle = Random.Range(-angleRange, angleRange);
         Quaternion rotation = look * Quaternion.AngleAxis(offsetAngle, Vector3.up);
         entity.Get<TransformRef>().Transform.rotation = rotation;

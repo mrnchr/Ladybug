@@ -6,7 +6,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
   [Serializable]
   [EcsComponentOrder(EcsComponentOrder.STATIC)]
-  public struct YawDeviationRange : IEcsComponent
+  public struct AngularDeviation : IEcsComponent
   {
 #if UNITY_EDITOR
     public const string ANGULAR_DEVIATION = "Angular Deviation";

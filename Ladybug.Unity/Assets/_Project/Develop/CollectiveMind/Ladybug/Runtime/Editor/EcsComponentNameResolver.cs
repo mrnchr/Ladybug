@@ -1,19 +1,18 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
-using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
 using UnityEditor;
 
 namespace CollectiveMind.Ladybug.Runtime
 {
   public static class EcsComponentNameResolver
   {
-    private static Dictionary<Type, string> _names = CreateDictionary();
+    private static Dictionary<Type, string> _names = new Dictionary<Type, string>();
 
     [InitializeOnLoadMethod]
     private static void Initialize()
     {
-      _names = CreateDictionary();
+      _names = new Dictionary<Type, string>();
     }
 
     public static string GetComponentName(Type type)
@@ -31,14 +30,6 @@ namespace CollectiveMind.Ladybug.Runtime
       }
 
       return name;
-    }
-
-    private static Dictionary<Type, string> CreateDictionary()
-    {
-      return new Dictionary<Type, string>
-      {
-        { typeof(YawDeviationRange), YawDeviationRange.ANGULAR_DEVIATION }
-      };
     }
   }
 }
