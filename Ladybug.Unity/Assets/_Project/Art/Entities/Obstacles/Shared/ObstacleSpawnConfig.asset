@@ -18,18 +18,25 @@ MonoBehaviour:
   MaxObstacleSize: 10
   DistanceRange: {x: 5, y: 15}
   DistanceBetweenObstacles: 10
-  SpawnChances:
+  SpawnEntries:
   - EntityType: 1001
-    Chance: 0.2
+    MinSpawnScore: 0
+    SpawnWeight: 1
   - EntityType: 1002
-    Chance: 0.2
+    MinSpawnScore: 0
+    SpawnWeight: 1
   - EntityType: 1003
-    Chance: 0.1
+    MinSpawnScore: 0
+    SpawnWeight: 1
   - EntityType: 1004
-    Chance: 0.1
+    MinSpawnScore: 0
+    SpawnWeight: 1
   - EntityType: 1005
-    Chance: 0.2
+    MinSpawnScore: 0
+    SpawnWeight: 1
   - EntityType: 1006
-    Chance: 0.2
+    MinSpawnScore: 0
+    SpawnWeight: 1
   - EntityType: 1007
-    Chance: 0
+    MinSpawnScore: 0
+    SpawnWeight: 1

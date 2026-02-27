@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using UnityEngine;
@@ -12,14 +12,19 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
   {
     private readonly ObstacleSpawnConfig _config;
     private readonly EntityFactory _entityFactory;
+    private readonly GameSessionData _sessionData;
     private readonly EcsEntities _cameras;
     private readonly EcsEntities _ladybugs;
     private readonly EcsEntities _obstacles;
 
-    public ObstacleSpawnService(IEcsUniverse universe, ObstacleSpawnConfig config, EntityFactory entityFactory)
+    public ObstacleSpawnService(IEcsUniverse universe,
+      ObstacleSpawnConfig config,
+      EntityFactory entityFactory,
+      GameSessionData sessionData)
     {
       _config = config;
       _entityFactory = entityFactory;
+      _sessionData = sessionData;
 
       _cameras = universe
         .FilterGame<CameraTag>()
@@ -89,8 +94,34 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 
     private EntityType SelectObstacleType()
     {
-      List<float> chances = _config.SpawnChances.Select(x => x.Chance).ToList();
-      return _config.SpawnChances[ChooseRandom(chances)].EntityType;
+      List<float> chances = GetSpawnChances(_sessionData.Score.Value);
+      return _config.SpawnEntries[ChooseRandom(chances)].EntityType;
+    }
+
+    private List<float> GetSpawnChances(float distance)
+    {
+      var chances = new List<float>();
+      var sum = 0f;
+        
+      foreach (ObstacleSpawnEntry data in _config.SpawnEntries)
+      {
+        var chance = 0f;
+        
+        if (data.MinSpawnScore <= distance)
+        {
+          chance = data.SpawnWeight;
+          sum += data.SpawnWeight;
+        }
+        
+        chances.Add(chance);
+      }
+
+      for (int i = 0; i < chances.Count; i++)
+      {
+        chances[i] /= sum;
+      }
+      
+      return chances;
     }
     
     private static int ChooseRandom(List<float> chances)
