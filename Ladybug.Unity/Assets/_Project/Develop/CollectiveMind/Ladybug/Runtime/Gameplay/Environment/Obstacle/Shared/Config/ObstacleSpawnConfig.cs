@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CollectiveMind.Ladybug.Runtime.TriInspector;
 using TriInspector;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
-  [CreateAssetMenu(menuName = CAC.Names.OBSTACLE_SPAWN_CONFIG_MENU,
-    fileName = CAC.Names.OBSTACLE_SPAWN_CONFIG_FILE)]
+  [CreateAssetMenu(menuName = CAC.Names.OBSTACLE_SPAWN_CONFIG_MENU, fileName = CAC.Names.OBSTACLE_SPAWN_CONFIG_FILE)]
   public class ObstacleSpawnConfig : ScriptableObject
   {
     public Vector2 SpawnTime;
@@ -17,17 +15,117 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     public float MaxObstacleSize;
     public Vector2 DistanceRange;
     public float DistanceBetweenObstacles;
-
-    [ValidateInput("ValidateChances")]
-    [OnInspectorUpdate(nameof(OnInspectorUpdate))]
-    [ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, Draggable = false)]
-    public List<SpawnChance> SpawnChances = CreateSpawnChances();
     
-    private static List<SpawnChance> CreateSpawnChances()
+    [HideInInspector]
+    public List<ObstacleSpawnEntry> SpawnEntries;
+
+#if UNITY_EDITOR
+    private List<SpawnDataVisual> _spawnEntryVisuals;
+    
+    [ShowInInspector]
+    [ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, Draggable = false)]
+    [HideReferencePicker]
+    [PropertyOrder(6)]
+    [LabelText("Spawn Weights")]
+    private List<SpawnDataVisual> SpawnEntryVisuals
+    {
+      get
+      {
+        InitializeSpawnEntryVisuals();
+        UpdateSpawnEntryVisuals();
+        return _spawnEntryVisuals;
+      }
+      set => SetSpawnEntryVisuals(value);
+    }
+
+    private void InitializeSpawnEntryVisuals()
+    {
+      if (_spawnEntryVisuals == null)
+      {
+        if (SpawnEntries == null)
+        {
+          SetSpawnEntryVisuals(CreateSpawnChances());
+        }
+        else
+        {
+          _spawnEntryVisuals = new List<SpawnDataVisual>();
+            
+          foreach (ObstacleSpawnEntry data in SpawnEntries)
+          {
+            _spawnEntryVisuals.Add(new SpawnDataVisual { Entry = data });
+          }
+        }
+      }
+    }
+
+    private void UpdateSpawnEntryVisuals()
+    {
+      List<EntityType> spawnableEntities = SpawnableEntities().ToList();
+
+      if (spawnableEntities.Count != _spawnEntryVisuals.Count)
+      {
+        List<SpawnDataVisual> newVisuals = _spawnEntryVisuals.Where(x => spawnableEntities.Contains(x.Entry.EntityType)).ToList();
+        IEnumerable<EntityType> restEntities = spawnableEntities.Except(_spawnEntryVisuals.Select(x => x.Entry.EntityType));
+        newVisuals.AddRange(restEntities.Select(x => new SpawnDataVisual { Entry = new ObstacleSpawnEntry { EntityType = x } }));
+        newVisuals.Sort((a, b) => string.Compare(a.Entry.EntityType.ToString(), b.Entry.EntityType.ToString(), StringComparison.Ordinal));
+        SetSpawnEntryVisuals(newVisuals);
+      }
+    }
+
+    private void SetSpawnEntryVisuals(List<SpawnDataVisual> value)
+    {
+      _spawnEntryVisuals = value;
+      SpawnEntries.Clear();
+
+      foreach (SpawnDataVisual visual in _spawnEntryVisuals)
+      {
+        SpawnEntries.Add(visual.Entry);
+      }
+    }
+
+    private List<SpawnChance> _testSpawnChances = new List<SpawnChance>();
+
+    [Title("Test Chances")]
+    [ShowInInspector]
+    private float _testSpawnScore;
+    
+    [ShowInInspector]
+    [ListDrawerSettings(HideAddButton = true, HideRemoveButton = true, Draggable = false)]
+    [HideReferencePicker]
+    private List<SpawnChance> TestSpawnChances
+    {
+      get
+      {
+        _testSpawnChances.Clear();
+
+        var sum = 0f;
+        
+        foreach (ObstacleSpawnEntry data in SpawnEntries)
+        {
+          var chance = 0f;
+          
+          if (data.MinSpawnScore <= _testSpawnScore)
+          {
+            chance = data.SpawnWeight;
+            sum += data.SpawnWeight;
+          }
+          _testSpawnChances.Add(new SpawnChance { EntityType = data.EntityType, Chance = chance });
+        }
+
+        _testSpawnChances.ForEach(x => x.Chance /= sum);
+        
+        return _testSpawnChances;
+      }
+      set
+      {
+      }
+    }
+
+    private static List<SpawnDataVisual> CreateSpawnChances()
     {
       return SpawnableEntities()
-        .Select(x => new SpawnChance { EntityType = x })
-        .OrderBy(x => x.EntityType.ToString())
+        .Select(x => new SpawnDataVisual { Entry = new ObstacleSpawnEntry { EntityType = x } })
+        .OrderBy(x => x.Entry.EntityType.ToString())
         .ToList();
     }
 
@@ -38,42 +136,43 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
         .Where(EntityTypeUtils.IsObstacle);
     }
 
-#if UNITY_EDITOR
-    private void OnInspectorUpdate()
+    private class SpawnChance
     {
-      List<EntityType> spawnableEntities = SpawnableEntities().ToList();
+      public EntityType EntityType { get; set; }
+      public float Chance { get; set; }
 
-      if (spawnableEntities.Count != SpawnChances.Count)
+      [LabelText("$" + nameof(_label))]
+      [DisplayAsString]
+      [ShowInInspector]
+      private string ChanceString
       {
-        IEnumerable<EntityType> restEntities = spawnableEntities.Except(SpawnChances.Select(x => x.EntityType));
-        SpawnChances.AddRange(restEntities.Select(x => new SpawnChance { EntityType = x }));
-        SpawnChances.Sort((a, b) => string.Compare(a.EntityType.ToString(), b.EntityType.ToString(), StringComparison.Ordinal));
+        get => $"{Chance:P}";
+        set
+        {
+        }
       }
+
+      private string _label => UnityEditor.ObjectNames.NicifyVariableName(EntityType.ToString());
     }
-    
-    private TriValidationResult ValidateChances()
+
+    private class SpawnDataVisual
     {
-      float sum = SpawnChances.Sum(x => x.Chance);
-      return sum switch
-      {
-        < 0 or > 1 => TriValidationResult.Error($"Sum of chances is {sum}. It must be between 0 and 1"),
-        < 1 => TriValidationResult.Warning($"Sum of chances is {sum}. It is less than 1"),
-        _ => TriValidationResult.Info($"Sum of chances is {sum}")
-      };
+      [LabelText("$" + nameof(_label))]
+      public ObstacleSpawnEntry Entry;
+
+      private string _label => UnityEditor.ObjectNames.NicifyVariableName(Entry.EntityType.ToString());
     }
 #endif
   }
 
   [Serializable]
-  [DeclareHorizontalGroup(nameof(SpawnChance))]
-  public struct SpawnChance
+  public struct ObstacleSpawnEntry
   {
-    [GroupNext(nameof(SpawnChance))]
-    [HideLabel]
-    [DisplayAsString]
+    [HideInInspector]
     public EntityType EntityType;
 
-    [HideLabel]
-    public float Chance;
+    public float MinSpawnScore;
+    
+    public float SpawnWeight;
   }
 }
