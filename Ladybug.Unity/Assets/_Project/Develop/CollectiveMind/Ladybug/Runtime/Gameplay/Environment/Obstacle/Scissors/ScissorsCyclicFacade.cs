@@ -1,0 +1,55 @@
+﻿using System.Threading;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
+using CollectiveMind.Ladybug.Runtime.Utils;
+using Cysharp.Threading.Tasks;
+
+namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
+{
+  public class ScissorsCyclicFacade : IFacade, IBindable, IEntityInitializable
+  {
+    private readonly ScissorsConfig _config;
+    
+    private ScissorsVisual _visual;
+    
+    private float _openClipDuration;
+    private float _closeClipDuration;
+    
+    public ScissorsCyclicFacade(ScissorsConfig config)
+    {
+      _config = config;
+    }
+    
+    public void Bind(EcsEntityWrapper entity)
+    {
+      _visual = entity.GetVisual<ScissorsVisual>();
+      
+      _openClipDuration = _visual.Animator.GetClipDuration("Open");
+      _closeClipDuration = _visual.Animator.GetClipDuration("Close");
+    }
+    
+    public void Initialize(EntityInitContext initContext)
+    {
+      _visual.SetAnimationSpeed(_config.AnimationSpeed);
+      _visual.PlayAnimation("Closed", 0f);
+      
+      RunCycle(_visual.destroyCancellationToken).Forget();
+    }
+    
+    private async UniTask RunCycle(CancellationToken token)
+    {
+      while (!token.IsCancellationRequested)
+      {
+        _visual.PlayOpenAnimation();
+        await UniTask.WaitForSeconds(_openClipDuration + _config.OpenedDuration, cancellationToken: token).SuppressCancellationThrow();
+        
+        if (token.IsCancellationRequested)
+          return;
+        
+        _visual.PlayCloseAnimation();
+        await UniTask.WaitForSeconds(_closeClipDuration + _config.ClosedDuration, cancellationToken: token).SuppressCancellationThrow();
+      }
+    }
+  }
+}
