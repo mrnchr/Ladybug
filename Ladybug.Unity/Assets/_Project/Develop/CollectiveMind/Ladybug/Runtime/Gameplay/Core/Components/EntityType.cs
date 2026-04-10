@@ -13,6 +13,8 @@
     PushPin1 = Pencil + 1,
     PushPin2 = PushPin1 + 1,
     Ruler = PushPin2 + 1,
+    Scissors1 = Ruler + 1,
+    Scissors2 = Scissors1 + 1,
     Marker = 9000,
     
     SpawnPoint = 10000,
