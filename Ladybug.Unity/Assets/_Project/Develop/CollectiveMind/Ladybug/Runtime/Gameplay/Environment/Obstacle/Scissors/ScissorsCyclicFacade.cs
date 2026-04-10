@@ -32,13 +32,19 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
       while (!token.IsCancellationRequested)
       {
         _visual.PlayOpenAnimation();
-        await UniTask.WaitForSeconds(_config.OpenAnimationDuration * _config.AnimationSpeed + _config.OpenedStateDuration, cancellationToken: token).SuppressCancellationThrow();
+        await UniTask.WaitForSeconds(
+            _config.OpenAnimationDuration * _config.AnimationSpeed + _config.OpenedStateDuration,
+            cancellationToken: token)
+          .SuppressCancellationThrow();
         
         if (token.IsCancellationRequested)
           return;
         
         _visual.PlayCloseAnimation();
-        await UniTask.WaitForSeconds(_config.OpenAnimationDuration * _config.AnimationSpeed + _config.ClosedStateDuration, cancellationToken: token).SuppressCancellationThrow();
+        await UniTask.WaitForSeconds(
+            _config.OpenAnimationDuration * _config.AnimationSpeed + _config.ClosedStateDuration,
+            cancellationToken: token)
+          .SuppressCancellationThrow();
       }
     }
   }
