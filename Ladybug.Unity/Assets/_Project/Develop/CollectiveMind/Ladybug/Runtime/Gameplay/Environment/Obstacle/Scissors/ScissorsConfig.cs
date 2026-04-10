@@ -13,8 +13,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
     [Space]
     [LabelText("Scissors Open Animation Duration")]
     public float OpenAnimationDuration = 0.5f;
-    [LabelText("Scissors Close Animation Duration")]
-    public float CloseAnimationDuration = 0.5f;
     [Space]
     [LabelText("Scissors Animation Speed")]
     public float AnimationSpeed = 1f;
@@ -33,5 +31,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
     public float OpenedStateDuration = 0.5f;
     [LabelText("Scissors Off Time")]
     public float ClosedStateDuration = 0.5f;
+    [Space]
+    [LabelText("Scissors Close Animation Duration")]
+    public float CloseAnimationDuration = 0.5f;
   }
 }
