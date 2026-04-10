@@ -39,7 +39,7 @@ namespace CollectiveMind.Ladybug.Runtime.Utils
       return new Vector3(vector.x, vector.z, vector.y);
     }
 
-    public static float SqrDistance(Vector3 from, Vector3 to)
+    public static float GetSqrDistance(Vector3 from, Vector3 to)
     {
       return (to - from).sqrMagnitude;
     }

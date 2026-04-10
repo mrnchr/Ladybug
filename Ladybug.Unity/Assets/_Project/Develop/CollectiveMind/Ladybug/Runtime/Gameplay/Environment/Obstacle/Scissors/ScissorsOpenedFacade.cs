@@ -38,7 +38,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
       foreach(EcsEntityWrapper ladybug in _ladybugs)
       {
         Transform ladybugTransform = ladybug.Get<TransformRef>().Transform;
-        if (UnityUtils.SqrDistance(_visual.transform.position, ladybugTransform.position) <= _sqrActivationDistance)
+        if (UnityUtils.GetSqrDistance(_visual.transform.position, ladybugTransform.position) <= _sqrActivationDistance)
         {
           _visual.PlayOpenAnimation();
           _isActivated = true;
