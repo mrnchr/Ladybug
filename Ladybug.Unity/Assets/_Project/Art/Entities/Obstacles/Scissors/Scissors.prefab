@@ -62,9 +62,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4442852353302963960, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -6476128544577073987}
-    - targetCorrespondingSourceObject: {fileID: 4442852353302963960, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -4796791690580374011}
   m_SourcePrefab: {fileID: 100100000, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
 --- !u!114 &7480803464161646538 stripped
@@ -83,28 +80,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4442852353302963960, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
   m_PrefabInstance: {fileID: 5903244426511363298}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &-6476128544577073987
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7801544255165565466}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6ec984ce5cd48034bb45c0eac809feca, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &-4796791690580374011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Ladybug.Runtime::CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors.ScissorsVisual
   _ecsBinder: {fileID: 7480803464161646538}
-  activationDistance: 10
+  _leftBlade: {fileID: 4382806217735404717}
+  _rightBlade: {fileID: 1043533019104959868}
 --- !u!4 &8754351319603311877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2923185407647472103, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
@@ -196,6 +172,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7580934998386860993}
   m_SourcePrefab: {fileID: 100100000, guid: dba62b5a4b0523c45ac501c89da1d3f0, type: 3}
+--- !u!4 &1043533019104959868 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2577548232221058511, guid: dba62b5a4b0523c45ac501c89da1d3f0, type: 3}
+  m_PrefabInstance: {fileID: 5927276190428776269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4382806217735404717 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1255605710908113952, guid: dba62b5a4b0523c45ac501c89da1d3f0, type: 3}
+  m_PrefabInstance: {fileID: 5927276190428776269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5662043908046777148 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7146521406498821007, guid: dba62b5a4b0523c45ac501c89da1d3f0, type: 3}

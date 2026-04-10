@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
 {
-  public class ScissorsOpenedFacade: IFacade, IBindable, IEntityInitializable, IGameStep
+  public class ScissorsOpenedFacade: IFacade, IBindable, IGameStep
   {
     private readonly ScissorsConfig _config;
     private readonly EcsEntities _ladybugs;
@@ -30,11 +30,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
     public void Bind(EcsEntityWrapper entity)
     {
       _visual = entity.GetVisual<ScissorsVisual>();
-    }
-
-    public void Initialize(EntityInitContext initContext)
-    {
-      _visual.SetAnimationSpeed(_config.AnimationSpeed);
     }
 
     public void Step()

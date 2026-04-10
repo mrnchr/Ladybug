@@ -1,4 +1,5 @@
-﻿using TriInspector;
+﻿using DG.Tweening;
+using TriInspector;
 using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
@@ -7,8 +8,21 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
   public class ScissorsConfig : ScriptableObject
   {
     [Title("General")]
+    [LabelText("Scissors Opened Angle")]
+    public float OpenedAngle = 25f;
+    [Space]
+    [LabelText("Scissors Open Animation Duration")]
+    public float OpenAnimationDuration = 0.5f;
+    [LabelText("Scissors Close Animation Duration")]
+    public float CloseAnimationDuration = 0.5f;
+    [Space]
     [LabelText("Scissors Animation Speed")]
     public float AnimationSpeed = 1f;
+    [Space]
+    [LabelText("Scissors Open Animation Ease")]
+    public Ease OpenAnimationEase = Ease.InCubic;
+    [LabelText("Scissors Close Animation Ease")]
+    public Ease CloseAnimationEase = Ease.InCubic;
     
     [Title("First Mode")]
     [LabelText("Scissors Activation Distance")]
@@ -16,8 +30,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
     
     [Title("Second Mode")]
     [LabelText("Scissors On Time")]
-    public float OpenedDuration = 0.5f;
+    public float OpenedStateDuration = 0.5f;
     [LabelText("Scissors Off Time")]
-    public float ClosedDuration = 0.5f;
+    public float ClosedStateDuration = 0.5f;
   }
 }

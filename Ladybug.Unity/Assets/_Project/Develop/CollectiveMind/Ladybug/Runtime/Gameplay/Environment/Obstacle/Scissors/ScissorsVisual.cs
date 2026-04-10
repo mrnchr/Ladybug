@@ -1,44 +1,50 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
+using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
 {
   public class ScissorsVisual : EntityVisual
   {
-    private const float ANIMATION_TRANSITION_DURATION = 0.1f;
-    private static readonly int _openAnimaitonHash = Animator.StringToHash("Open");
-    private static readonly int _closeAnimaitonHash = Animator.StringToHash("Close");
-    
-    private Animator _animator;
+    [Header("Scissors")]
+    [SerializeField, Tooltip("Negative angle")] private Transform _leftBlade;
+    [SerializeField, Tooltip("Positive angle")] private Transform _rightBlade;
 
-    public Animator Animator => _animator;
-    
-    private void Awake()
+    private ScissorsConfig _config;
+    private Tween _tween;
+
+    [Inject]
+    private void Construct(ScissorsConfig config)
     {
-      _animator = GetComponentInChildren<Animator>();
+      _config = config;
     }
 
-    public void SetAnimationSpeed(float speed)
+    public void PlayOpenAnimation()
     {
-      if (speed <= 0f)
-        speed = 0.1f;
+      var positiveOpenedAngle = new Vector3(0f, _config.OpenedAngle, 0f);
+      var negativeOpenedAngle = new Vector3(0f, -_config.OpenedAngle, 0f);
+      var duration = _config.OpenAnimationDuration * _config.AnimationSpeed;
       
-      _animator.speed = speed;
+      _tween?.Kill();
+      _tween = DOTween.Sequence()
+        .Join(_leftBlade.DOLocalRotate(negativeOpenedAngle, duration))
+        .Join(_rightBlade.DOLocalRotate(positiveOpenedAngle, duration))
+        .SetEase(_config.OpenAnimationEase)
+        .Play();
     }
 
-    public void PlayOpenAnimation(float transitionDuration = ANIMATION_TRANSITION_DURATION)
+    public void PlayCloseAnimation()
     {
-      _animator.CrossFade(_openAnimaitonHash, transitionDuration);
-    }
-
-    public void PlayCloseAnimation(float transitionDuration = ANIMATION_TRANSITION_DURATION)
-    {
-      _animator.CrossFade(_closeAnimaitonHash, transitionDuration);
-    }
-
-    public void PlayAnimation(string animationName, float transitionDuration = ANIMATION_TRANSITION_DURATION)
-    {
-      _animator.CrossFade(animationName, transitionDuration);
+      var closedAngle = Vector3.zero;
+      var duration = _config.CloseAnimationDuration;
+      
+      _tween?.Kill();
+      _tween = DOTween.Sequence()
+        .Join(_leftBlade.DOLocalRotate(closedAngle, duration))
+        .Join(_rightBlade.DOLocalRotate(closedAngle, duration))
+        .SetEase(_config.CloseAnimationEase)
+        .Play();
     }
   }
 }
