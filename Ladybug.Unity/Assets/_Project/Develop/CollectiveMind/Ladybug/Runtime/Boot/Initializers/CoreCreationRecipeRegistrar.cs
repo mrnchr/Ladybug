@@ -5,6 +5,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Laser;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Ruler;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
@@ -47,6 +48,11 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
             break;
           case EntityType.Laser:
             RegisterRecipe<LaserFacade>(obstacle);
+          case EntityType.Scissors1:
+            RegisterRecipe<ScissorsOpenedFacade>(obstacle);
+            break;
+          case EntityType.Scissors2:
+            RegisterRecipe<ScissorsCyclicFacade>(obstacle);
             break;
           default:
             RegisterRecipe(obstacle);

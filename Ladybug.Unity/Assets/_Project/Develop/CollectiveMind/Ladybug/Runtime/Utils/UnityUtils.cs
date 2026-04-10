@@ -38,6 +38,24 @@ namespace CollectiveMind.Ladybug.Runtime.Utils
     {
       return new Vector3(vector.x, vector.z, vector.y);
     }
+
+    public static float GetSqrDistance(Vector3 from, Vector3 to)
+    {
+      return (to - from).sqrMagnitude;
+    }
+    
+    public static float GetClipDuration(this Animator animator, string clipName)
+    {
+      foreach (var clip in animator.runtimeAnimatorController.animationClips)
+      {
+        if (clip.name == clipName)
+        {
+          return clip.length;
+        }
+      }
+      
+      return 0f;
+    }
   }
 
   public enum Axis
