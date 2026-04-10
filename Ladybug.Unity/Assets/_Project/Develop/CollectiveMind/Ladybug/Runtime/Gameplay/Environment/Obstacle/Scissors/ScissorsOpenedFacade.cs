@@ -9,7 +9,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
 {
   public class ScissorsOpenedFacade: IFacade, IBindable, IGameStep
   {
-    private readonly ScissorsConfig _config;
     private readonly EcsEntities _ladybugs;
     private readonly float _sqrActivationDistance;
 
@@ -18,7 +17,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
 
     public ScissorsOpenedFacade(ScissorsConfig config, IEcsUniverse universe)
     {
-      _config = config;
       _sqrActivationDistance = config.ActivationDistance * config.ActivationDistance;
 
       _ladybugs = universe
