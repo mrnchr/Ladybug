@@ -36,6 +36,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
         {
           _ecsUniverse.Publish<InCameraView>(observer);
         }
+        else if (inCameraView && !contains)
+        {
+          _ecsUniverse.Publish<OutCameraView>(observer);
+        }
       }
     }
   }
