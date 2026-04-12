@@ -15,7 +15,7 @@ MonoBehaviour:
   SpawnTime: {x: 2, y: 5}
   AngularDeviation: 15
   CameraDiagonalSafetyMultiplier: 1
-  MaxObstacleSize: 10
+  MaxObstacleSize: 35
   DistanceRange: {x: 5, y: 15}
   DistanceBetweenObstacles: 10
   SpawnEntries:
