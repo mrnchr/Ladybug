@@ -47,6 +47,18 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras
       return isOutside;
     }
 
+    public float GetCameraDiagonal()
+    {
+      if (!Camera.IsAlive())
+      {
+        return 0f;
+      }
+
+      Rect bounds = GetCameraBounds();
+      float diagonal = Mathf.Sqrt(bounds.height * bounds.height + bounds.width * bounds.width);
+      return diagonal;
+    }
+    
     public Rect GetCameraBounds()
     {
       if (!Camera.IsAlive())

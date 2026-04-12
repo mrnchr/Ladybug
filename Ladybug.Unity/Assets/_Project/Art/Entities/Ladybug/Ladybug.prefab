@@ -2316,6 +2316,7 @@ GameObject:
   - component: {fileID: 4551829402798223178}
   - component: {fileID: 8162663926337253560}
   - component: {fileID: 2508211693489576859}
+  - component: {fileID: 4845205229436188870}
   m_Layer: 0
   m_Name: Ladybug
   m_TagString: Untagged
@@ -2432,6 +2433,18 @@ MonoBehaviour:
   WhenExit: 0
   WhenTrigger: 1
   WhenCollider: 1
+--- !u!114 &4845205229436188870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807899361702886682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87396c20c2e4120bff3a61e07534ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Ladybug.Runtime::CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.ColliderConverter
 --- !u!1 &8059970833255024867
 GameObject:
   m_ObjectHideFlags: 0

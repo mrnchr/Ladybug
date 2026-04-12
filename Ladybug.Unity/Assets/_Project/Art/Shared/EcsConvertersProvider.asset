@@ -31,6 +31,8 @@ MonoBehaviour:
     Converter: {fileID: 11400000, guid: 637d29bc5382a394cbd008ad012da5ac, type: 2}
   - Type: 1007
     Converter: {fileID: 11400000, guid: 07ec32f970d7757408d75ff01e3e0e83, type: 2}
+  - Type: 1010
+    Converter: {fileID: 11400000, guid: 4a59d39d01020c241b2f7868197f6064, type: 2}
   - Type: 1008
     Converter: {fileID: 11400000, guid: 4513a2c20428ce74bbbe607416424245, type: 2}
   - Type: 1009

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 133c2ae489ef48fc81c331d6cf2618a2, type: 3}
+  m_Name: LaserConverter
+  m_EditorClassIdentifier: 
+  Converters:
+  - _serializedConverter:
+      rid: -2
+    _components:
+      Components: []
+    _scriptableConverter: {fileID: 11400000, guid: 2a4727192fca1a04db973c11f7e16a8f, type: 2}
+  - _serializedConverter:
+      rid: 2776570732361285719
+    _components:
+      Components: []
+    _scriptableConverter: {fileID: 0}
+  - _serializedConverter:
+      rid: -2
+    _components:
+      Components:
+      - Value:
+          rid: 2859018551178559557
+      - Value:
+          rid: 2859018551178559559
+    _scriptableConverter: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2776570732361285719
+      type: {class: ObstacleConverter, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+      data:
+        _entityId: 1010
+    - rid: 2859018551178559557
+      type: {class: YawDeviationEnabled, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+      data: 
+    - rid: 2859018551178559559
+      type: {class: CameraViewTracked, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+      data: 
