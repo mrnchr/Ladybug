@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72584e6f38384a3092bc0907e6f05f30, type: 3}
   m_Name: ScissorsConfig
   m_EditorClassIdentifier: Ladybug.Runtime::CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors.ScissorsConfig
-  OpenedAngle: 25
+  OpenedAngle: 100
   OpenAnimationDuration: 0.5
   CloseAnimationDuration: 0.5
   AnimationSpeed: 1
