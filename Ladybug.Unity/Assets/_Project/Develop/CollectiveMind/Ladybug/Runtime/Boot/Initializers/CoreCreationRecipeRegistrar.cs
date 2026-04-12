@@ -48,6 +48,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
             break;
           case EntityType.Laser:
             RegisterRecipe<LaserFacade>(obstacle);
+            break;
           case EntityType.Scissors1:
             RegisterRecipe<ScissorsOpenedFacade>(obstacle);
             break;
