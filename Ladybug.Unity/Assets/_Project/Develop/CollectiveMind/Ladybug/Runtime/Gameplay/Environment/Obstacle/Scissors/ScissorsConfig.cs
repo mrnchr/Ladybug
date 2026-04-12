@@ -8,10 +8,10 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
   public class ScissorsConfig : ScriptableObject
   {
     [Title("General")]
-    [LabelText("Scissors Opened Angle")]
-    public float OpenedAngle = 25f;
+    [LabelText("Max Opening Angle")]
+    public float OpenedAngle = 100f;
     [Space]
-    [LabelText("Scissors Open Animation Duration")]
+    [LabelText("Opening Animation Time")]
     public float OpenAnimationDuration = 0.5f;
     [Space]
     [LabelText("Scissors Animation Speed")]
@@ -32,7 +32,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
     [LabelText("Scissors Off Time")]
     public float ClosedStateDuration = 0.5f;
     [Space]
-    [LabelText("Scissors Close Animation Duration")]
+    [LabelText("Closing Animation Time")]
     public float CloseAnimationDuration = 0.5f;
   }
 }
