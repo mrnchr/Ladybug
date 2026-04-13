@@ -31,6 +31,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
         .Join(_leftBlade.DOLocalRotate(negativeOpenedAngle, duration))
         .Join(_rightBlade.DOLocalRotate(positiveOpenedAngle, duration))
         .SetEase(_config.OpenAnimationEase)
+        .SetLink(gameObject)
         .Play();
     }
 
@@ -44,6 +45,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors
         .Join(_leftBlade.DOLocalRotate(closedAngle, duration))
         .Join(_rightBlade.DOLocalRotate(closedAngle, duration))
         .SetEase(_config.CloseAnimationEase)
+        .SetLink(gameObject)
         .Play();
     }
   }
