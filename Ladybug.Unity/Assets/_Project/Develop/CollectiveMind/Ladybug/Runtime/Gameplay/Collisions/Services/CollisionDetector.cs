@@ -103,8 +103,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
 
     private void SendCollision(CollisionType type, Collider current, Collider other)
     {
-      _filler.Fill(
-        new OneSideCollision(type, new PackedCollider(current, _visual.Entity.PackedEntity), other));
+      _filler.Fill(new OneSideCollision(type, new PackedCollider(current, _visual.Entity.PackedEntity), other));
     }
   }
 }

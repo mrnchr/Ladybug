@@ -49,3 +49,6 @@ MonoBehaviour:
   - EntityType: 1009
     MinSpawnScore: 0
     SpawnWeight: 1
+  - EntityType: 1011
+    MinSpawnScore: 0
+    SpawnWeight: 1

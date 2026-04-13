@@ -16,6 +16,7 @@
     Scissors1 = Ruler + 1,
     Scissors2 = Scissors1 + 1,
     Laser = Scissors2 + 1,
+    Tape = Laser + 1,
     Marker = 9000,
     
     SpawnPoint = 10000,

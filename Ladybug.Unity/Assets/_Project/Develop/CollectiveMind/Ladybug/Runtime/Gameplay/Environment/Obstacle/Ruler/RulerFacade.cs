@@ -30,7 +30,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Ruler
 
     public void Initialize(EntityInitContext initContext)
     {
-      _entity.Get<RigidbodyRef>().Rigidbody.useGravity = false;
       _visual.transform.Rotate(-_config.RulerSpawnAngle, 0f, 0f, Space.Self);
     }
 
