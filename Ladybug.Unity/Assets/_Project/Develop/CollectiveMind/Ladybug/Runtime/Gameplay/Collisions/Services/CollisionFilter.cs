@@ -9,6 +9,21 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
   {
     public CollisionInfo Info { get; } = new CollisionInfo();
 
+    public void AssignCollision(EcsEntityWrapper collision)
+    {
+      if (!collision.IsAlive())
+        return;
+      
+      if (collision.Has<TwoSideCollision>())
+      {
+        AssignCollision(collision.Get<TwoSideCollision>());
+      }
+      else if (collision.Has<OneSideCollision>())
+      {
+        AssignCollision(collision.Get<OneSideCollision>());
+      }
+    }
+    
     public void AssignCollision(TwoSideCollision collision)
     {
       Info.Reset();

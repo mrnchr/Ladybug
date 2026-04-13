@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4318717778572437469}
+  - component: {fileID: 50099694860550612}
   m_Layer: 0
-  m_Name: CameraViewPoint
+  m_Name: CameraViewProbe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,6 +32,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8754351319603311877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50099694860550612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9030993928945012154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 582ad2ee1a7e42108e1809163b85aa50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraViewProbe: {fileID: 4318717778572437469}
 --- !u!1001 &5903244426511363298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92,29 +106,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2923185407647472103, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4318717778572437469}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4442852353302963960, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 332738513190898563}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
---- !u!1 &7801544255165565466 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4442852353302963960, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
-  m_PrefabInstance: {fileID: 5903244426511363298}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &332738513190898563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7801544255165565466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 582ad2ee1a7e42108e1809163b85aa50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CameraViewProbe: {fileID: 4318717778572437469}
 --- !u!4 &8754351319603311877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2923185407647472103, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}

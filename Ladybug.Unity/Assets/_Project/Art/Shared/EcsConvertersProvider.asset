@@ -13,14 +13,22 @@ MonoBehaviour:
   m_Name: EcsConvertersProvider
   m_EditorClassIdentifier: 
   EcsConverters:
-  - Type: 1
-    Converter: {fileID: 11400000, guid: 48a9cb40a1b78b4498db021b8c1fe721, type: 2}
-  - Type: 1000
-    Converter: {fileID: 11400000, guid: 9d694a22184e2fa428ecc58733945426, type: 2}
   - Type: 1001
     Converter: {fileID: 11400000, guid: 6a4d0830e0eb6e44aae662a26b05463f, type: 2}
+  - Type: 10001
+    Converter: {fileID: 11400000, guid: 351531c9abb240c4da4f703593275692, type: 2}
+  - Type: 10003
+    Converter: {fileID: 11400000, guid: 5cffe9b745ad0db42bbb19b58c7468ab, type: 2}
+  - Type: 1000
+    Converter: {fileID: 11400000, guid: 9d694a22184e2fa428ecc58733945426, type: 2}
   - Type: 1002
     Converter: {fileID: 11400000, guid: 06b3adb9b4f815c4a9425dd063c80cfe, type: 2}
+  - Type: 1
+    Converter: {fileID: 11400000, guid: 48a9cb40a1b78b4498db021b8c1fe721, type: 2}
+  - Type: 1010
+    Converter: {fileID: 11400000, guid: 4a59d39d01020c241b2f7868197f6064, type: 2}
+  - Type: 9000
+    Converter: {fileID: 0}
   - Type: 1003
     Converter: {fileID: 11400000, guid: b352d7971ee06604cac33d2e8713b4ea, type: 2}
   - Type: 1004
@@ -31,19 +39,13 @@ MonoBehaviour:
     Converter: {fileID: 11400000, guid: 637d29bc5382a394cbd008ad012da5ac, type: 2}
   - Type: 1007
     Converter: {fileID: 11400000, guid: 07ec32f970d7757408d75ff01e3e0e83, type: 2}
-  - Type: 1010
-    Converter: {fileID: 11400000, guid: 4a59d39d01020c241b2f7868197f6064, type: 2}
   - Type: 1008
     Converter: {fileID: 11400000, guid: 4513a2c20428ce74bbbe607416424245, type: 2}
   - Type: 1009
     Converter: {fileID: 11400000, guid: cd82dedefb35bfa4896bc3c3f8051558, type: 2}
-  - Type: 9000
-    Converter: {fileID: 0}
   - Type: 10000
     Converter: {fileID: 11400000, guid: 555501b2340634148b52d372fed772c8, type: 2}
-  - Type: 10001
-    Converter: {fileID: 11400000, guid: 351531c9abb240c4da4f703593275692, type: 2}
+  - Type: 1011
+    Converter: {fileID: 11400000, guid: 167b3c6ce22b5b64f9c235d256521867, type: 2}
   - Type: 10002
     Converter: {fileID: 11400000, guid: c7b5521ba9c183f47bce2a74f2fd9bed, type: 2}
-  - Type: 10003
-    Converter: {fileID: 11400000, guid: 5cffe9b745ad0db42bbb19b58c7468ab, type: 2}

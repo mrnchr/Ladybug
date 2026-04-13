@@ -7,6 +7,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
   public interface ICollisionFilter
   {
     CollisionInfo Info { get; }
+    void AssignCollision(EcsEntityWrapper collision);
     void AssignCollision(TwoSideCollision collision);
     void AssignCollision(OneSideCollision collision);
     bool TrySelectByMasterCollider(Predicate<PackedCollider> selector, bool sync = true);

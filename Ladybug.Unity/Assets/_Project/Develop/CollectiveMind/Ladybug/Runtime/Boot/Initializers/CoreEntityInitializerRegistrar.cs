@@ -1,4 +1,5 @@
 ﻿using System;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Boot;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using R3;
@@ -18,6 +19,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     public void RegisterInitializers()
     {
       RegisterInitializer<ObstacleTransformInitializer>();
+      RegisterInitializer<GroundInitializer>();
       RegisterInitializer<ObstacleYawDeviationInitializer>();
     }
 
