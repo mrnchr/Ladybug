@@ -21,7 +21,7 @@ jobs:
 
       - name: Check if main is ancestor
         run: |
-          if git merge-base --is-ancestor origin/main HEAD; then
+          if git merge-base --is-ancestor origin/main ${{ github.event.pull_request.head.sha }}; then
             echo "Branch is up-to-date with main"
           else
             echo "Branch is NOT up-to-date with main"
