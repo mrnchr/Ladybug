@@ -6,6 +6,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
@@ -47,6 +48,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
 
       Container
         .Bind<CameraService>()
+        .AsSingle();
+      
+      Container
+        .Bind<LadybugService>()
         .AsSingle();
       
       Container
