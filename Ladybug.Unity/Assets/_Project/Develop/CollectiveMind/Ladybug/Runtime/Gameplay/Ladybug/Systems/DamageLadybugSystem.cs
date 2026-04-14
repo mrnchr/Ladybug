@@ -37,7 +37,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
           && _collisionFilter.TrySelectByComponents<ObstacleTag, LadybugTag>()
           && !info.Target.Has<Invincible>())
         {
-          info.Target.Add<DamagedEvent>();
           _sessionData.Health.Value = Mathf.Max(0, _sessionData.Health.Value - 1);
         }
       }
