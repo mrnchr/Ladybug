@@ -6,7 +6,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
   {
     public LadybugFeature(IEcsSystemFactory systems)
     {
-      Add(systems.Create<DeleteDamagedEventSystem>());
       Add(systems.Create<DamageLadybugSystem>());
     }
   }

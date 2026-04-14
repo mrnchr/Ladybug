@@ -80,7 +80,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Laser
           Collider col = ladybug.Get<ColliderRef>().Collider;
           if (col == hit.collider && !ladybug.Has<Invincible>())
           {
-            ladybug.Add<DamagedEvent>();
             _sessionData.Health.Value = Mathf.Max(0, _sessionData.Health.Value - 1);
           }
         }

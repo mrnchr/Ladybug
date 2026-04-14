@@ -1,6 +1,7 @@
 ﻿using System;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
@@ -14,6 +15,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Tape
     private readonly TapeConfig _config;
     private readonly IEcsUniverse _ecsUniverse;
     private readonly ICollisionFilter _collisionFilter;
+    private readonly GameSessionData _gameSessionData;
     private readonly EcsEntities _collisions;
     private EntityVisual _visual;
     private DisposableBag _disposableBag;
@@ -22,11 +24,15 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Tape
     private Vector3 _moveDirection;
     private bool _isMoving;
 
-    public TapeFacade(TapeConfig config, IEcsUniverse ecsUniverse, ICollisionFilter collisionFilter)
+    public TapeFacade(TapeConfig config,
+      IEcsUniverse ecsUniverse,
+      ICollisionFilter collisionFilter,
+      GameSessionData gameSessionData)
     {
       _config = config;
       _ecsUniverse = ecsUniverse;
       _collisionFilter = collisionFilter;
+      _gameSessionData = gameSessionData;
 
       _collisions = _ecsUniverse
         .FilterMessage<CollisionMessage>()
@@ -95,11 +101,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Tape
         
       Transform transform = _entity.Get<TransformRef>().Transform;
       Rigidbody rigidbody = _entity.Get<RigidbodyRef>().Rigidbody;
-      rigidbody.linearVelocity = _moveDirection * _config.Speed;
+      float speed = _config.Speed * _gameSessionData.SpeedRate.Value;
+      rigidbody.linearVelocity = _moveDirection * speed;
 
       Vector3 groundPointPosition = _entity.Get<GroundPointRef>().GroundPoint.transform.position;
       float radius = Vector3.Distance(transform.position, groundPointPosition);
-      float angularSpeed = _config.Speed / radius;
+      float angularSpeed = speed / radius;
       rigidbody.angularVelocity = transform.right * angularSpeed;
     }
   }
