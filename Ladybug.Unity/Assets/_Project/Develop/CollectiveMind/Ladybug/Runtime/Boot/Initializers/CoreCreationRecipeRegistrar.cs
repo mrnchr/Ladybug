@@ -4,6 +4,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Laser;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.PingPongBall;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Ruler;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Tape;
@@ -58,6 +59,9 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
             break;
           case EntityType.Tape:
             RegisterRecipe<TapeFacade>(obstacle);
+            break;
+          case EntityType.PingPongBall:
+            RegisterRecipe<PingPongBallFacade>(obstacle);
             break;
           default:
             RegisterRecipe(obstacle);

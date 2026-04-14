@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Leopotam.EcsLite;
 
-namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
+namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs.EventBus
 {
   public class UniverseEventBus
   {

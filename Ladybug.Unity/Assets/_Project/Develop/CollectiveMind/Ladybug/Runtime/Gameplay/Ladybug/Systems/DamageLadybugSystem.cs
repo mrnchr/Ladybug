@@ -38,6 +38,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
           && !info.Target.Has<Invincible>())
         {
           _sessionData.Health.Value = Mathf.Max(0, _sessionData.Health.Value - 1);
+          _universe.Publish<OnDamageEvent>(info.Master);
         }
       }
     }
