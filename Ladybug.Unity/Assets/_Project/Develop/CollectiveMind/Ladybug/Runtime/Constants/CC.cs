@@ -7,6 +7,7 @@
   {
     public const string GREEN = "#ccff99";
     public const string RED = "red";
+    public const string YELLOW = "yellow";
     public const string CYAN = "cyan";
     public const string LIGHT_RED = "#ff9999";
     public const string LIGHT_BLUE = "#99e5ff";
