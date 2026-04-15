@@ -14,7 +14,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     private ISerializedEcsConverter _serializedConverter;
 
     [SerializeField]
-    [ShowIf(nameof(ShowComponents))]
+    [ShowIf(nameof(HasComponents))]
     [InlineProperty]
     [HideLabel]
     private EcsComponentsConverter _components;
@@ -24,21 +24,23 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     [InlineEditor]
     [HideLabel]
     [LabelText("$" + nameof(_scriptableConverter) + "Name")]
+    [InfoBox("Edit data within this field with care", TriMessageType.Warning, "$" + nameof(HasScriptableConverter))]
     private EcsConverterAsset _scriptableConverter;
 
     public bool IsEmpty => _serializedConverter == null
-      && _components.Components.Count == 0
+      && !HasComponents
       && _scriptableConverter == null;
 
     public bool ShowSerializedConverter => IsEmpty || _serializedConverter != null;
-    public bool ShowComponents => IsEmpty || _components.Components.Count > 0;
-    public bool ShowScriptableConverter => IsEmpty || _scriptableConverter != null;
+    public bool HasComponents => _components.Components.Count > 0;
+    public bool ShowScriptableConverter => IsEmpty || _scriptableConverter;
+    public bool HasScriptableConverter => _scriptableConverter;
 
     public IEcsConverter GetValue()
     {
       if (_serializedConverter != null) return _serializedConverter;
-      if (_components.Components.Count > 0) return _components;
-      if (_scriptableConverter != null) return _scriptableConverter;
+      if (HasComponents) return _components;
+      if (_scriptableConverter) return _scriptableConverter;
 
       return null;
     }
@@ -57,15 +59,24 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     private string _serializedConverterName => UnityEditor.ObjectNames.NicifyVariableName(_serializedConverter?.GetType().Name ?? TriConstants.NONE);
     private string _scriptableConverterName => UnityEditor.ObjectNames.NicifyVariableName(_scriptableConverter ? _scriptableConverter.name : TriConstants.NONE);
 
-    private bool ShowOnlyComponents => !IsEmpty && ShowComponents;
-    
     [Button("Clear")]
     [GUIColor(CC.RED)]
     [PropertyOrder(0)]
-    [ShowIf("$" + nameof(ShowOnlyComponents))]
+    [HideIf("$" + nameof(IsEmpty))]
     private void Clear()
     {
+      _serializedConverter = null;
       _components.Components.Clear();
+      _scriptableConverter = null;
+    }
+
+    [Button]
+    [GUIColor(CC.CYAN)]
+    [PropertyOrder(1)]
+    [ShowIf("$" + nameof(IsEmpty))]
+    private void CreateComponentList()
+    {
+      _components.Components.Add(new EcsComponentValue());
     }
     
     public IReadOnlyList<Type> ComponentTypes
@@ -73,8 +84,8 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
       get
       {
         if (_serializedConverter != null) return _serializedConverter.ComponentTypes;
-        if (_components.Components.Count > 0) return _components.ComponentTypes;
-        if (_scriptableConverter != null) return _scriptableConverter.ComponentTypes;
+        if (HasComponents) return _components.ComponentTypes;
+        if (_scriptableConverter) return _scriptableConverter.ComponentTypes;
 
         return ListEmpty<Type>.Value;
       }

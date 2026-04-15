@@ -20,7 +20,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
 
 #if UNITY_EDITOR
     public bool IsOverridenComponent { get; set; }
-    private string Name => (IsOverridenComponent ? "[O] " : "") + EcsComponentNameResolver.GetComponentName(Value?.GetType());
+    private string Name => (IsOverridenComponent && Value != null ? "[O] " : "") + EcsComponentNameResolver.GetComponentName(Value?.GetType());
 
     private void OnValueChanged()
     {
