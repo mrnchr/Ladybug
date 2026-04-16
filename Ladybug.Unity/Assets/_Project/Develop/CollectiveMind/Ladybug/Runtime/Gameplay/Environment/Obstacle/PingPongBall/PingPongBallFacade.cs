@@ -1,4 +1,5 @@
 ﻿using System;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
@@ -15,28 +16,35 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.PingPongB
     private readonly IEcsUniverse _ecsUniverse;
     private readonly GameSessionData _gameSessionData;
     private readonly LadybugService _ladybugService;
+    private readonly ICollisionFilter _collisionFilter;
     private EntityVisual _visual;
     private DisposableBag _disposableBag;
     
     private EcsEntityWrapper _entity => _visual.Entity;
     private bool _isMoving;
+    private readonly EcsEntities _collisions;
 
     public PingPongBallFacade(PingPongBallConfig config,
       IEcsUniverse ecsUniverse,
       GameSessionData gameSessionData,
-      LadybugService ladybugService)
+      LadybugService ladybugService,
+      ICollisionFilter collisionFilter)
     {
       _config = config;
       _ecsUniverse = ecsUniverse;
       _gameSessionData = gameSessionData;
       _ladybugService = ladybugService;
+      _collisionFilter = collisionFilter;
+      
+      _collisions = _ecsUniverse
+        .FilterMessage<TwoSideCollision>()
+        .Collect();
     }
 
     public void Bind(EcsEntityWrapper entity)
     {
       _visual = entity.GetVisual<EntityVisual>();
       _disposableBag.Add(_ecsUniverse.Subscribe<InCameraView>(_entity, OnCameraViewEnter));
-      _disposableBag.Add(_ecsUniverse.Subscribe<OnDamageEvent>(_entity, OnDamage));
     }
 
     public void Initialize(EntityInitContext _)
@@ -49,6 +57,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.PingPongB
     {
       if (_entity.IsAlive())
       {
+        TrackCollisions();
         Move();
       }
     }
@@ -63,9 +72,21 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.PingPongB
       _entity.Get<RigidbodyRef>().Rigidbody.useGravity = true;
     }
 
-    private void OnDamage()
+    private void TrackCollisions()
     {
-      _isMoving = false;
+      if (_entity.Has<InCameraView>())
+      {
+        foreach (EcsEntityWrapper collision in _collisions)
+        {
+          _collisionFilter.AssignCollision(collision);
+
+          if (_collisionFilter.TryUnpackBothEntities(_ecsUniverse.Game)
+            && _collisionFilter.TrySelectByComponents<ObstacleTag, LadybugTag>())
+          {
+            _isMoving = false;
+          }
+        }
+      }
     }
 
     private void Move()
