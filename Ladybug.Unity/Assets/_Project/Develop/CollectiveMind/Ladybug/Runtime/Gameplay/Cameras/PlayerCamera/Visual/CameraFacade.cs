@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
 {
-  public class CameraFacade : IFacade, IBindable
+  public class CameraFacade : IFacade, IBindable, IEntityInitializable
   {
     private EntityVisual _visual;
     private EcsEntityWrapper _entity => _visual.Entity;
@@ -18,6 +18,16 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera
     public void Bind(EcsEntityWrapper entity)
     {
       _visual = entity.Get<EntityVisualRef>().Visual;
+    }
+
+    public void Initialize(EntityInitContext initContext)
+    {
+      Camera camera = _entity.Get<CameraRef>().Camera;
+      float depth = camera.transform.position.y;
+      float height = 2f * depth * Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+      float width = height * camera.aspect;
+      Transform triggerTransform = _entity.Get<ColliderRef>().Collider.transform;
+      triggerTransform.localScale = new Vector3(width, height, depth);
     }
 
     private void CalculateLocalDeepBounds()

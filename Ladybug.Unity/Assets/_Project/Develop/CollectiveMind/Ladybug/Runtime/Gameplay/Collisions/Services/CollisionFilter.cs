@@ -27,6 +27,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
     public void AssignCollision(TwoSideCollision collision)
     {
       Info.Reset();
+      Info.Type = collision.Type;
       Info.MasterCollider = collision.Sender;
       Info.TargetCollider = collision.Other;
     }
@@ -34,6 +35,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
     public void AssignCollision(OneSideCollision collision)
     {
       Info.Reset();
+      Info.Type = collision.Type;
       Info.MasterCollider = collision.Sender;
       Info.TargetCollider.Collider = collision.Other;
     }

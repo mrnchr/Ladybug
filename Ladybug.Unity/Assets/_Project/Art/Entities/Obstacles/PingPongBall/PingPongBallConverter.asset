@@ -40,5 +40,5 @@ MonoBehaviour:
       data:
         _entityId: 1012
     - rid: 3557476802563933140
-      type: {class: CameraViewTracked, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+      type: {class: TrackedInCameraView, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data: 
