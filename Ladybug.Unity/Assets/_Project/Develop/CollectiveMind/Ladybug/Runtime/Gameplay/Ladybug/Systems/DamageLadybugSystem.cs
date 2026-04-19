@@ -34,7 +34,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
         CollisionInfo info = _collisionFilter.Info;
         
         if (_collisionFilter.TryUnpackBothEntities(_universe.Game)
-          && _collisionFilter.TrySelectByComponents<ObstacleTag, LadybugTag>()
+          && _collisionFilter.TrySelectByComponents<DamageSource, LadybugTag>()
           && !info.Target.Has<Invincible>())
         {
           _sessionData.Health.Value = Mathf.Max(0, _sessionData.Health.Value - 1);
