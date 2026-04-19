@@ -12,7 +12,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
   {
     private readonly ObstacleSpawnConfig _config;
     private readonly EntityFactory _entityFactory;
-    private readonly GameSessionData _sessionData;
+    private readonly SessionService _session;
     private readonly EcsEntities _cameras;
     private readonly EcsEntities _ladybugs;
     private readonly EcsEntities _obstacles;
@@ -20,11 +20,11 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     public ObstacleSpawnService(IEcsUniverse universe,
       ObstacleSpawnConfig config,
       EntityFactory entityFactory,
-      GameSessionData sessionData)
+      SessionService session)
     {
       _config = config;
       _entityFactory = entityFactory;
-      _sessionData = sessionData;
+      _session = session;
 
       _cameras = universe
         .FilterGame<CameraTag>()
@@ -94,7 +94,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 
     private EntityType SelectObstacleType()
     {
-      List<float> chances = GetSpawnChances(_sessionData.Score.Value);
+      List<float> chances = GetSpawnChances(_session.Score.Value);
       return _config.SpawnEntries[ChooseRandom(chances)].EntityType;
     }
 

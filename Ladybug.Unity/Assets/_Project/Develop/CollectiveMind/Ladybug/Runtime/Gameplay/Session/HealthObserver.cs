@@ -9,22 +9,20 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
 {
   public class HealthObserver : IDisposable
   {
-    private readonly GameSessionData _sessionData;
     private readonly GameSessionController _gameSessionController;
     private readonly CameraShakeController _cameraShakeController;
     private readonly EcsEntities _ladybugs;
     private DisposableBag _disposables;
 
-    public HealthObserver(GameSessionData sessionData,
+    public HealthObserver(SessionService session,
       GameSessionController gameSessionController,
       CameraShakeController cameraShakeController,
       IEcsUniverse universe)
     {
-      _sessionData = sessionData;
       _gameSessionController = gameSessionController;
       _cameraShakeController = cameraShakeController;
       
-      _disposables.Add(_sessionData.Health
+      _disposables.Add(session.Health
         .Pairwise()
         .Where(pair => pair.Current < pair.Previous)
         .Select(pair => pair.Current)

@@ -18,7 +18,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Laser
     private readonly LaserConfig _config;
     private readonly IEcsUniverse _universe;
     private readonly CameraService _cameraService;
-    private readonly GameSessionData _sessionData;
+    private readonly SessionService _session;
     
     private readonly EcsEntities _ladybugs;
     
@@ -37,12 +37,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Laser
     public LaserFacade(LaserConfig config,
       IEcsUniverse universe,
       CameraService cameraService,
-      GameSessionData sessionData)
+      SessionService session)
     {
       _universe = universe;
       _config = config;
       _cameraService = cameraService;
-      _sessionData = sessionData;
+      _session = session;
       
       _ladybugs = universe
         .FilterGame<LadybugTag>()
@@ -80,7 +80,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Laser
           Collider col = ladybug.Get<ColliderRef>().Collider;
           if (col == hit.collider && !ladybug.Has<Invincible>())
           {
-            _sessionData.Health.Value = Mathf.Max(0, _sessionData.Health.Value - 1);
+            _session.SubtractHealth(1);
           }
         }
       }

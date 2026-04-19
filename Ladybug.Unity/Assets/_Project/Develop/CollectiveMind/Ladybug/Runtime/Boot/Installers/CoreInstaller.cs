@@ -41,10 +41,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
         .To<RuntimeInitializer>()
         .AsSingle();
 
-      Container
-        .Bind<GameSessionData>()
-        .AsSingle();
-
       CollisionsInstaller.Install(Container);
 
       Container

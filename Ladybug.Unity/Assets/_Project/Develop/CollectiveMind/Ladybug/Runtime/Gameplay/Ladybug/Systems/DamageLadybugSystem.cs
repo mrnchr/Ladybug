@@ -3,7 +3,6 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
-using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
@@ -11,14 +10,14 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
   {
     private readonly IEcsUniverse _universe;
     private readonly ICollisionFilter _collisionFilter;
-    private readonly GameSessionData _sessionData;
+    private readonly SessionService _session;
     private readonly EcsEntities _collisions;
 
-    public DamageLadybugSystem(IEcsUniverse universe, ICollisionFilter collisionFilter, GameSessionData sessionData)
+    public DamageLadybugSystem(IEcsUniverse universe, ICollisionFilter collisionFilter, SessionService session)
     {
       _universe = universe;
       _collisionFilter = collisionFilter;
-      _sessionData = sessionData;
+      _session = session;
 
       _collisions = _universe
         .FilterMessage<TwoSideCollision>()
@@ -37,7 +36,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
           && _collisionFilter.TrySelectByComponents<DamageSource, LadybugTag>()
           && !info.Target.Has<Invincible>())
         {
-          _sessionData.Health.Value = Mathf.Max(0, _sessionData.Health.Value - 1);
+          _session.SubtractHealth(1);
           _universe.Publish<OnDamageEvent>(info.Master);
         }
       }

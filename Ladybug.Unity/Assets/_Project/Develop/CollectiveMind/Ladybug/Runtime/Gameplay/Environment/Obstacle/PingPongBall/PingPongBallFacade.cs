@@ -14,7 +14,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.PingPongB
   {
     private readonly PingPongBallConfig _config;
     private readonly IEcsUniverse _ecsUniverse;
-    private readonly GameSessionData _gameSessionData;
+    private readonly SessionService _session;
     private readonly LadybugService _ladybugService;
     private readonly ICollisionFilter _collisionFilter;
     private EntityVisual _visual;
@@ -26,13 +26,13 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.PingPongB
 
     public PingPongBallFacade(PingPongBallConfig config,
       IEcsUniverse ecsUniverse,
-      GameSessionData gameSessionData,
+      SessionService session,
       LadybugService ladybugService,
       ICollisionFilter collisionFilter)
     {
       _config = config;
       _ecsUniverse = ecsUniverse;
-      _gameSessionData = gameSessionData;
+      _session = session;
       _ladybugService = ladybugService;
       _collisionFilter = collisionFilter;
       
@@ -111,7 +111,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.PingPongB
       moveDirection.y = 0;
       moveDirection.Normalize();
 
-      float speed = _config.Speed * _gameSessionData.SpeedRate.Value;
+      float speed = _config.Speed * _session.SpeedRate.Value;
       
       Vector3 groundPointPosition = _entity.Get<GroundPointRef>().GroundPoint.transform.position;
       float radius = Vector3.Distance(rigidbody.position, groundPointPosition);

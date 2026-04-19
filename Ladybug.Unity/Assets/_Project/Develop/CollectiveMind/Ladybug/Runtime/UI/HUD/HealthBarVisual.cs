@@ -12,13 +12,10 @@ namespace CollectiveMind.Ladybug.Runtime.UI.HUD
     [SerializeField]
     private List<Image> _orderedHealthPoints;
     
-    private GameSessionData _sessionData;
-
     [Inject]
-    public void Construct(GameSessionData sessionData)
+    public void Construct(SessionService session)
     {
-      _sessionData = sessionData;
-      _sessionData.Health.Subscribe(OnHealthChanged);
+      session.Health.Subscribe(OnHealthChanged);
     }
 
     private void OnHealthChanged(int health)

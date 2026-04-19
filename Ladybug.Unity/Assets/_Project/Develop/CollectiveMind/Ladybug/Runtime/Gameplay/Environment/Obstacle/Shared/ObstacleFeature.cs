@@ -1,4 +1,5 @@
-﻿using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Spiderweb;
+using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
@@ -7,6 +8,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
     public ObstacleFeature(IEcsSystemFactory systems)
     {
       Add(systems.Create<DetectInCameraViewSystem>());
+      Add(systems.Create<SpiderwebSlowdownSystem>());
     }
   }
 }
