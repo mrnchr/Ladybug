@@ -5,6 +5,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Creation.SpawnPoint;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Signal;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
@@ -39,6 +40,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     private SessionService _sessionService;
     private WindowInitializer _windowInitializer;
     private EntityFactory _entityFactory;
+    private SignalSpawner _signalSpawner;
 
     [Inject]
     private void Construct(CoreCreationRecipeRegistrar creationRecipeRegistrar,
@@ -50,7 +52,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       CameraService cameraService,
       SessionService sessionService,
       WindowInitializer windowInitializer,
-      EntityFactory entityFactory)
+      EntityFactory entityFactory,
+      SignalSpawner signalSpawner)
     {
       _creationRecipeRegistrar = creationRecipeRegistrar;
       _entityInitializerRegistrar = entityInitializerRegistrar;
@@ -62,6 +65,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       _sessionService = sessionService;
       _windowInitializer = windowInitializer;
       _entityFactory = entityFactory;
+      _signalSpawner = signalSpawner;
     }
 
     public void Initialize()
@@ -71,6 +75,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       _gameplayUpdater.Add(_lineDrawer);
       _gameplayUpdater.Add(_ecsEngine);
       _gameplayUpdater.Add(_sessionService);
+      _gameplayUpdater.Add(_signalSpawner);
 
       _windowInitializer.Initialize();
       _ecsEngine.Initialize();

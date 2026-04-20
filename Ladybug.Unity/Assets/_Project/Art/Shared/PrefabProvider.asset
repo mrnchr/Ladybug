@@ -51,3 +51,5 @@ MonoBehaviour:
     Prefab: {fileID: 0}
   - Id: 10003
     Prefab: {fileID: 0}
+  - Id: 10004
+    Prefab: {fileID: 4104962750177398202, guid: bedb83bad2cc41348bcd0fe5e458e547, type: 3}

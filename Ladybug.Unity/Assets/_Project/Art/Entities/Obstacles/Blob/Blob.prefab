@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WhenEnter: 1
   WhenStay: 0
-  WhenExit: 0
+  WhenExit: 1
   WhenTrigger: 1
   WhenCollider: 1
 --- !u!114 &4914003035219064732

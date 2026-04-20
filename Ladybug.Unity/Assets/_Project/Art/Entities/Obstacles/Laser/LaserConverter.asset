@@ -29,8 +29,6 @@ MonoBehaviour:
       Components:
       - Value:
           rid: 2859018551178559557
-      - Value:
-          rid: 2859018551178559559
     _scriptableConverter: {fileID: 0}
   references:
     version: 2
@@ -41,9 +39,7 @@ MonoBehaviour:
       type: {class: ObstacleConverter, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data:
         _entityId: 1010
+        _signalType: 1
     - rid: 2859018551178559557
       type: {class: YawDeviationEnabled, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
-      data: 
-    - rid: 2859018551178559559
-      type: {class: TrackedInCameraView, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data: 

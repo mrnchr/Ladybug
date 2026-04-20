@@ -23,13 +23,6 @@ MonoBehaviour:
     _components:
       Components: []
     _scriptableConverter: {fileID: 0}
-  - _serializedConverter:
-      rid: -2
-    _components:
-      Components:
-      - Value:
-          rid: 3557476802563933140
-    _scriptableConverter: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -39,6 +32,4 @@ MonoBehaviour:
       type: {class: ObstacleConverter, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data:
         _entityId: 1012
-    - rid: 3557476802563933140
-      type: {class: TrackedInCameraView, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
-      data: 
+        _signalType: 1

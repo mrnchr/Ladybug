@@ -161,5 +161,11 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     {
       return World.PackEntityWithWorld(Entity);
     }
+    
+    public void Unpack(EcsPackedEntityWithWorld packedEntity)
+    {
+      packedEntity.Unpack(out _world, out int entity);
+      Entity = entity;
+    }
   }
 }

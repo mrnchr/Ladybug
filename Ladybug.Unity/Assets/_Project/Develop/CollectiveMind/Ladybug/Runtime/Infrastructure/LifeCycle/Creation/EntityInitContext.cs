@@ -4,7 +4,7 @@
   {
   }
 
-  public class EntityInitContext
+  public sealed class EntityInitContext
   {
     private IEntityInitContextValue _value;
 
@@ -37,7 +37,7 @@
     }
   }
 
-  public class EntityInitContext<T> : IEntityInitContextValue where T : struct
+  public sealed class EntityInitContext<T> : IEntityInitContextValue where T : struct
   {
     private T _value;
 
