@@ -1,44 +1,49 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
+﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Leopotam.EcsLite;
-using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
   public class DetectInCameraViewSystem : IEcsRunSystem
   {
     private readonly IEcsUniverse _ecsUniverse;
-    private readonly CameraService _cameraService;
-    private readonly EcsEntities _inCameraViewObservers;
+    private readonly ICollisionFilter _collisionFilter;
+    private readonly EcsEntities _collisions;
 
-    public DetectInCameraViewSystem(IEcsUniverse ecsUniverse, CameraService cameraService)
+    public DetectInCameraViewSystem(IEcsUniverse ecsUniverse, ICollisionFilter collisionFilter)
     {
       _ecsUniverse = ecsUniverse;
-      _cameraService = cameraService;
+      _collisionFilter = collisionFilter;
 
-      _inCameraViewObservers = _ecsUniverse
-        .FilterGame<CameraViewTracked>()
+      _collisions = ecsUniverse
+        .FilterMessage<TwoSideCollision>()
         .Collect();
     }
     
     public void Run(IEcsSystems systems)
     {
-      foreach (EcsEntityWrapper observer in _inCameraViewObservers)
+      foreach (EcsEntityWrapper col in _collisions)
       {
-        Vector3 position = observer.Get<CameraViewProbeRef>().CameraViewProbe.position;
-
-        bool inCameraView = observer.Has<InCameraView>();
-        bool contains = _cameraService.IsInCameraView(position);
-
-        observer.Has<InCameraView>(contains);
-
-        if (!inCameraView && contains)
+        ref TwoSideCollision collision = ref col.Get<TwoSideCollision>();
+        _collisionFilter.AssignCollision(collision);
+        CollisionInfo info = _collisionFilter.Info;
+        
+        if (_collisionFilter.TryUnpackBothEntities(_ecsUniverse.Game)
+          && _collisionFilter.TrySelectByComponents<CameraTag, TrackedInCameraView>())
         {
-          _ecsUniverse.Publish<InCameraView>(observer);
-        }
-        else if (inCameraView && !contains)
-        {
-          _ecsUniverse.Publish<OutCameraView>(observer);
+          bool inCameraView = info.Target.Has<InCameraView>();
+          
+          if (!inCameraView && info.Type == CollisionType.Enter)
+          {
+            info.Target.Add<InCameraView>();
+            _ecsUniverse.Publish<InCameraView>(info.Target);
+          }
+          else if (inCameraView && info.Type == CollisionType.Exit)
+          {
+            info.Target.Del<InCameraView>();
+            _ecsUniverse.Publish<OutCameraView>(info.Target);
+          }
         }
       }
     }

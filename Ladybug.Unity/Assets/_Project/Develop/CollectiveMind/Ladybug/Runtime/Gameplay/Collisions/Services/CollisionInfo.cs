@@ -5,6 +5,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
 {
   public class CollisionInfo
   {
+    public CollisionType Type;
+    
     public PackedCollider MasterCollider;
     public PackedCollider TargetCollider;
 

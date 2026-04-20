@@ -387,9 +387,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4442852353302963960, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7849834758245622727}
-    - targetCorrespondingSourceObject: {fileID: 4442852353302963960, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3660042730222534617}
   m_SourcePrefab: {fileID: 100100000, guid: 69cbc4dcf9d5fab40bf45cf9fbd5dd7e, type: 3}
 --- !u!4 &1119381634166853594 stripped
 Transform:
@@ -427,19 +424,6 @@ MonoBehaviour:
   _ecsBinder: {fileID: 1235187597981789461}
   _rayOrigin: {fileID: 3541179872553061799}
   _lineRenderer: {fileID: 2849388339010993599}
---- !u!114 &3660042730222534617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923534726930624709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 582ad2ee1a7e42108e1809163b85aa50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Ladybug.Runtime::CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.CameraViewProbeConverter
-  CameraViewProbe: {fileID: 3541179872553061799}
 --- !u!1001 &7225572046762295708
 PrefabInstance:
   m_ObjectHideFlags: 0
