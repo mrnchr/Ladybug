@@ -10,8 +10,6 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
   public class LadybugBooster
   {
-    public float BoostMultiplier { get; private set; } = 1;
-
     private readonly LadybugFacade _facade;
     private readonly LadybugContext _context;
     private readonly CameraConfig _cameraConfig;
