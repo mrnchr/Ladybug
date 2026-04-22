@@ -4,7 +4,7 @@ using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
 {
   [Serializable]
-  [EcsComponentOrder(EcsComponentOrder.CONST)]
+  [EcsComponentOrder(EcsComponentOrder.STATIC)]
   public struct DamageSource : IEcsComponent
   {
   }
