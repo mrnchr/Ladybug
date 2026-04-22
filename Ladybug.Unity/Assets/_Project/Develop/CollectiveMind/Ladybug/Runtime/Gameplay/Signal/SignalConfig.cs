@@ -21,7 +21,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Signal
   }
 
   [Serializable]
-  [DeclareFoldoutGroup(nameof(SignalDataEntry), Title = "$" + nameof(Name))]
+  [DeclareFoldoutGroup(nameof(SignalDataEntry), Title = "$Name")]
   public class SignalDataEntry
   {
     [Group(nameof(SignalDataEntry))]
