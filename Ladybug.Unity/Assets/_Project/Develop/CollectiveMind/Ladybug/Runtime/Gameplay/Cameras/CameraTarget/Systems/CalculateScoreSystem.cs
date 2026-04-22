@@ -8,12 +8,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget
 {
   public class CalculateScoreSystem : IEcsRunSystem
   {
-    private readonly GameSessionData _sessionData;
+    private readonly SessionService _session;
     private readonly EcsEntities _targets;
 
-    public CalculateScoreSystem(IEcsUniverse universe, GameSessionData sessionData)
+    public CalculateScoreSystem(IEcsUniverse universe, SessionService session)
     {
-      _sessionData = sessionData;
+      _session = session;
 
       _targets = universe
         .FilterGame<CameraTargetTag>()
@@ -26,7 +26,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.CameraTarget
       foreach (EcsEntityWrapper target in _targets)
       {
         Vector3 position = target.Get<TransformRef>().Transform.position;
-        _sessionData.Score.Value = position.z - target.Get<StartPosition>().Position.z;
+        _session.Score.Value = position.z - target.Get<StartPosition>().Position.z;
       }
     }
   }

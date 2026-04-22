@@ -4,19 +4,18 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Unity.Cinemachine;
-using UnityEngine;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay
 {
   public class OutOfViewObserver : IDisposable
   {
-    private readonly GameSessionData _sessionData;
+    private readonly SessionService _session;
     private readonly CameraService _cameraService;
     private readonly EcsEntities _ladybugs;
 
-    public OutOfViewObserver(IEcsUniverse universe, GameSessionData sessionData, CameraService cameraService)
+    public OutOfViewObserver(IEcsUniverse universe, SessionService session, CameraService cameraService)
     {
-      _sessionData = sessionData;
+      _session = session;
       _cameraService = cameraService;
 
       _ladybugs = universe
@@ -47,7 +46,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
       {
         if (_cameraService.IsEntityOutsideCamera(ladybug))
         {
-          _sessionData.Health.Value = Mathf.Max(0, _sessionData.Health.Value - 1);
+          _session.SubtractHealth(1);
 
           var ladybugFacade = ladybug.GetFacade<LadybugFacade>();
           ladybugFacade.Boost();

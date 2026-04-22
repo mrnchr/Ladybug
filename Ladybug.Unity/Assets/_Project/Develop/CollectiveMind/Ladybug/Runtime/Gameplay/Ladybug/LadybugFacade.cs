@@ -1,4 +1,5 @@
-﻿using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
+﻿using System;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
@@ -11,7 +12,7 @@ using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
-  public class LadybugFacade : IFacade, IGameStep, IBindable
+  public class LadybugFacade : IFacade, IGameStep, IBindable, IInitializable, IDisposable
   {
     public Transform Transform => _visual.transform;
     public Vector3 Velocity { get; private set; }
@@ -19,7 +20,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     public ReadOnlyReactiveProperty<float> Opacity => _invincibilityHandler.Opacity;
 
     private readonly LadybugConfig _config;
-    private readonly GameSessionData _sessionData;
+    private readonly SessionService _session;
     private readonly LineDrawer _lineDrawer;
     private readonly CameraService _cameraService;
     private readonly LadybugContext _context;
@@ -27,18 +28,21 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     private readonly LadybugInvincibilityHandler _invincibilityHandler;
     private readonly LadybugBooster _booster;
     private readonly ReactiveProperty<bool> _isMoving = new ReactiveProperty<bool>();
+    
+    private DisposableBag _disposableBag;
+    private Vector3 _direction;
 
     private LadybugVisual _visual => _context.Visual;
     private EcsEntityWrapper _entity => _context.Entity;
 
     public LadybugFacade(LadybugConfig config,
-      GameSessionData sessionData,
+      SessionService session,
       IInstantiator instantiator,
       LineDrawer lineDrawer,
       CameraService cameraService)
     {
       _config = config;
-      _sessionData = sessionData;
+      _session = session;
       _lineDrawer = lineDrawer;
       _cameraService = cameraService;
 
@@ -50,7 +54,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     public float GetScrollSpeed()
     {
-      float commonSpeed = _config.Speed * _sessionData.SpeedRate.Value;
+      float commonSpeed = _config.Speed * _session.SpeedRate.Value;
       return commonSpeed;
     }
 
@@ -64,7 +68,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     public void UpdateVelocity(Vector3 direction)
     {
-      Velocity = direction * GetCurrentSpeed();
+      _direction = direction;
+      Velocity = direction * _session.Speed.CurrentValue;
       _isMoving.Value = Velocity != Vector3.zero;
     }
 
@@ -75,7 +80,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
     public void Boost()
     {
-      if(_sessionData.Health.Value > 0)
+      if(_session.Health.CurrentValue > 0)
       {
         _booster.Boost();
       }
@@ -103,17 +108,21 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       _context.Visual = entity.GetVisual<LadybugVisual>();
       _booster.Initialize();
     }
+    
+    public void Initialize()
+    {
+      _direction = Vector2.zero;
+      _disposableBag.Add(_session.Speed.Subscribe(_ => UpdateVelocity(_direction)));
+    }
 
     public void Step()
     {
       _booster.Step();
     }
 
-    private float GetCurrentSpeed()
+    public void Dispose()
     {
-      float boostMultiplier = _entity.Has<Boosting>() ? _booster.BoostMultiplier : 1;
-      float currentSpeed = GetScrollSpeed() * boostMultiplier;
-      return currentSpeed;
+      _disposableBag.Dispose();
     }
   }
 }

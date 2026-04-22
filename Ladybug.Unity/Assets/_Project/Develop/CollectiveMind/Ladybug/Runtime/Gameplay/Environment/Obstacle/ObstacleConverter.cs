@@ -12,6 +12,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
   {
     [SerializeField]
     private EntityType _entityId;
+    
+    [SerializeField]
+    private bool _isDamageSource;
 
     [SerializeField]
     private SignalType _signalType;
@@ -23,6 +26,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
         .Has<ObstacleTag>(true)
         .Has<Destroyable>(true)
         .Has<Cleanable>(true)
+        .Has<DamageSource>(_isDamageSource)
         .Replace((ref SignalAssigment signalAssigment) => signalAssigment.SignalType = _signalType);
     }
 
@@ -33,6 +37,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
         .Has<ObstacleTag>(false)
         .Has<Destroyable>(false)
         .Has<Cleanable>(false)
+        .Has<DamageSource>(false)
         .Has<SignalAssigment>(false);
     }
 
@@ -43,7 +48,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle
       typeof(ObstacleTag),
       typeof(Destroyable),
       typeof(Cleanable),
-      typeof(SignalAssigment)
+      typeof(DamageSource),
+      typeof(SignalAssigment),
     };
 
     public IReadOnlyList<Type> ComponentTypes => _componentTypes;

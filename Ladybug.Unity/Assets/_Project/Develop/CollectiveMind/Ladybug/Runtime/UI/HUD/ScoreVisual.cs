@@ -11,13 +11,10 @@ namespace CollectiveMind.Ladybug.Runtime.UI.HUD
     [SerializeField]
     private TMP_Text _scoreLabel;
 
-    private GameSessionData _sessionData;
-
     [Inject]
-    public void Construct(GameSessionData sessionData)
+    public void Construct(SessionService session)
     {
-      _sessionData = sessionData;
-      _sessionData.Score.Subscribe(ChangeScoreText);
+      session.Score.Subscribe(ChangeScoreText);
     }
 
     private void ChangeScoreText(float score)

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras.PlayerCamera;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -9,23 +10,25 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 {
   public class LadybugBooster
   {
-    public float BoostMultiplier { get; private set; } = 1;
-
     private readonly LadybugFacade _facade;
     private readonly LadybugContext _context;
     private readonly CameraConfig _cameraConfig;
     private readonly EcsEntities _cameras;
+    private readonly SessionService _session;
+    
     private float _lineWidth;
     private float _lineHalfLength;
 
     public LadybugBooster(LadybugFacade facade,
       LadybugContext context,
       CameraConfig cameraConfig,
-      IEcsUniverse ecsUniverse)
+      IEcsUniverse ecsUniverse,
+      SessionService session)
     {
       _facade = facade;
       _context = context;
       _cameraConfig = cameraConfig;
+      _session = session;
 
       _cameras = ecsUniverse
         .FilterGame<CameraTag>()
@@ -68,16 +71,17 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
 
       float targetPositionZ = GetCameraPositionZ();
       float distance = Mathf.Abs(targetPositionZ - _facade.Transform.position.z);
-      BoostMultiplier = _cameraConfig.CameraSpeedMultiplier
-        + distance / (_facade.GetScrollSpeed() * _cameraConfig.DamageBoostDuration);
-
-      while (!token.IsCancellationRequested && _facade.Transform.position.z < targetPositionZ)
+      
+      float multiplier = _cameraConfig.CameraSpeedMultiplier
+                         + distance / (_facade.GetScrollSpeed() * _cameraConfig.DamageBoostDuration);
+      using (_session.AddSpeedModifier(new SpeedModifier(SpeedModifierType.Multiply, multiplier)))
       {
-        await UniTask.Yield(token).SuppressCancellationThrow();
-        targetPositionZ = GetCameraPositionZ();
+        while (!token.IsCancellationRequested && _facade.Transform.position.z < targetPositionZ)
+        {
+          await UniTask.Yield(token).SuppressCancellationThrow();
+          targetPositionZ = GetCameraPositionZ();
+        }
       }
-
-      BoostMultiplier = 1;
 
       if (_context.Entity.IsAlive())
       {

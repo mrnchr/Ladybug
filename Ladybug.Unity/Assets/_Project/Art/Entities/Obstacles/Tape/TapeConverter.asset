@@ -42,6 +42,7 @@ MonoBehaviour:
       data:
         _entityId: 1011
         _signalType: 1
+        _isDamageSource: 1
     - rid: 2776570955156684871
       type: {class: YawDeviationEnabled, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data: 

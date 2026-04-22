@@ -6,6 +6,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Cameras;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Collisions;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Canvas;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Spiderweb;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
@@ -39,10 +40,6 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .Bind<IRuntimeInitializer>()
         .To<RuntimeInitializer>()
-        .AsSingle();
-
-      Container
-        .Bind<GameSessionData>()
         .AsSingle();
 
       CollisionsInstaller.Install(Container);
@@ -84,6 +81,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       
       Container
         .BindInterfacesAndSelfTo<SessionService>()
+        .AsSingle();
+
+      Container
+        .Bind<SpiderwebSlowdownService>()
         .AsSingle();
 
       Container

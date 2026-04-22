@@ -33,3 +33,4 @@ MonoBehaviour:
       data:
         _entityId: 1005
         _signalType: 1
+        _isDamageSource: 1

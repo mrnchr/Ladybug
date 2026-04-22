@@ -15,7 +15,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Tape
     private readonly TapeConfig _config;
     private readonly IEcsUniverse _ecsUniverse;
     private readonly ICollisionFilter _collisionFilter;
-    private readonly GameSessionData _gameSessionData;
+    private readonly SessionService _session;
     private readonly EcsEntities _collisions;
     private EntityVisual _visual;
     private DisposableBag _disposableBag;
@@ -27,12 +27,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Tape
     public TapeFacade(TapeConfig config,
       IEcsUniverse ecsUniverse,
       ICollisionFilter collisionFilter,
-      GameSessionData gameSessionData)
+      SessionService session)
     {
       _config = config;
       _ecsUniverse = ecsUniverse;
       _collisionFilter = collisionFilter;
-      _gameSessionData = gameSessionData;
+      _session = session;
 
       _collisions = _ecsUniverse
         .FilterMessage<CollisionMessage>()
@@ -101,7 +101,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Tape
         
       Transform transform = _entity.Get<TransformRef>().Transform;
       Rigidbody rigidbody = _entity.Get<RigidbodyRef>().Rigidbody;
-      float speed = _config.Speed * _gameSessionData.SpeedRate.Value;
+      float speed = _config.Speed * _session.SpeedRate.Value;
       rigidbody.linearVelocity = _moveDirection * speed;
 
       Vector3 groundPointPosition = _entity.Get<GroundPointRef>().GroundPoint.transform.position;
