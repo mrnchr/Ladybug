@@ -23,6 +23,7 @@
     SpawnPoint = 10000,
     Camera = SpawnPoint + 1,
     VirtualCamera = Camera + 1,
-    CameraTarget = VirtualCamera + 1
+    CameraTarget = VirtualCamera + 1,
+    Signal = CameraTarget + 1
   }
 }

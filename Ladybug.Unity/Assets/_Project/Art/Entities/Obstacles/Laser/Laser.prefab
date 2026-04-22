@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Ladybug.Runtime::CollectiveMind.Ladybug.Runtime.Gameplay.Collisions.CollisionDetector
   WhenEnter: 1
   WhenStay: 0
-  WhenExit: 0
+  WhenExit: 1
   WhenTrigger: 1
   WhenCollider: 1
 --- !u!1 &3824170192759870610
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Ladybug.Runtime::CollectiveMind.Ladybug.Runtime.Gameplay.Collisions.CollisionDetector
   WhenEnter: 1
   WhenStay: 0
-  WhenExit: 0
+  WhenExit: 1
   WhenTrigger: 1
   WhenCollider: 1
 --- !u!1001 &2817540368888911421

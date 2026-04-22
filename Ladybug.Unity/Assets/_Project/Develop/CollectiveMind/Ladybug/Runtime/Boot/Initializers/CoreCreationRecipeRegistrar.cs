@@ -9,6 +9,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Ruler;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Scissors;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Tape;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Signal;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
@@ -68,6 +69,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
             break;
         }
       }
+      
+      RegisterRecipe<SignalFacade>(EntityType.Signal);
     }
 
     public void Dispose()

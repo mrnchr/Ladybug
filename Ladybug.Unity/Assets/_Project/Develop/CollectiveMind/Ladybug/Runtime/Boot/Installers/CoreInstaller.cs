@@ -9,6 +9,7 @@ using CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Line;
 using CollectiveMind.Ladybug.Runtime.Gameplay.Session;
+using CollectiveMind.Ladybug.Runtime.Gameplay.Signal;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
@@ -104,6 +105,10 @@ namespace CollectiveMind.Ladybug.Runtime.Boot
       Container
         .BindInterfacesTo<CoreInitializer>()
         .FromInstance(_initializer)
+        .AsSingle();
+
+      Container
+        .Bind<SignalSpawner>()
         .AsSingle();
 
 #if UNITY_EDITOR

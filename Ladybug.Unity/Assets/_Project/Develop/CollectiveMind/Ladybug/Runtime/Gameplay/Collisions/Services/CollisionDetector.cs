@@ -89,10 +89,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Collisions
     private void SendCollision(CollisionType type, Collision collision)
     {
       Collider current = _collider;
-      
-      if (_hasRigidBody)
+
+      if (_hasRigidBody && collision.contactCount > 0)
+      {
         current = collision.GetContact(0).thisCollider;
-      
+      }
+
       SendCollision(type, current, collision.collider);
     }
 

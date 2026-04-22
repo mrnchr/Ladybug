@@ -32,3 +32,4 @@ MonoBehaviour:
       type: {class: ObstacleConverter, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data:
         _entityId: 1008
+        _signalType: 1
