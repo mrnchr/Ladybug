@@ -25,6 +25,7 @@ env:
   UNITY_VERSION: 6000.0.54f1
   BUILD_METHOD: CollectiveMind.Ladybug.Editor.Builder.Build
   BUILDS_PATH: artifacts
+  BUILD_NAME: "Ladybug"
 
 jobs:
   build-dev:
@@ -59,7 +60,7 @@ jobs:
           projectPath: ${{ env.PROJECT_PATH }}
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: WebGL
-          buildName: Ladybug.GitHub.Dev-${{ env.BUILD_TIMESTAMP }}
+          buildName: ${{ env.BUILD_NAME }}
           buildsPath: ${{ env.BUILDS_PATH }}
           buildMethod: ${{ env.BUILD_METHOD }}
           customParameters: -development
@@ -68,7 +69,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Ladybug.GitHub.Dev-${{ env.BUILD_TIMESTAMP }}
-          path: artifacts/WebGL/Ladybug.GitHub.Dev-${{ env.BUILD_TIMESTAMP }}
+          path: artifacts/WebGL/${{ env.BUILD_NAME }}
           if-no-files-found: error
 
   build-prod:
@@ -103,7 +104,7 @@ jobs:
           projectPath: ${{ env.PROJECT_PATH }}
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: WebGL
-          buildName: Ladybug.GitHub.Prod-${{ env.BUILD_TIMESTAMP }}
+          buildName: ${{ env.BUILD_NAME }}
           buildsPath: ${{ env.BUILDS_PATH }}
           buildMethod: ${{ env.BUILD_METHOD }}
 
@@ -111,5 +112,5 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Ladybug.GitHub.Prod-${{ env.BUILD_TIMESTAMP }}
-          path: artifacts/WebGL/Ladybug.GitHub.Prod-${{ env.BUILD_TIMESTAMP }}
+          path: artifacts/WebGL/${{ env.BUILD_NAME }}
           if-no-files-found: error
