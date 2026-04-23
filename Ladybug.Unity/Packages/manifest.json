@@ -6,6 +6,7 @@
     "com.cysharp.zstring": "https://github.com/Cysharp/ZString.git?path=src/ZString.Unity/Assets/Scripts/ZString",
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity",
     "com.leopotam.ecslite": "https://github.com/Leopotam/ecslite.git",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "2.6.0",
     "com.unity.cinemachine": "3.1.5",
     "com.unity.feature.development": "1.0.2",
