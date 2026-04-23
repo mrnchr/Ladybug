@@ -19,6 +19,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     private float _lineWidth;
     private float _lineHalfLength;
 
+    public float Multiplier { get; private set; } = 1; // todo: remove
+
     public LadybugBooster(LadybugFacade facade,
       LadybugContext context,
       CameraConfig cameraConfig,
@@ -74,6 +76,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       
       float multiplier = _cameraConfig.CameraSpeedMultiplier
                          + distance / (_facade.GetScrollSpeed() * _cameraConfig.DamageBoostDuration);
+      Multiplier = multiplier;
       using (_session.AddSpeedModifier(new SpeedModifier(SpeedModifierType.Multiply, multiplier)))
       {
         while (!token.IsCancellationRequested && _facade.Transform.position.z < targetPositionZ)

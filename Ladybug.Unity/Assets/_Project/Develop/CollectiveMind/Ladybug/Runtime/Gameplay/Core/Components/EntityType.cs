@@ -19,6 +19,9 @@
     Tape = Laser + 1,
     PingPongBall = Tape + 1,
     Spiderweb = PingPongBall + 1,
+
+    Larva = 2000,
+
     Marker = 9000,
     
     SpawnPoint = 10000,
