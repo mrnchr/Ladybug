@@ -50,26 +50,26 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
       return window;
     }
 
-    public async UniTask<BaseWindow> CloseLastOpenedWindow()
+    public async UniTask CloseLastOpenedWindow()
     {
       await PopAndCloseLastOpenedWindow();
-      return await DisplayLastWindow<BaseWindow>();
+      await DisplayLastWindow();
     }
 
-    public async UniTask<TWindow> CloseWindow<TWindow>() where TWindow : BaseWindow
+    public async UniTask CloseWindow<TWindow>() where TWindow : BaseWindow
     {
       if (_history.Peek() is not TWindow)
-        return null;
+        return;
 
       await PopAndCloseLastOpenedWindow();
 
-      return await DisplayLastWindow<TWindow>();
+      await DisplayLastWindow();
     }
 
-    public async UniTask<TWindow> CloseWindowsBy<TWindow>() where TWindow : BaseWindow
+    public async UniTask CloseWindowsBy<TWindow>() where TWindow : BaseWindow
     {
       if (!_history.Any(x => x is TWindow))
-        return null;
+        return;
 
       while (_history.Peek() is not TWindow)
       {
@@ -77,16 +77,13 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
       }
 
       await PopAndCloseLastOpenedWindow();
-
-      return await DisplayLastWindow<TWindow>();
+      await DisplayLastWindow();
     }
 
-    private async UniTask<TWindow> DisplayLastWindow<TWindow>() where TWindow : BaseWindow
+    private async UniTask DisplayLastWindow()
     {
       if (_history.TryPeek(out BaseWindow nextWindow))
         await (nextWindow.IsCovered ? nextWindow.Cover() : nextWindow.Show());
-
-      return nextWindow as TWindow;
     }
 
     private async UniTask PopAndCloseLastOpenedWindow()
