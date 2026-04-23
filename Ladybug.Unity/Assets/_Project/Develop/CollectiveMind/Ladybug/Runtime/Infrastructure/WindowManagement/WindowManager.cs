@@ -27,7 +27,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
     public async UniTask<TWindow> OpenWindowAsRoot<TWindow>() where TWindow : BaseWindow
     {
       while (_history.Count > 0)
-        CloseLastWindow().Forget();
+        CloseLastOpenedWindow().Forget();
       
       var window = GetWindow<TWindow>();
       if (window)
@@ -50,40 +50,43 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
       return window;
     }
 
-    public async UniTask<TWindow> CloseWindow<TWindow>() where TWindow : BaseWindow
+    public async UniTask CloseLastOpenedWindow()
     {
-      if (_history.Peek() is not TWindow)
-        return null;
-
-      await CloseLastWindow();
-
-      return await DisplayLastWindow<TWindow>();
+      await PopAndCloseLastOpenedWindow();
+      await DisplayLastWindow();
     }
 
-    public async UniTask<TWindow> CloseWindowsBy<TWindow>() where TWindow : BaseWindow
+    public async UniTask CloseWindow<TWindow>() where TWindow : BaseWindow
+    {
+      if (_history.Peek() is not TWindow)
+        return;
+
+      await PopAndCloseLastOpenedWindow();
+
+      await DisplayLastWindow();
+    }
+
+    public async UniTask CloseWindowsBy<TWindow>() where TWindow : BaseWindow
     {
       if (!_history.Any(x => x is TWindow))
-        return null;
+        return;
 
       while (_history.Peek() is not TWindow)
       {
-        await CloseLastWindow();
+        await PopAndCloseLastOpenedWindow();
       }
 
-      await CloseLastWindow();
-
-      return await DisplayLastWindow<TWindow>();
+      await PopAndCloseLastOpenedWindow();
+      await DisplayLastWindow();
     }
 
-    private async UniTask<TWindow> DisplayLastWindow<TWindow>() where TWindow : BaseWindow
+    private async UniTask DisplayLastWindow()
     {
       if (_history.TryPeek(out BaseWindow nextWindow))
         await (nextWindow.IsCovered ? nextWindow.Cover() : nextWindow.Show());
-
-      return nextWindow as TWindow;
     }
 
-    private async UniTask CloseLastWindow()
+    private async UniTask PopAndCloseLastOpenedWindow()
     {
       await _history.Pop().Close();
     }

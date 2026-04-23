@@ -54,6 +54,34 @@ MonoBehaviour:
     m_Localized: Exit, exactly
     m_Metadata:
       m_Items: []
+  - m_Id: 75402605742751744
+    m_Localized: How to play?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75403371974983680
+    m_Localized: Press and hold to draw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75404708594810880
+    m_Localized: Next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75404899368534016
+    m_Localized: Got it!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75435492219256832
+    m_Localized: How to play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75411796029046784
+    m_Localized: Protect and guide
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75412020558528512
+    m_Localized: "Don\u2019t go down!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -8,6 +8,7 @@
     public const string PROJECT_MENU = "Ladybug/";
 
     public const string CONFIG_MENU = PROJECT_MENU + "Configs/";
+    public const string UI_MENU = CONFIG_MENU + "UI/";
     public const string ENTITY_MENU = CONFIG_MENU + "Entities/";
 
     public const string ECS_MENU = PROJECT_MENU + "Ecs/";

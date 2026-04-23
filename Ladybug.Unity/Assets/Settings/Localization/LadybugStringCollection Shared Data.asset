@@ -51,6 +51,34 @@ MonoBehaviour:
     m_Key: exitExactly
     m_Metadata:
       m_Items: []
+  - m_Id: 75402605742751744
+    m_Key: howToPlay.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75403371974983680
+    m_Key: howToPlay.slide.drawTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75404708594810880
+    m_Key: next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75404899368534016
+    m_Key: understand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75411796029046784
+    m_Key: howToPlay.slide.protectAndDirect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75412020558528512
+    m_Key: howToPlay.slide.dontGoDown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 75435492219256832
+    m_Key: menu.howToPlay
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

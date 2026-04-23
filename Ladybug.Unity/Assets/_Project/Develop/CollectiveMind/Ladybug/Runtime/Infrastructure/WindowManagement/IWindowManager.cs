@@ -9,7 +9,8 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
     void RemoveWindow(BaseWindow window);
     UniTask<TWindow> OpenWindowAsRoot<TWindow>() where TWindow : BaseWindow;
     UniTask<TWindow> OpenWindow<TWindow>(bool hide = true) where TWindow : BaseWindow;
-    UniTask<TWindow> CloseWindow<TWindow>() where TWindow : BaseWindow;
-    UniTask<TWindow> CloseWindowsBy<TWindow>() where TWindow : BaseWindow;
+    UniTask CloseLastOpenedWindow();
+    UniTask CloseWindow<TWindow>() where TWindow : BaseWindow;
+    UniTask CloseWindowsBy<TWindow>() where TWindow : BaseWindow;
   }
 }
