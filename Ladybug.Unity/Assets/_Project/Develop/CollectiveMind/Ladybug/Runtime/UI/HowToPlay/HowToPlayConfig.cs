@@ -9,6 +9,9 @@ namespace CollectiveMind.Ladybug.Runtime.UI.HowToPlay
   [CreateAssetMenu(menuName = CAC.UI_MENU + "HowToPlay", fileName = nameof(HowToPlayConfig))]
   public class HowToPlayConfig : ScriptableObject
   {
+    [LabelText("Gif Folder")]
+    public string GifFolderPath;
+      
     [ListDrawerSettings(ShowElementLabels = true)]
     public List<SlideEntry> SlideInfoList;
     public int DaysWithoutTutorial;
@@ -27,8 +30,8 @@ namespace CollectiveMind.Ladybug.Runtime.UI.HowToPlay
   [Serializable]
   public class GifEntry
   {
-    [LabelText("Gif Path")]
-    public string VideoPath;
+    [LabelText("Gif Name")]
+    public string GifFileName;
 
     [LabelText("Gif Text")]
     public string Caption;

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using Zenject;
 
 namespace CollectiveMind.Ladybug.Runtime.UI.HowToPlay
 {
@@ -17,7 +18,14 @@ namespace CollectiveMind.Ladybug.Runtime.UI.HowToPlay
     [SerializeField]
     private TMP_Text _caption;
 
+    private HowToPlayConfig _howToPlayConfig;
     private RenderTexture _renderTexture;
+
+    [Inject]
+    private void Construct(HowToPlayConfig howToPlayConfig)
+    {
+      _howToPlayConfig = howToPlayConfig;
+    }
 
     private void Start()
     {
@@ -31,7 +39,8 @@ namespace CollectiveMind.Ladybug.Runtime.UI.HowToPlay
 
     public void SetGif(GifEntry gifEntry)
     {
-      _videoPlayer.url = Path.Combine(Application.streamingAssetsPath, gifEntry.VideoPath);
+      _videoPlayer.url = Path.Combine(Application.streamingAssetsPath, _howToPlayConfig.GifFolderPath,
+        gifEntry.GifFileName);
       _videoPlayer.Play();
       _caption.text = gifEntry.Caption;
     }

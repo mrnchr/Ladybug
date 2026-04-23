@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf685f08e8947ab90c8d6dbc95b597d, type: 3}
   m_Name: HowToPlayConfig
   m_EditorClassIdentifier: 
+  GifFolderPath: GifVideos
   SlideInfoList:
   - SlideTitle:
       m_TableReference:
@@ -23,7 +24,7 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     GifInfoList:
-    - VideoPath: fish.mp4
+    - GifFileName: fish.mp4
       Caption: 
   - SlideTitle:
       m_TableReference:
@@ -35,9 +36,9 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     GifInfoList:
-    - VideoPath: lazy.mp4
+    - GifFileName: lazy.mp4
       Caption: <color=#FC504F>-1</color><sprite="heart" index=0>
-    - VideoPath: sigma.mp4
+    - GifFileName: sigma.mp4
       Caption: <sprite="check" index=0>
   - SlideTitle:
       m_TableReference:
@@ -49,9 +50,9 @@ MonoBehaviour:
       m_WaitForCompletion: 0
       m_LocalVariables: []
     GifInfoList:
-    - VideoPath: fish.mp4
+    - GifFileName: fish.mp4
       Caption: <color=#FC504F>-1</color><sprite="heart" index=0>
-    - VideoPath: lazy.mp4
+    - GifFileName: lazy.mp4
       Caption: <sprite="check" index=0>
   DaysWithoutTutorial: 0
   references:
