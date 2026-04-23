@@ -27,7 +27,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
     public async UniTask<TWindow> OpenWindowAsRoot<TWindow>() where TWindow : BaseWindow
     {
       while (_history.Count > 0)
-        CloseLastWindow().Forget();
+        CloseLastOpenedWindow().Forget();
       
       var window = GetWindow<TWindow>();
       if (window)
@@ -50,12 +50,18 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
       return window;
     }
 
+    public async UniTask<BaseWindow> CloseLastOpenedWindow()
+    {
+      await PopAndCloseLastOpenedWindow();
+      return await DisplayLastWindow<BaseWindow>();
+    }
+
     public async UniTask<TWindow> CloseWindow<TWindow>() where TWindow : BaseWindow
     {
       if (_history.Peek() is not TWindow)
         return null;
 
-      await CloseLastWindow();
+      await PopAndCloseLastOpenedWindow();
 
       return await DisplayLastWindow<TWindow>();
     }
@@ -67,10 +73,10 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
 
       while (_history.Peek() is not TWindow)
       {
-        await CloseLastWindow();
+        await PopAndCloseLastOpenedWindow();
       }
 
-      await CloseLastWindow();
+      await PopAndCloseLastOpenedWindow();
 
       return await DisplayLastWindow<TWindow>();
     }
@@ -83,7 +89,7 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement
       return nextWindow as TWindow;
     }
 
-    private async UniTask CloseLastWindow()
+    private async UniTask PopAndCloseLastOpenedWindow()
     {
       await _history.Pop().Close();
     }

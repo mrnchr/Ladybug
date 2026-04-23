@@ -10,6 +10,7 @@ using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
+using CollectiveMind.Ladybug.Runtime.UI.HowToPlay;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -41,6 +42,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
     private WindowInitializer _windowInitializer;
     private EntityFactory _entityFactory;
     private SignalSpawner _signalSpawner;
+    private IWindowManager _windowManager;
 
     [Inject]
     private void Construct(CoreCreationRecipeRegistrar creationRecipeRegistrar,
@@ -53,7 +55,8 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       SessionService sessionService,
       WindowInitializer windowInitializer,
       EntityFactory entityFactory,
-      SignalSpawner signalSpawner)
+      SignalSpawner signalSpawner,
+      IWindowManager windowManager)
     {
       _creationRecipeRegistrar = creationRecipeRegistrar;
       _entityInitializerRegistrar = entityInitializerRegistrar;
@@ -66,6 +69,7 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
       _windowInitializer = windowInitializer;
       _entityFactory = entityFactory;
       _signalSpawner = signalSpawner;
+      _windowManager = windowManager;
     }
 
     public void Initialize()
@@ -91,7 +95,13 @@ namespace CollectiveMind.Ladybug.Runtime.Boot.Initializers
         _entityFactory.CreateEntityWithVisual(EntityType.SpawnPoint, spawnPointVisual);
       }
 
-      _gameSessionController.SwitchToMenu().Forget();
+      InitializeAsync().Forget();
+    }
+
+    private async UniTask InitializeAsync()
+    {
+      await _gameSessionController.SwitchToMenu();
+      await _windowManager.OpenWindow<HowToPlayWindow>();
     }
   }
 }

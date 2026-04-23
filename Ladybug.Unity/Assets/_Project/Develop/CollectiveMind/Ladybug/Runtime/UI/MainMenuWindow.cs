@@ -1,5 +1,6 @@
 ﻿using CollectiveMind.Ladybug.Runtime.Gameplay;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.WindowManagement;
+using CollectiveMind.Ladybug.Runtime.UI.HowToPlay;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ namespace CollectiveMind.Ladybug.Runtime.UI
   {
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _settingsButton;
+    [SerializeField] private Button _howToPlayButton;
     
     private IWindowManager _windowManager;
     private GameSessionController _gameSessionController;
@@ -29,12 +31,14 @@ namespace CollectiveMind.Ladybug.Runtime.UI
       
       _playButton.AddListener(StartGame);
       _settingsButton.AddListener(OpenSettings);
+      _howToPlayButton.AddListener(OpenHowToPlayWindow);
     }
 
     private void OnDestroy()
     {
       _playButton.RemoveListener(StartGame);
       _settingsButton.RemoveListener(OpenSettings);
+      _howToPlayButton.RemoveListener(OpenHowToPlayWindow);
     }
 
     private void OpenSettings()
@@ -45,6 +49,11 @@ namespace CollectiveMind.Ladybug.Runtime.UI
     private void StartGame()
     {
       _gameSessionController.SwitchToGame().Forget();
+    }
+
+    private void OpenHowToPlayWindow()
+    {
+      _windowManager.OpenWindow<HowToPlayWindow>().Forget();
     }
 
     protected override UniTask OnOpened()
