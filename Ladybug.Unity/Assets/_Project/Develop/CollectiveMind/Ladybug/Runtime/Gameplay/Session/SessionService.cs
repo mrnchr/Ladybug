@@ -47,7 +47,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Session
       _health.Value = _config.HealthPoints;
       Score.Value = 0f;
       RevivalCount.Value = _config.RevivalCount;
-      SpeedRate.Value = 0f;
+      SpeedRate.Value = 1f;
       _speed.Value = _ladybugConfig.Speed;
     }
 
