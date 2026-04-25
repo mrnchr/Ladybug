@@ -3,7 +3,22 @@ guid: 4890c15058fd415479aa5c7367ad7a29
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: InkMat
+    second: {fileID: 2100000, guid: 34d70f407fa661a4793d22e0fd7e3528, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MarkerMat
+    second: {fileID: 2100000, guid: 34d70f407fa661a4793d22e0fd7e3528, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TexMat
+    second: {fileID: 2100000, guid: 48f38a3c32a8d41438c1f3b0007ef478, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

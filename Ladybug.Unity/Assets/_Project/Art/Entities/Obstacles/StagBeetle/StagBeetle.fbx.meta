@@ -3,7 +3,32 @@ guid: eaa4b25b73f3e9a479cdf506bc7ce9b2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: 34d70f407fa661a4793d22e0fd7e3528, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EyeBlack
+    second: {fileID: 2100000, guid: 34d70f407fa661a4793d22e0fd7e3528, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EyeWhite
+    second: {fileID: 2100000, guid: 5b68016e06b5af54daa021aa5f3441c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mouth
+    second: {fileID: 2100000, guid: 0b7afec0d88c7c447ae215d6aba5b0c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RedBack
+    second: {fileID: 2100000, guid: e0407bed18c38714f8a7681c92c320d8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

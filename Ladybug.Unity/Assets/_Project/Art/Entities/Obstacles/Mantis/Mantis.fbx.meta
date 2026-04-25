@@ -3,7 +3,12 @@ guid: 4c9f5786a99b17d48ba2cbac04d925f2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BodyMantis
+    second: {fileID: 2100000, guid: 0b3e0537acfec0b40bb6a93b9df1b217, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
