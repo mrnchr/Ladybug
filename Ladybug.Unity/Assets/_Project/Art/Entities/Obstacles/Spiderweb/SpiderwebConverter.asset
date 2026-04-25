@@ -40,6 +40,7 @@ MonoBehaviour:
       data:
         _entityId: 1013
         _isDamageSource: 0
+        _signalType: 1
     - rid: 2859018751477285082
       type: {class: SpiderwebTag, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Spiderweb, asm: Ladybug.Runtime}
       data: 
