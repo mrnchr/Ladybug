@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5a042ed0f3463ea788b60286aaf94b, type: 3}
   m_Name: TapeConfig
   m_EditorClassIdentifier: 
-  TapeSpeed: 7
+  Speed: 10

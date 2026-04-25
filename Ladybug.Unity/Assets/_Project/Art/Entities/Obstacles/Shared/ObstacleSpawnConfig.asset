@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3479d6fd6c4bb8a71d1713cf4ac12e, type: 3}
   m_Name: ObstacleSpawnConfig
   m_EditorClassIdentifier: 
-  SpawnTime: {x: 2, y: 5}
+  SpawnTime: {x: 1, y: 3}
   AngularDeviation: 15
   CameraDiagonalSafetyMultiplier: 1
   MaxObstacleSize: 35
   DistanceRange: {x: 5, y: 15}
-  DistanceBetweenObstacles: 10
+  DistanceBetweenObstacles: 15
   SpawnEntries:
   - EntityType: 1001
     MinSpawnScore: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
     MinSpawnScore: 0
     SpawnWeight: 1
   - EntityType: 1010
-    MinSpawnScore: 0
+    MinSpawnScore: 400
     SpawnWeight: 1
   - EntityType: 1003
     MinSpawnScore: 0
@@ -35,8 +35,8 @@ MonoBehaviour:
     MinSpawnScore: 0
     SpawnWeight: 1
   - EntityType: 1012
-    MinSpawnScore: 0
-    SpawnWeight: 1
+    MinSpawnScore: 700
+    SpawnWeight: 7
   - EntityType: 1005
     MinSpawnScore: 0
     SpawnWeight: 1
@@ -44,17 +44,17 @@ MonoBehaviour:
     MinSpawnScore: 0
     SpawnWeight: 1
   - EntityType: 1007
-    MinSpawnScore: 0
-    SpawnWeight: 1
+    MinSpawnScore: 500
+    SpawnWeight: 7
   - EntityType: 1008
-    MinSpawnScore: 0
-    SpawnWeight: 1
+    MinSpawnScore: 100
+    SpawnWeight: 5
   - EntityType: 1009
-    MinSpawnScore: 0
-    SpawnWeight: 1
+    MinSpawnScore: 600
+    SpawnWeight: 10
   - EntityType: 1013
-    MinSpawnScore: 0
-    SpawnWeight: 1
+    MinSpawnScore: 200
+    SpawnWeight: 10
   - EntityType: 1011
-    MinSpawnScore: 0
-    SpawnWeight: 1
+    MinSpawnScore: 300
+    SpawnWeight: 10
