@@ -19,5 +19,5 @@ MonoBehaviour:
       Colors:
       - {r: 0.98039216, g: 0.09803918, b: 0.09803918, a: 1}
       - {r: 1, g: 1, b: 1, a: 1}
-      ColorChangingTime: 0.3
+      ColorChangingTime: 0.5
       HideDelay: 0.2
