@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 549190f33af642c8ba312213c9c19ba3, type: 3}
   m_Name: PingPongBallConfig
   m_EditorClassIdentifier: 
-  Speed: 4
+  Speed: 3
   UseAcceleration: 0
