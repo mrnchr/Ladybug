@@ -90,7 +90,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
         if (destroyable.Has<Spawned>() && destroyable.Get<Spawned>().Spawn
           .TryUnpackEntity(_ecsUniverse.Game, out EcsEntityWrapper spawnPoint))
         {
-          spawnPoint.Add<Spawnable>();
+          spawnPoint.Has<Spawnable>(true);
         }
 
         if(destroyable.Has<GameObjectRef>())
@@ -122,6 +122,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay
       foreach (EcsEntityWrapper spawnPoint in _spawnablePoints)
       {
         spawnPoint.GetFacade<SpawnPointFacade>().Spawn();
+        spawnPoint.Del<Spawnable>();
       }
       
       _obstacleSpawner.StartSpawn();
