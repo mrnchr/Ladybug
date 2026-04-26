@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnTime: {x: 1, y: 3}
   AngularDeviation: 30
-  CameraDiagonalSafetyMultiplier: 1
+  CameraDiagonalSafetyMultiplier: 0.25
   MaxObstacleSize: 13
-  DistanceRange: {x: 0, y: 5}
+  DistanceRange: {x: 5, y: 10}
   DistanceBetweenObstacles: 13
   SpawnEntries:
   - EntityType: 1001
