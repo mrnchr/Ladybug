@@ -15,4 +15,4 @@ MonoBehaviour:
   HealthPoints: 5
   RevivalCount: 3
   RaiseRate: 1.01
-  RaiseDistance: 50
+  RaiseDistance: 15

@@ -16,7 +16,7 @@ MonoBehaviour:
   AngularDeviation: 30
   CameraDiagonalSafetyMultiplier: 0.25
   MaxObstacleSize: 13
-  DistanceRange: {x: 5, y: 10}
+  DistanceRange: {x: 10, y: 15}
   DistanceBetweenObstacles: 13
   SpawnEntries:
   - EntityType: 1001
