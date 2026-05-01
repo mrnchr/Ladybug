@@ -34,7 +34,7 @@ MonoBehaviour:
   - Id: 1008
     Prefab: {fileID: -4796791690580374011, guid: 9d7f4cac8fab555458ca4821b4e88e39, type: 3}
   - Id: 1009
-    Prefab: {fileID: -4796791690580374011, guid: 9d7f4cac8fab555458ca4821b4e88e39, type: 3}
+    Prefab: {fileID: 6012676407220591143, guid: 6c1bc4795f1d2b24caa490318d5da2d0, type: 3}
   - Id: 1010
     Prefab: {fileID: -7849834758245622727, guid: 60c8131535284d04795ed1cbf54bdb41, type: 3}
   - Id: 10000
