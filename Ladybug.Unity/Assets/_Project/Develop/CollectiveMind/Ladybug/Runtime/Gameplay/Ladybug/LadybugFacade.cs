@@ -6,6 +6,7 @@ using CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.LifeCycle.Creation;
 using CollectiveMind.Ladybug.Runtime.Infrastructure.Visual;
 using CollectiveMind.Ladybug.Runtime.Utils;
+using Leopotam.EcsLite;
 using R3;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     public Vector3 Velocity { get; private set; }
     public ReadOnlyReactiveProperty<bool> IsMoving => _isMoving;
     public ReadOnlyReactiveProperty<float> Opacity => _invincibilityHandler.Opacity;
+    public ReadOnlyReactiveProperty<bool> IsInvincible => _invincibilityHandler.IsInvincible;
 
     private readonly LadybugConfig _config;
     private readonly SessionService _session;
@@ -27,6 +29,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     private readonly ILadybugRotator _rotator;
     private readonly LadybugInvincibilityHandler _invincibilityHandler;
     private readonly LadybugBooster _booster;
+    private readonly SpiderwebSlowdownHandler _spiderwebSlowdownHandler;
     private readonly ReactiveProperty<bool> _isMoving = new ReactiveProperty<bool>();
     
     private DisposableBag _disposableBag;
@@ -50,6 +53,9 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       _rotator = instantiator.Instantiate<LadybugRotator>(new object[] { this });
       _invincibilityHandler = instantiator.Instantiate<LadybugInvincibilityHandler>(new object[] { _context });
       _booster = instantiator.Instantiate<LadybugBooster>(new object[] { this, _context });
+      _spiderwebSlowdownHandler = instantiator.Instantiate<SpiderwebSlowdownHandler>(new object[] { this });
+      
+      _disposableBag.Add(_spiderwebSlowdownHandler);
     }
 
     public float GetScrollSpeed()
@@ -102,7 +108,17 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
         Transform.SetPosition(Axis.X, Axis.Z, cameraBounds.center);
       }
     }
-    
+
+    public void EnterSpiderweb(EcsPackedEntity packedEntity)
+    {
+      _spiderwebSlowdownHandler.EnterSpiderweb(packedEntity);
+    }
+
+    public void LeaveSpiderweb(EcsPackedEntity packedEntity)
+    {
+      _spiderwebSlowdownHandler.LeaveSpiderweb(packedEntity);
+    }
+
     public void Bind(EcsEntityWrapper entity)
     {
       _context.Visual = entity.GetVisual<LadybugVisual>();
@@ -118,6 +134,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     public void Step()
     {
       _booster.Step();
+      _spiderwebSlowdownHandler.Step();
     }
 
     public void Dispose()

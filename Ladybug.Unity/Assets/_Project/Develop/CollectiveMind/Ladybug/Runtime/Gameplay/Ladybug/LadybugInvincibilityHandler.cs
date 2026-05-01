@@ -11,12 +11,14 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
   public class LadybugInvincibilityHandler
   {
     public ReadOnlyReactiveProperty<float> Opacity => _opacity;
+    public ReadOnlyReactiveProperty<bool> IsInvincible => _isInvincible;
 
     private readonly LadybugContext _context;
     private readonly LadybugConfig _config;
     private readonly DOGetter<float> _transparencyGetter;
     private readonly DOSetter<float> _transparencySetter;
     private readonly ReactiveProperty<float> _opacity = new ReactiveProperty<float>(1);
+    private readonly ReactiveProperty<bool> _isInvincible = new ReactiveProperty<bool>();
 
     private LadybugVisual _visual => _context.Visual;
     private EcsEntityWrapper _entity => _visual.Entity;
@@ -47,6 +49,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
     private async UniTask RunInvincibilityAsync(CancellationToken token = default(CancellationToken))
     {
       _entity.Add<Invincible>();
+      _isInvincible.Value = true;
       bool cancelled;
 
       do
@@ -69,6 +72,8 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Ladybug
       {
         _entity.Del<Invincible>();
       }
+
+      _isInvincible.Value = false;
 
       if (!_visual)
       {
