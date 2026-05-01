@@ -141,8 +141,7 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Signal
 
         Vector2 localVector = closestPoint - cameraBounds.min;
         var viewportPosition = new Vector2(localVector.x / cameraBounds.width, localVector.y / cameraBounds.height);
-        var screenPosition = new Vector2(Screen.width * viewportPosition.x, Screen.height * viewportPosition.y);
-        _visual.SetArrowPosition(screenPosition, arrowDirection);
+        _visual.SetArrowPosition(viewportPosition, arrowDirection);
       }
     }
 
