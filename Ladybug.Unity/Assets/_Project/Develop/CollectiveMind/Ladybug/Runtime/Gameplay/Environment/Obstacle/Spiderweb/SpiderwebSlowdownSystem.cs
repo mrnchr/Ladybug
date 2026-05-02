@@ -9,16 +9,12 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Spiderweb
   {
     private readonly IEcsUniverse _universe;
     private readonly ICollisionFilter _collisionFilter;
-    private readonly SpiderwebSlowdownService _slowdownService;
     private readonly EcsEntities _collisions;
 
-    public SpiderwebSlowdownSystem(IEcsUniverse universe,
-      ICollisionFilter collisionFilter,
-      SpiderwebSlowdownService slowdownService)
+    public SpiderwebSlowdownSystem(IEcsUniverse universe, ICollisionFilter collisionFilter)
     {
       _universe = universe;
       _collisionFilter = collisionFilter;
-      _slowdownService = slowdownService;
 
       _collisions = _universe
         .FilterMessage<TwoSideCollision>()
@@ -36,16 +32,17 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle.Spiderweb
         if (_collisionFilter.TryUnpackBothEntities(_universe.Game)
             && _collisionFilter.TrySelectByComponents<SpiderwebTag, LadybugTag>())
         {
-          if (collision.Type == CollisionType.Exit)
-          {
-             _slowdownService.DisposeSpeedModifier(info.Master.PackedEntity);
-            continue;
-          }
-          
-          if (info.Target.Has<Invincible>())
-            continue;
+          var ladybugFacade = info.Target.GetFacade<LadybugFacade>();
 
-          _slowdownService.AddSpeedModifier(info.Master.PackedEntity);
+          switch (collision.Type)
+          {
+            case CollisionType.Enter:
+              ladybugFacade.EnterSpiderweb(info.Master.PackedEntity);
+              break;
+            case CollisionType.Exit:
+              ladybugFacade.LeaveSpiderweb(info.Master.PackedEntity);
+              break;
+          }
         }
       }
     }
