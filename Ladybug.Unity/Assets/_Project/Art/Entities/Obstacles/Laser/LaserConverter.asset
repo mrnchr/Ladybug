@@ -29,6 +29,8 @@ MonoBehaviour:
       Components:
       - Value:
           rid: 2859018551178559557
+      - Value:
+          rid: 8121934169407488000
     _scriptableConverter: {fileID: 0}
   references:
     version: 2
@@ -44,3 +46,7 @@ MonoBehaviour:
     - rid: 2859018551178559557
       type: {class: YawDeviationEnabled, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data: 
+    - rid: 8121934169407488000
+      type: {class: AngularDeviation, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
+      data:
+        MaxAngle: 100
