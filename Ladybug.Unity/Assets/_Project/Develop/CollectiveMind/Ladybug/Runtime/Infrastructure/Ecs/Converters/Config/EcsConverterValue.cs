@@ -10,7 +10,6 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
   {
     [SerializeReference]
     [ShowIf(nameof(ShowSerializedConverter))]
-    [LabelText("$" + nameof(_serializedConverter) + "Name")]
     private ISerializedEcsConverter _serializedConverter;
 
     [SerializeField]
@@ -21,10 +20,6 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
 
     [SerializeField]
     [ShowIf(nameof(ShowScriptableConverter))]
-    [InlineEditor]
-    [HideLabel]
-    [LabelText("$" + nameof(_scriptableConverter) + "Name")]
-    [InfoBox("Edit data within this field with care", TriMessageType.Warning, "$" + nameof(HasScriptableConverter))]
     private EcsConverterAsset _scriptableConverter;
 
     public bool IsEmpty => _serializedConverter == null
@@ -34,7 +29,6 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     public bool ShowSerializedConverter => IsEmpty || _serializedConverter != null;
     public bool HasComponents => _components.Components.Count > 0;
     public bool ShowScriptableConverter => IsEmpty || _scriptableConverter;
-    public bool HasScriptableConverter => _scriptableConverter;
 
     public IEcsConverter GetValue()
     {
@@ -56,9 +50,6 @@ namespace CollectiveMind.Ladybug.Runtime.Infrastructure.Ecs
     }
 
 #if UNITY_EDITOR
-    private string _serializedConverterName => UnityEditor.ObjectNames.NicifyVariableName(_serializedConverter?.GetType().Name ?? TriConstants.NONE);
-    private string _scriptableConverterName => UnityEditor.ObjectNames.NicifyVariableName(_scriptableConverter ? _scriptableConverter.name : TriConstants.NONE);
-
     [Button("Clear")]
     [GUIColor(CC.RED)]
     [PropertyOrder(0)]
