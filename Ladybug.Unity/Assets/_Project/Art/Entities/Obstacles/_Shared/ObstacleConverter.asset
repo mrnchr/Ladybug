@@ -32,7 +32,7 @@ MonoBehaviour:
     - rid: 2776570814148116597
       type: {class: AngularDeviation, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Environment.Obstacle, asm: Ladybug.Runtime}
       data:
-        MaxAngle: 15
+        MaxAngle: 100
     - rid: 3557476840702738510
       type: {class: SignalAssigment, ns: CollectiveMind.Ladybug.Runtime.Gameplay.Signal, asm: Ladybug.Runtime}
       data:
