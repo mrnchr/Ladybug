@@ -21,9 +21,13 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Signal
     private Image _arrowImage;
     
     private readonly List<Graphic> _graphics = new List<Graphic>();
+    private RectTransform _canvasTransform;
 
     public void Initialize()
     {
+      var canvas = GetComponentInParent<Canvas>();
+      _canvasTransform = canvas.transform as RectTransform;
+      
       SignalData signalData = Entity.Get<SignalContext>().Data;
       List<Color> colors = signalData.Colors;
 
@@ -64,26 +68,40 @@ namespace CollectiveMind.Ladybug.Runtime.Gameplay.Signal
         .SetLink(gameObject);
     }
 
-    public void SetArrowPosition(Vector2 screenPosition, Vector2 direction)
+    public void SetArrowPosition(Vector2 viewportPosition, Vector2 direction)
     {
+      Vector3 canvasScale = _canvasTransform.localScale;
+      var signalScale = new Vector3(1 / canvasScale.x, 1 / canvasScale.y, 1 / canvasScale.z);
+      _signalTransform.localScale = signalScale;
+      
       float distance = _arrowTransform.anchoredPosition.magnitude;
-      float halfSize = (direction.y > 0 ? _arrowTransform.sizeDelta.y : _arrowTransform.sizeDelta.x) / 2;
-      Vector2 position = screenPosition;
+      float scaledDistance = Vector2.Scale(_arrowTransform.anchoredPosition, signalScale).magnitude;
+      Vector2 arrowRectSize = _arrowTransform.rect.size;
+      float arrowHalfSize = (direction.y > 0 ? arrowRectSize.y * signalScale.y : arrowRectSize.x * signalScale.x) / 2;
+      Rect canvasRect = _canvasTransform.rect;
+      Vector2 canvasPosition = Vector2.Scale(viewportPosition, canvasRect.size);
 
       if (direction.y > 0)
       {
-        position.y -= halfSize + distance;
+        canvasPosition.y -= arrowHalfSize + scaledDistance;
       }
       else if (direction.x < 0)
       {
-        position.x += halfSize + distance;
+        canvasPosition.x += arrowHalfSize + scaledDistance;
       }
       else
       {
-        position.x -= halfSize + distance;
+        canvasPosition.x -= arrowHalfSize + scaledDistance;
       }
       
-      _signalTransform.anchoredPosition = position;
+      Vector2 signalHalfSize = Vector2.Scale(_signalTransform.rect.size, signalScale) / 2;
+      var signalBox = new Rect(0, 0, canvasRect.width, canvasRect.height);
+      signalBox.min += signalHalfSize;
+      signalBox.max -= signalHalfSize;
+      canvasPosition.x = Mathf.Clamp(canvasPosition.x, signalBox.min.x, signalBox.max.x);
+      canvasPosition.y = Mathf.Clamp(canvasPosition.y, signalBox.min.y, signalBox.max.y);
+      
+      _signalTransform.anchoredPosition = canvasPosition;
       _arrowTransform.anchoredPosition = direction * distance;
       float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
       _arrowTransform.localRotation = Quaternion.Euler(0f, 0f, angle);
